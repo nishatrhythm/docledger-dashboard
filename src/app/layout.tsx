@@ -4,6 +4,7 @@ import { Baloo_Da_2 } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import ClientOnly from "@/components/ClientOnly";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,6 +40,7 @@ export default function RootLayout({
         <ClientOnly>
           <LanguageProvider>
             {children}
+            <Toaster />
           </LanguageProvider>
         </ClientOnly>
       </body>

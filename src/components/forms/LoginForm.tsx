@@ -10,10 +10,12 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { BiLock, BiPhone } from 'react-icons/bi'
 import { validateBangladeshiMobile, validatePassword, formatMobileNumber } from '@/lib/validation'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useLocalizedToast } from '@/hooks/use-localized-toast'
 
 const LoginForm = () => {
   const router = useRouter()
   const { t } = useLanguage()
+  const { showToast } = useLocalizedToast()
   const [formData, setFormData] = useState({
     phone: '',
     password: ''
@@ -56,10 +58,15 @@ const LoginForm = () => {
       // In a real app, you would make an API call here
       console.log('Login attempt:', formData)
       
+      // Show success toast
+      showToast.success(t('toast.loginSuccess'), t('toast.loginSuccessDesc'))
+      
       // Simulate successful login
       router.push('/dashboard')
     } catch (error) {
       console.error('Login error:', error)
+      // Show error toast
+      showToast.error(t('toast.loginError'), t('toast.loginErrorDesc'))
       setErrors({ phone: t('validation.invalidCredentials') })
     } finally {
       setLoading(false)

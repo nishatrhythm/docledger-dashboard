@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -15,6 +16,7 @@ import { DatePicker } from '@/components/ui/date-picker'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 import Sidebar from '@/components/ui/Sidebar'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useLocalizedToast } from '@/hooks/use-localized-toast'
 import { 
   MdPeople, 
   MdAdminPanelSettings, 
@@ -55,11 +57,23 @@ const demoAdmins = [
 
 export default function Dashboard() {
   const { t, formatNumber, formatCurrency, language } = useLanguage()
+  const router = useRouter()
+  const { showToast } = useLocalizedToast()
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
   const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
   const [startDate, setStartDate] = useState<Date | undefined>()
   const [endDate, setEndDate] = useState<Date | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const handleLogout = () => {
+    // Show logout success toast
+    showToast.success(t('toast.logoutSuccess'), t('toast.logoutSuccessDesc'))
+    
+    // Redirect to login page
+    setTimeout(() => {
+      router.push('/login')
+    }, 1000) // Small delay to show the toast
+  }
 
   const statsCards = [
     {
@@ -152,7 +166,12 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
                 <LanguageSwitcher size="sm" />
-                <Button variant="destructive" size="sm" className="cursor-pointer text-xs sm:text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:text-red-700">
+                <Button 
+                  variant="destructive" 
+                  size="sm" 
+                  onClick={handleLogout}
+                  className="cursor-pointer text-xs sm:text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:text-red-700"
+                >
                   {t('dashboard.logout')}
                 </Button>
               </div>

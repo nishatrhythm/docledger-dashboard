@@ -104,6 +104,19 @@ const translations = {
     // Common
     'common.language': 'Language',
     
+    // Toast
+    'toast.success': 'Success',
+    'toast.error': 'Error',
+    'toast.warning': 'Warning',
+    'toast.info': 'Information',
+    'toast.close': 'Close',
+    'toast.loginSuccess': 'Login Successful',
+    'toast.loginSuccessDesc': 'Welcome back! You have been logged in successfully.',
+    'toast.logoutSuccess': 'Logout Successful',
+    'toast.logoutSuccessDesc': 'You have been logged out successfully.',
+    'toast.loginError': 'Login Failed',
+    'toast.loginErrorDesc': 'Invalid credentials. Please check your phone number and password.',
+    
     // Calendar
     'calendar.today': 'Today',
     'calendar.previousMonth': 'Previous month',
@@ -124,7 +137,7 @@ const translations = {
   bn: {
     // Login Form
     'login.title': 'স্বাগতম',
-    'login.subtitle': 'আপনার DocLedger অ্যাকাউন্টে সাইন ইন করুন',
+    'login.subtitle': 'আপনার ডকলেজার অ্যাকাউন্টে সাইন ইন করুন',
     'login.phone': 'মোবাইল নম্বর',
     'login.phonePlaceholder': '০১XXXXXXXXX',
     'login.password': 'পাসওয়ার্ড',
@@ -142,7 +155,7 @@ const translations = {
     'dashboard.welcome': 'ড্যাশবোর্ডে স্বাগতম',
     'dashboard.logout': 'লগ আউট',
     'dashboard.title': 'ড্যাশবোর্ড',
-    'dashboard.subtitle': 'আপনার DocLedger ড্যাশবোর্ডে স্বাগতম',
+    'dashboard.subtitle': 'আপনার ডকলেজার ড্যাশবোর্ডে স্বাগতম',
     'dashboard.documents': 'ডকুমেন্ট',
     'dashboard.documentsDesc': 'এখানে আপনার ডকুমেন্ট পরিচালনা করুন',
     'dashboard.reports': 'রিপোর্ট',
@@ -156,7 +169,7 @@ const translations = {
     'dashboard.totalChamber': 'মোট চেম্বার',
     'dashboard.totalIncome': 'মোট আয়',
     'dashboard.totalExpense': 'মোট ব্যয়',
-    'dashboard.netIncome': 'নিট আয়',
+    'dashboard.netIncome': 'নেট আয়',
     'dashboard.deposit': 'জমা',
     'dashboard.cashInHand': 'হাতে নগদ',
     
@@ -197,6 +210,19 @@ const translations = {
     
     // Common
     'common.language': 'ভাষা',
+    
+    // Toast
+    'toast.success': 'সফল',
+    'toast.error': 'ত্রুটি',
+    'toast.warning': 'সতর্কতা',
+    'toast.info': 'তথ্য',
+    'toast.close': 'বন্ধ করুন',
+    'toast.loginSuccess': 'লগইন সফল',
+    'toast.loginSuccessDesc': 'স্বাগতম! আপনি সফলভাবে লগইন করেছেন।',
+    'toast.logoutSuccess': 'লগআউট সফল',
+    'toast.logoutSuccessDesc': 'আপনি সফলভাবে লগআউট করেছেন।',
+    'toast.loginError': 'লগইন ব্যর্থ',
+    'toast.loginErrorDesc': 'অবৈধ প্রমাণপত্র। অনুগ্রহ করে আপনার ফোন নম্বর এবং পাসওয়ার্ড পরীক্ষা করুন।',
     
     // Calendar
     'calendar.today': 'আজ',
