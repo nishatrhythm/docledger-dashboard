@@ -18,13 +18,17 @@ interface DatePickerProps {
   onDateChange?: (date: Date | undefined) => void
   placeholder?: string
   className?: string
+  disabled?: boolean
+  allowFutureDates?: boolean // Flag to enable future dates for appointments
 }
 
 export function DatePicker({
   date,
   onDateChange,
   placeholder,
-  className
+  className,
+  disabled = false,
+  allowFutureDates = false
 }: DatePickerProps) {
   const { t, formatDate, language } = useLanguage()
   const [open, setOpen] = React.useState(false)
@@ -33,9 +37,11 @@ export function DatePicker({
   const currentDate = new Date()
   const defaultMonth = date || currentDate
   
-  // Date range: January 1, 2025 to today
+  // Date range configuration based on allowFutureDates flag
   const fromDate = new Date(2025, 0, 1) // January 1, 2025
-  const toDate = currentDate // Today (September 6, 2025)
+  const toDate = allowFutureDates 
+    ? new Date(2026, 11, 31) // December 31, 2026 for future appointments
+    : currentDate // Today for dashboard (past dates only)
   
   const handleDateSelect = (selectedDate: Date | undefined) => {
     onDateChange?.(selectedDate)
@@ -55,6 +61,7 @@ export function DatePicker({
             language === 'bn' && "font-bengali",
             className
           )}
+          disabled={disabled}
         >
           <MdCalendarToday className="mr-2 h-4 w-4" />
           {date ? formatDate(date, "MMMM d, yyyy") : <span>{defaultPlaceholder}</span>}
@@ -72,8 +79,17 @@ export function DatePicker({
           endMonth={toDate}
           showOutsideDays={true}
           disabled={(date) => {
-            // Disable dates before January 1, 2025 and after today
-            return date < fromDate || date > toDate
+            if (allowFutureDates) {
+              // For appointments: disable past dates only
+              const today = new Date()
+              today.setHours(0, 0, 0, 0)
+              const checkDate = new Date(date)
+              checkDate.setHours(0, 0, 0, 0)
+              return checkDate < today || date < fromDate || date > toDate
+            } else {
+              // For dashboard: disable dates before January 1, 2025 and after today
+              return date < fromDate || date > toDate
+            }
           }}
         />
       </PopoverContent>
