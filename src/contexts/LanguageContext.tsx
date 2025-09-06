@@ -92,18 +92,27 @@ const translations = {
     'sidebar.deposit': 'Deposit',
     'sidebar.docledger': 'DocLedger',
     
+    // Common
+    'common.language': 'Language',
+    'common.search': 'Search',
+    'common.cancel': 'Cancel',
+    'common.create': 'Create',
+    'common.creating': 'Creating...',
+    
+    // Auth
+    'auth.password': 'Password',
+    'auth.passwordPlaceholder': 'Enter password',
+    'auth.phonePlaceholder': '01XXXXXXXXX',
+    
     // Validation
+    'validation.nameRequired': 'Name is required',
     'validation.phoneRequired': 'Phone number is required',
-    'validation.phoneLength': 'Mobile number must be 11 digits',
-    'validation.phoneStart': 'Mobile number must start with 01',
+    'validation.phoneLength': 'Phone number must be exactly 11 digits',
+    'validation.phoneStart': 'Phone number must start with 01',
     'validation.phoneOperator': 'Invalid operator code (3rd digit must be 3-9)',
     'validation.passwordRequired': 'Password is required',
     'validation.passwordLength': 'Password must be at least 6 characters',
     'validation.invalidCredentials': 'Invalid credentials. Please try again.',
-    
-    // Common
-    'common.language': 'Language',
-    'common.search': 'Search',
     
     // Toast
     'toast.success': 'Success',
@@ -153,12 +162,18 @@ const translations = {
     'admin.to': 'to',
     'admin.of': 'of',
     'admin.results': 'results',
+    'admin.addAdmin': 'Add Admin',
+    'admin.addNewAdmin': 'Add New Admin',
+    'admin.addNewAdminDesc': 'Create a new admin user account',
+    'admin.namePlaceholder': 'Enter admin name',
+    'admin.adminAdded': 'Admin Added',
+    'admin.adminAddedDesc': 'New admin user has been created successfully',
   },
   bn: {
     // Login Form
     'login.title': 'স্বাগতম',
     'login.subtitle': 'আপনার ডকলেজার অ্যাকাউন্টে সাইন ইন করুন',
-    'login.phone': 'মোবাইল নম্বর',
+    'login.phone': 'ফোন নম্বর',
     'login.phonePlaceholder': '০১XXXXXXXXX',
     'login.password': 'পাসওয়ার্ড',
     'login.passwordPlaceholder': 'আপনার পাসওয়ার্ড লিখুন',
@@ -221,8 +236,8 @@ const translations = {
     
     // Validation
     'validation.phoneRequired': 'ফোন নম্বর প্রয়োজন',
-    'validation.phoneLength': 'মোবাইল নম্বর অবশ্যই ১১ সংখ্যার হতে হবে',
-    'validation.phoneStart': 'মোবাইল নম্বর অবশ্যই ০১ দিয়ে শুরু হতে হবে',
+    'validation.phoneLength': 'ফোন নম্বর অবশ্যই ১১ সংখ্যার হতে হবে',
+    'validation.phoneStart': 'ফোন নম্বর অবশ্যই ০১ দিয়ে শুরু হতে হবে',
     'validation.phoneOperator': 'অবৈধ অপারেটর কোড (৩য় সংখ্যা ৩-৯ হতে হবে)',
     'validation.passwordRequired': 'পাসওয়ার্ড প্রয়োজন',
     'validation.passwordLength': 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে',
@@ -231,6 +246,17 @@ const translations = {
     // Common
     'common.language': 'ভাষা',
     'common.search': 'খুঁজুন',
+    'common.cancel': 'বাতিল',
+    'common.create': 'তৈরি',
+    'common.creating': 'তৈরি করা হচ্ছে...',
+    
+    // Auth
+    'auth.password': 'পাসওয়ার্ড',
+    'auth.passwordPlaceholder': 'পাসওয়ার্ড লিখুন',
+    'auth.phonePlaceholder': '০১XXXXXXXXX',
+    
+    // Validation
+    'validation.nameRequired': 'নাম প্রয়োজন',
     
     // Toast
     'toast.success': 'সফল',
@@ -280,6 +306,12 @@ const translations = {
     'admin.to': 'থেকে',
     'admin.of': 'এর মধ্যে',
     'admin.results': 'ফলাফল',
+    'admin.addAdmin': 'অ্যাডমিন যোগ করুন',
+    'admin.addNewAdmin': 'নতুন অ্যাডমিন যোগ করুন',
+    'admin.addNewAdminDesc': 'একটি নতুন অ্যাডমিন ইউজার অ্যাকাউন্ট তৈরি করুন',
+    'admin.namePlaceholder': 'অ্যাডমিনের নাম লিখুন',
+    'admin.adminAdded': 'অ্যাডমিন যোগ করা হয়েছে',
+    'admin.adminAddedDesc': 'নতুন অ্যাডমিন ইউজার সফলভাবে তৈরি করা হয়েছে',
   }
 }
 

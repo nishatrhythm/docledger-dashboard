@@ -15,17 +15,29 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 import Sidebar from '@/components/ui/Sidebar'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useLocalizedToast } from '@/hooks/use-localized-toast'
+import { validateBangladeshiMobile, validatePassword, formatMobileNumber } from '@/lib/validation'
 import { 
   MdSearch,
   MdMenu,
   MdEdit,
   MdChevronLeft,
-  MdChevronRight
+  MdChevronRight,
+  MdPersonAdd
 } from 'react-icons/md'
+import { BiLock, BiPhone, BiUser } from 'react-icons/bi'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 // Demo data for admin users
 const demoUsers = [
@@ -51,6 +63,15 @@ export default function AdminPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [users, setUsers] = useState(demoUsers)
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [newAdminForm, setNewAdminForm] = useState({
+    name: '',
+    phone: '',
+    password: ''
+  })
+  const [formErrors, setFormErrors] = useState<{name?: string; phone?: string; password?: string}>({})
+  const [showPassword, setShowPassword] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const itemsPerPage = 5
 
   const handleLogout = () => {
@@ -61,6 +82,81 @@ export default function AdminPage() {
     setTimeout(() => {
       router.push('/login')
     }, 1000) // Small delay to show the toast
+  }
+
+  const validateAddAdminForm = () => {
+    const newErrors: {name?: string; phone?: string; password?: string} = {}
+
+    if (!newAdminForm.name.trim()) {
+      newErrors.name = t('validation.nameRequired')
+    }
+
+    const phoneValidation = validateBangladeshiMobile(newAdminForm.phone, t)
+    if (!phoneValidation.isValid) {
+      newErrors.phone = phoneValidation.error || t('validation.phoneRequired')
+    }
+
+    const passwordValidation = validatePassword(newAdminForm.password, t)
+    if (!passwordValidation.isValid) {
+      newErrors.password = passwordValidation.error || t('validation.passwordRequired')
+    }
+
+    setFormErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleAddAdmin = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!validateAddAdminForm()) {
+      return
+    }
+
+    setIsSubmitting(true)
+
+    // Simulate API call
+    setTimeout(() => {
+      const newAdmin = {
+        id: Math.max(...users.map(u => u.id)) + 1,
+        name: newAdminForm.name,
+        nameBn: newAdminForm.name, // In real app, you might want separate Bengali name field
+        phone: newAdminForm.phone,
+        isActive: true
+      }
+
+      setUsers(prevUsers => [newAdmin, ...prevUsers])
+      setIsAddModalOpen(false)
+      setNewAdminForm({ name: '', phone: '', password: '' })
+      setFormErrors({})
+      setShowPassword(false)
+      setIsSubmitting(false)
+
+      showToast.success(t('admin.adminAdded'), t('admin.adminAddedDesc'))
+    }, 1000)
+  }
+
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false)
+    setNewAdminForm({ name: '', phone: '', password: '' })
+    setFormErrors({})
+    setShowPassword(false)
+    setIsSubmitting(false)
+  }
+
+  const handleModalInputChange = (field: 'name' | 'phone' | 'password') => (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value
+    
+    // Format phone number as user types (exactly like login form)
+    if (field === 'phone') {
+      value = formatMobileNumber(value)
+    }
+    
+    setNewAdminForm(prev => ({ ...prev, [field]: value }))
+    
+    // Clear error when user starts typing
+    if (formErrors[field]) {
+      setFormErrors(prev => ({ ...prev, [field]: undefined }))
+    }
   }
 
   const handleStatusToggle = (userId: number) => {
@@ -149,8 +245,19 @@ export default function AdminPage() {
         {/* Main Content Area */}
         <main className="p-4 sm:p-6 lg:p-8 overflow-y-auto flex-1">
           <div className="mb-6 lg:mb-8 text-center lg:text-left">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('admin.title')}</h2>
-            <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('admin.subtitle')}</p>
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('admin.title')}</h2>
+                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('admin.subtitle')}</p>
+              </div>
+              <Button
+                onClick={() => setIsAddModalOpen(true)}
+                className="lg:self-start w-auto max-w-fit mx-auto lg:mx-0"
+              >
+                <MdPersonAdd className="w-4 h-4 mr-2" />
+                {t('admin.addAdmin')}
+              </Button>
+            </div>
           </div>
 
           {/* Filter Section */}
@@ -190,6 +297,7 @@ export default function AdminPage() {
                 <div className="w-full sm:w-auto">
                   <Button 
                     onClick={handleSearch}
+                    disabled={!searchQuery.trim()}
                     className="text-sm sm:text-base h-10 sm:h-11 w-full sm:w-auto"
                   >
                     {t('common.search')}
@@ -317,6 +425,121 @@ export default function AdminPage() {
           </Card>
         </main>
       </div>
+
+      {/* Add Admin Modal */}
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold">{t('admin.addNewAdmin')}</DialogTitle>
+            <DialogDescription>
+              {t('admin.addNewAdminDesc')}
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleAddAdmin} className="space-y-4" autoComplete="off">
+            {/* Name Field */}
+            <div className="space-y-2">
+              <Label htmlFor="adminName" className="text-sm font-medium">
+                {t('admin.name')} <span className="text-red-500">*</span>
+              </Label>
+              <div className="relative">
+                <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Input
+                  id="adminName"
+                  type="text"
+                  value={newAdminForm.name}
+                  onChange={handleModalInputChange('name')}
+                  placeholder={t('admin.namePlaceholder')}
+                  className={`pl-10 ${formErrors.name ? 'border-red-500 focus:border-red-500' : ''}`}
+                  disabled={isSubmitting}
+                  autoComplete="off"
+                />
+              </div>
+              {formErrors.name && (
+                <p className="text-sm text-red-600">{formErrors.name}</p>
+              )}
+            </div>
+
+            {/* Phone Field */}
+            <div className="space-y-2">
+              <Label htmlFor="adminPhone" className="text-sm font-medium">
+                {t('admin.phoneNumber')} <span className="text-red-500">*</span>
+              </Label>
+              <div className="relative">
+                <BiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Input
+                  id="adminPhone"
+                  type="tel"
+                  value={newAdminForm.phone}
+                  onChange={handleModalInputChange('phone')}
+                  placeholder={t('auth.phonePlaceholder')}
+                  className={`pl-10 ${formErrors.phone ? 'border-red-500 focus:border-red-500' : ''}`}
+                  disabled={isSubmitting}
+                  maxLength={11}
+                  autoComplete="off"
+                />
+              </div>
+              {formErrors.phone && (
+                <p className="text-sm text-red-600">{formErrors.phone}</p>
+              )}
+            </div>
+
+            {/* Password Field */}
+            <div className="space-y-2">
+              <Label htmlFor="adminPassword" className="text-sm font-medium">
+                {t('auth.password')} <span className="text-red-500">*</span>
+              </Label>
+              <div className="relative">
+                <BiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Input
+                  id="adminPassword"
+                  type={showPassword ? 'text' : 'password'}
+                  value={newAdminForm.password}
+                  onChange={handleModalInputChange('password')}
+                  placeholder={t('auth.passwordPlaceholder')}
+                  className={`pl-10 pr-10 ${formErrors.password ? 'border-red-500 focus:border-red-500' : ''}`}
+                  disabled={isSubmitting}
+                  autoComplete="new-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  disabled={isSubmitting}
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible className="w-4 h-4" />
+                  ) : (
+                    <AiOutlineEye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+              {formErrors.password && (
+                <p className="text-sm text-red-600">{formErrors.password}</p>
+              )}
+            </div>
+
+            <DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCloseModal}
+                disabled={isSubmitting}
+                className="sm:mr-2 order-2 sm:order-1"
+              >
+                {t('common.cancel')}
+              </Button>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full sm:w-auto order-1 sm:order-2"
+              >
+                {isSubmitting ? t('common.creating') : t('common.create')}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
