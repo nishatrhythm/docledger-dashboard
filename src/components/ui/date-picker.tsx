@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface DatePickerProps {
   date?: Date
@@ -23,9 +24,10 @@ interface DatePickerProps {
 export function DatePicker({
   date,
   onDateChange,
-  placeholder = "Pick a date",
+  placeholder,
   className
 }: DatePickerProps) {
+  const { t, formatDate, language } = useLanguage()
   const [open, setOpen] = React.useState(false)
   
   // Default to today's date if no date is provided
@@ -41,6 +43,8 @@ export function DatePicker({
     setOpen(false) // Close the popover after selection
   }
   
+  const defaultPlaceholder = placeholder || t('dashboard.pickDate')
+  
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -49,14 +53,15 @@ export function DatePicker({
           className={cn(
             "w-full justify-start text-left font-normal",
             !date && "text-muted-foreground",
+            language === 'bn' && "font-bengali",
             className
           )}
         >
           <MdCalendarToday className="mr-2 h-4 w-4" />
-          {date ? format(date, "MMMM d, yyyy") : <span>{placeholder}</span>}
+          {date ? formatDate(date, "MMMM d, yyyy") : <span>{defaultPlaceholder}</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className={cn("w-auto p-0", language === 'bn' && "font-bengali")} align="start">
         <Calendar
           mode="single"
           selected={date}

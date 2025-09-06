@@ -18,9 +18,9 @@ export default function LoginPage() {
       transition={{ duration: 0.5 }}
     >
       {/* Left Panel - Logo and Branding (Desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-12 items-center justify-center relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 xl:w-2/5 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 xl:p-12 items-center justify-center relative overflow-hidden">
         {/* Language Switcher for desktop */}
-        <div className="absolute top-6 right-6 z-20">
+        <div className="absolute top-4 xl:top-6 right-4 xl:right-6 z-20">
           <LanguageSwitcher variant="light" size="sm" />
         </div>
         
@@ -87,7 +87,7 @@ export default function LoginPage() {
         />
         
         <motion.div 
-          className="text-center text-white max-w-md relative z-10"
+          className="text-center text-white max-w-md lg:max-w-sm xl:max-w-md relative z-10"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -97,10 +97,10 @@ export default function LoginPage() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Logo size="xxl" variant="light" showText={false} className="mb-8 select-none pointer-events-none" />
+            <Logo size="xxl" variant="light" showText={false} className="mb-6 xl:mb-8 select-none pointer-events-none" />
           </motion.div>
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
+            className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 xl:mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
@@ -108,7 +108,7 @@ export default function LoginPage() {
             {t('login.brandTitle')}
           </motion.h2>
           <motion.p 
-            className="text-xl lg:text-2xl text-slate-300 leading-relaxed"
+            className="text-lg lg:text-xl xl:text-2xl text-slate-300 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
@@ -120,11 +120,29 @@ export default function LoginPage() {
 
       {/* Right Panel - Login Form */}
       <div 
-        className="w-full lg:w-1/2 flex flex-col bg-white min-h-screen relative overflow-hidden"
+        className="w-full lg:w-1/2 xl:w-3/5 flex flex-col bg-white min-h-screen relative overflow-hidden"
       >
-        {/* Language Switcher for mobile/right panel */}
-        <div className="lg:hidden absolute top-6 right-6 z-20">
-          <LanguageSwitcher size="sm" />
+        {/* Mobile Header with Logo and Language Switcher */}
+        <div className="lg:hidden flex flex-col items-center pt-6 sm:pt-8 pb-4 sm:pb-6 relative">
+          {/* Language Switcher positioned at top-right */}
+          <div className="absolute top-4 sm:top-6 right-4 sm:right-6">
+            <LanguageSwitcher size="sm" />
+          </div>
+          
+          {/* Logo centered */}
+          <div className="flex justify-center">
+            <Logo size="lg" />
+          </div>
+          
+          {/* Brand text */}
+          <div className="text-center mt-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              {t('login.brandTitle')}
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600">
+              {t('login.brandSubtitle')}
+            </p>
+          </div>
         </div>
         
         {/* Subtle background animation for mobile/right panel */}
@@ -153,22 +171,17 @@ export default function LoginPage() {
           }}
         />
         
-        {/* Mobile Logo */}
-        <div className="lg:hidden flex justify-center pt-8 pb-4">
-          <Logo size="lg" />
-        </div>
-        
         {/* Main content area */}
-        <div className="flex-1 flex items-center justify-center p-8 pt-4 lg:pt-0">
-          <div className="w-full max-w-md relative z-10">
+        <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 pt-2 sm:pt-4 lg:pt-0">
+          <div className="w-full max-w-sm sm:max-w-md relative z-10">
             <LoginForm />
           </div>
         </div>
         
         {/* Footer */}
-        <div className="p-8 pt-0 relative z-10">
-          <div className="border-t border-gray-200 pt-4">
-            <p className="text-sm text-gray-500 text-center">
+        <div className="p-4 sm:p-6 lg:p-8 pt-0 relative z-10">
+          <div className="border-t border-gray-200 pt-3 sm:pt-4">
+            <p className="text-xs sm:text-sm text-gray-500 text-center">
               © {new Date().getFullYear()} {t('sidebar.docledger')}. {t('login.allRightsReserved')}.
             </p>
           </div>

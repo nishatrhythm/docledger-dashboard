@@ -83,17 +83,17 @@ const LoginForm = () => {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold text-center">{t('login.title')}</CardTitle>
-        <CardDescription className="text-center">
+    <Card className="w-full max-w-sm sm:max-w-md mx-auto shadow-lg">
+      <CardHeader className="space-y-1 px-4 sm:px-6">
+        <CardTitle className="text-xl sm:text-2xl font-bold text-center">{t('login.title')}</CardTitle>
+        <CardDescription className="text-center text-sm sm:text-base">
           {t('login.subtitle')}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <CardContent className="px-4 sm:px-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="phone">{t('login.phone')}</Label>
+            <Label htmlFor="phone" className="text-sm sm:text-base">{t('login.phone')}</Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <BiPhone className="h-4 w-4 text-gray-400" />
@@ -104,17 +104,17 @@ const LoginForm = () => {
                 value={formData.phone}
                 onChange={handleInputChange('phone')}
                 placeholder={t('login.phonePlaceholder')}
-                className={`pl-10 ${errors.phone ? 'border-red-500 focus:border-red-500' : ''}`}
+                className={`pl-10 text-sm sm:text-base h-10 sm:h-11 ${errors.phone ? 'border-red-500 focus:border-red-500' : ''}`}
                 maxLength={11}
               />
             </div>
             {errors.phone && (
-              <p className="text-sm text-red-600">{errors.phone}</p>
+              <p className="text-xs sm:text-sm text-red-600">{errors.phone}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">{t('login.password')}</Label>
+            <Label htmlFor="password" className="text-sm sm:text-base">{t('login.password')}</Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <BiLock className="h-4 w-4 text-gray-400" />
@@ -125,7 +125,7 @@ const LoginForm = () => {
                 value={formData.password}
                 onChange={handleInputChange('password')}
                 placeholder={t('login.passwordPlaceholder')}
-                className={`pl-10 pr-12 ${errors.password ? 'border-red-500 focus:border-red-500' : ''}`}
+                className={`pl-10 pr-12 text-sm sm:text-base h-10 sm:h-11 ${errors.password ? 'border-red-500 focus:border-red-500' : ''}`}
               />
               <button
                 type="button"
@@ -136,27 +136,27 @@ const LoginForm = () => {
               </button>
             </div>
             {errors.password && (
-              <p className="text-sm text-red-600">{errors.password}</p>
+              <p className="text-xs sm:text-sm text-red-600">{errors.password}</p>
             )}
           </div>
 
           <Button
             type="submit"
-            className="w-full cursor-pointer"
+            className="w-full cursor-pointer h-10 sm:h-11 text-sm sm:text-base"
             disabled={loading}
           >
             {loading ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                {t('login.signingIn')}
+                <span className="text-sm sm:text-base">{t('login.signingIn')}</span>
               </div>
             ) : (
               t('login.signIn')
             )}
           </Button>
 
-          <div className="text-center pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-500">
+          <div className="text-center pt-3 sm:pt-4 border-t border-gray-200">
+            <p className="text-xs sm:text-sm text-gray-500">
               {t('login.needHelp')}{' '}
               <a 
                 href="mailto:info@thegobd.com" 

@@ -23,7 +23,8 @@ import {
   MdTrendingDown, 
   MdAccountBalance,
   MdSavings,
-  MdAccountBalanceWallet
+  MdAccountBalanceWallet,
+  MdMenu
 } from 'react-icons/md'
 
 // Demo data
@@ -39,37 +40,30 @@ const demoStats = {
 }
 
 const demoChambers = [
-  { id: 1, name: 'Chamber 1 - Cardiology' },
-  { id: 2, name: 'Chamber 2 - Neurology' },
-  { id: 3, name: 'Chamber 3 - Orthopedics' },
-  { id: 4, name: 'Chamber 4 - General Medicine' },
+  { id: 1, name: 'Chamber 1 - Cardiology', nameBn: 'চেম্বার ১ - হৃদরোগ বিশেষজ্ঞ' },
+  { id: 2, name: 'Chamber 2 - Neurology', nameBn: 'চেম্বার ২ - স্নায়ুরোগ বিশেষজ্ঞ' },
+  { id: 3, name: 'Chamber 3 - Orthopedics', nameBn: 'চেম্বার ৩ - হাড় ও জয়েন্ট বিশেষজ্ঞ' },
+  { id: 4, name: 'Chamber 4 - General Medicine', nameBn: 'চেম্বার ৪ - সাধারণ চিকিৎসা' },
 ]
 
 const demoAdmins = [
-  { id: 1, name: 'Dr. Ahmed Rahman' },
-  { id: 2, name: 'Dr. Sarah Khan' },
-  { id: 3, name: 'Dr. Mohammad Ali' },
-  { id: 4, name: 'Dr. Fatima Sheikh' },
+  { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান' },
+  { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান' },
+  { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী' },
+  { id: 4, name: 'Dr. Fatima Sheikh', nameBn: 'ডা. ফাতিমা শেখ' },
 ]
 
 export default function Dashboard() {
-  const { t } = useLanguage()
+  const { t, formatNumber, formatCurrency, language } = useLanguage()
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
   const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
   const [startDate, setStartDate] = useState<Date | undefined>()
   const [endDate, setEndDate] = useState<Date | undefined>()
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'BDT',
-      minimumFractionDigits: 0,
-    }).format(amount).replace('BDT', '৳')
-  }
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const statsCards = [
     {
-      title: 'Total Admin',
+      title: t('dashboard.totalAdmin'),
       value: demoStats.totalAdmin,
       icon: MdAdminPanelSettings,
       color: 'text-blue-600',
@@ -77,7 +71,7 @@ export default function Dashboard() {
       format: 'number'
     },
     {
-      title: 'Total User',
+      title: t('dashboard.totalUser'),
       value: demoStats.totalUser,
       icon: MdPeople,
       color: 'text-green-600',
@@ -85,7 +79,7 @@ export default function Dashboard() {
       format: 'number'
     },
     {
-      title: 'Total Chamber',
+      title: t('dashboard.totalChamber'),
       value: demoStats.totalChamber,
       icon: MdMeetingRoom,
       color: 'text-purple-600',
@@ -93,7 +87,7 @@ export default function Dashboard() {
       format: 'number'
     },
     {
-      title: 'Total Income',
+      title: t('dashboard.totalIncome'),
       value: demoStats.totalIncome,
       icon: MdTrendingUp,
       color: 'text-emerald-600',
@@ -101,7 +95,7 @@ export default function Dashboard() {
       format: 'currency'
     },
     {
-      title: 'Total Expense',
+      title: t('dashboard.totalExpense'),
       value: demoStats.totalExpense,
       icon: MdTrendingDown,
       color: 'text-red-600',
@@ -109,7 +103,7 @@ export default function Dashboard() {
       format: 'currency'
     },
     {
-      title: 'Net Income',
+      title: t('dashboard.netIncome'),
       value: demoStats.netIncome,
       icon: MdAccountBalance,
       color: 'text-indigo-600',
@@ -117,7 +111,7 @@ export default function Dashboard() {
       format: 'currency'
     },
     {
-      title: 'Deposit',
+      title: t('dashboard.deposit'),
       value: demoStats.deposit,
       icon: MdSavings,
       color: 'text-teal-600',
@@ -125,7 +119,7 @@ export default function Dashboard() {
       format: 'currency'
     },
     {
-      title: 'Cash In Hand',
+      title: t('dashboard.cashInHand'),
       value: demoStats.cashInHand,
       icon: MdAccountBalanceWallet,
       color: 'text-orange-600',
@@ -137,19 +131,28 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar isMobileMenuOpen={isMobileMenuOpen} onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
       
       {/* Main Content */}
-      <div className="flex-1">
+      <div className="flex-1 lg:ml-0">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b">
-          <div className="px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <h1 className="text-2xl font-semibold text-gray-900">{t('dashboard.title')}</h1>
-              <div className="flex items-center space-x-4">
-                <span className="text-base text-gray-600">{t('dashboard.welcome')}</span>
+        <header className="sticky top-0 bg-white shadow-sm border-b z-30">
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-14 sm:h-16">
+              <div className="flex items-center">
+                <button
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="lg:hidden p-2 mr-3 rounded-lg hover:bg-gray-100 transition-colors"
+                  aria-label="Open menu"
+                >
+                  <MdMenu className="w-5 h-5 text-gray-600" />
+                </button>
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 flex items-center">{t('dashboard.title')}</h1>
+              </div>
+              <div className="flex items-center space-x-2 sm:space-x-4">
+                <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
                 <LanguageSwitcher size="sm" />
-                <Button variant="outline" size="sm" className="cursor-pointer">
+                <Button variant="outline" size="sm" className="cursor-pointer text-xs sm:text-sm">
                   {t('dashboard.logout')}
                 </Button>
               </div>
@@ -158,30 +161,30 @@ export default function Dashboard() {
         </header>
 
         {/* Main Content Area */}
-        <main className="p-6 lg:p-8">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-gray-900">{t('dashboard.title')}</h2>
-            <p className="text-gray-600 mt-2 text-lg">{t('dashboard.subtitle')}</p>
+        <main className="p-4 sm:p-6 lg:p-8">
+          <div className="mb-6 lg:mb-8">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('dashboard.title')}</h2>
+            <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('dashboard.subtitle')}</p>
           </div>
 
           {/* Filter Section */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Filters</CardTitle>
+          <Card className="mb-6 lg:mb-8">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg sm:text-xl">{t('dashboard.filters')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Chamber Filter */}
                 <div className="space-y-2">
-                  <Label htmlFor="chamber-filter">Filter by Chamber</Label>
+                  <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('dashboard.filterByChamber')}</Label>
                   <Select value={selectedChamber} onValueChange={setSelectedChamber}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="All Chambers" />
+                    <SelectTrigger className="h-10 sm:h-11">
+                      <SelectValue placeholder={t('dashboard.allChambers')} />
                     </SelectTrigger>
                     <SelectContent>
                       {demoChambers.map((chamber) => (
                         <SelectItem key={chamber.id} value={chamber.id.toString()}>
-                          {chamber.name}
+                          {language === 'bn' ? chamber.nameBn : chamber.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -190,15 +193,15 @@ export default function Dashboard() {
 
                 {/* Admin Filter */}
                 <div className="space-y-2">
-                  <Label htmlFor="admin-filter">Filter by Admin</Label>
+                  <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
                   <Select value={selectedAdmin} onValueChange={setSelectedAdmin}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="All Admins" />
+                    <SelectTrigger className="h-10 sm:h-11">
+                      <SelectValue placeholder={t('dashboard.allAdmins')} />
                     </SelectTrigger>
                     <SelectContent>
                       {demoAdmins.map((admin) => (
                         <SelectItem key={admin.id} value={admin.id.toString()}>
-                          {admin.name}
+                          {language === 'bn' ? admin.nameBn : admin.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -207,26 +210,28 @@ export default function Dashboard() {
 
                 {/* Start Date Filter */}
                 <div className="space-y-2">
-                  <Label>Start Date</Label>
+                  <Label className="text-sm sm:text-base">{t('dashboard.startDate')}</Label>
                   <DatePicker
                     date={startDate}
                     onDateChange={setStartDate}
-                    placeholder="Select start date"
+                    placeholder={t('dashboard.selectStartDate')}
+                    className="h-10 sm:h-11"
                   />
                 </div>
 
                 {/* End Date Filter */}
                 <div className="space-y-2">
-                  <Label>End Date</Label>
+                  <Label className="text-sm sm:text-base">{t('dashboard.endDate')}</Label>
                   <DatePicker
                     date={endDate}
                     onDateChange={setEndDate}
-                    placeholder="Select end date"
+                    placeholder={t('dashboard.selectEndDate')}
+                    className="h-10 sm:h-11"
                   />
                 </div>
               </div>
               
-              <div className="mt-4 flex justify-end space-x-2">
+              <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2">
                 <Button 
                   variant="outline" 
                   onClick={() => {
@@ -235,35 +240,36 @@ export default function Dashboard() {
                     setStartDate(undefined)
                     setEndDate(undefined)
                   }}
+                  className="text-sm sm:text-base h-9 sm:h-10"
                 >
-                  Reset Filters
+                  {t('dashboard.resetFilters')}
                 </Button>
-                <Button>Apply Filters</Button>
+                <Button className="text-sm sm:text-base h-9 sm:h-10">{t('dashboard.applyFilters')}</Button>
               </div>
             </CardContent>
           </Card>
 
           {/* Statistics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {statsCards.map((stat, index) => {
               const Icon = stat.icon
               return (
                 <Card key={index} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-gray-600 mb-1">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1 truncate">
                           {stat.title}
                         </p>
-                        <p className="text-2xl font-bold text-gray-900">
+                        <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 break-all">
                           {stat.format === 'currency' 
                             ? formatCurrency(stat.value)
-                            : stat.value.toLocaleString()
+                            : formatNumber(stat.value)
                           }
                         </p>
                       </div>
-                      <div className={`p-3 rounded-full ${stat.bgColor}`}>
-                        <Icon className={`w-6 h-6 ${stat.color}`} />
+                      <div className={`p-2 sm:p-3 rounded-full ${stat.bgColor} flex-shrink-0 ml-3`}>
+                        <Icon className={`w-4 h-4 sm:w-5 lg:w-6 sm:h-5 lg:h-6 ${stat.color}`} />
                       </div>
                     </div>
                   </CardContent>

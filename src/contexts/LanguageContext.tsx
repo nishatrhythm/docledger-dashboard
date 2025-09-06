@@ -8,7 +8,25 @@ interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
   t: (key: string) => string
+  formatNumber: (num: number) => string
+  formatCurrency: (amount: number) => string
+  formatDate: (date: Date, format?: string) => string
 }
+
+// Bengali number conversion
+const englishToBengaliNumbers = (num: string): string => {
+  const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  return num.replace(/[0-9]/g, (digit) => bengaliDigits[parseInt(digit)])
+}
+
+// Bengali month names
+const bengaliMonths = [
+  'জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন',
+  'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'
+]
+
+// Bengali weekday names
+const bengaliWeekdays = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি']
 
 const translations = {
   en: {
@@ -40,6 +58,30 @@ const translations = {
     'dashboard.settings': 'Settings',
     'dashboard.settingsDesc': 'Configure your preferences',
     
+    // Dashboard Stats
+    'dashboard.totalAdmin': 'Total Admin',
+    'dashboard.totalUser': 'Total User',
+    'dashboard.totalChamber': 'Total Chamber',
+    'dashboard.totalIncome': 'Total Income',
+    'dashboard.totalExpense': 'Total Expense',
+    'dashboard.netIncome': 'Net Income',
+    'dashboard.deposit': 'Deposit',
+    'dashboard.cashInHand': 'Cash In Hand',
+    
+    // Dashboard Filters
+    'dashboard.filters': 'Filters',
+    'dashboard.filterByChamber': 'Filter by Chamber',
+    'dashboard.filterByAdmin': 'Filter by Admin',
+    'dashboard.startDate': 'Start Date',
+    'dashboard.endDate': 'End Date',
+    'dashboard.allChambers': 'All Chambers',
+    'dashboard.allAdmins': 'All Admins',
+    'dashboard.selectStartDate': 'Select start date',
+    'dashboard.selectEndDate': 'Select end date',
+    'dashboard.resetFilters': 'Reset Filters',
+    'dashboard.applyFilters': 'Apply Filters',
+    'dashboard.pickDate': 'Pick a date',
+    
     // Sidebar
     'sidebar.dashboard': 'Dashboard',
     'sidebar.admin': 'Admin',
@@ -63,6 +105,23 @@ const translations = {
     
     // Common
     'common.language': 'Language',
+    
+    // Calendar
+    'calendar.today': 'Today',
+    'calendar.previousMonth': 'Previous month',
+    'calendar.nextMonth': 'Next month',
+    'calendar.january': 'January',
+    'calendar.february': 'February',
+    'calendar.march': 'March',
+    'calendar.april': 'April',
+    'calendar.may': 'May',
+    'calendar.june': 'June',
+    'calendar.july': 'July',
+    'calendar.august': 'August',
+    'calendar.september': 'September',
+    'calendar.october': 'October',
+    'calendar.november': 'November',
+    'calendar.december': 'December',
   },
   bn: {
     // Login Form
@@ -75,7 +134,7 @@ const translations = {
     'login.signingIn': 'সাইন ইন করা হচ্ছে...',
     'login.signIn': 'সাইন ইন',
     'login.needHelp': 'সাহায্য প্রয়োজন? যোগাযোগ করুন',
-    'login.allRightsReserved': 'সকল অধিকার সংরক্ষিত',
+    'login.allRightsReserved': 'সর্বস্বত্ব সংরক্ষিত',
     
     // Login Page
     'login.brandTitle': 'ডকলেজার',
@@ -92,6 +151,30 @@ const translations = {
     'dashboard.reportsDesc': 'রিপোর্ট দেখুন এবং তৈরি করুন',
     'dashboard.settings': 'সেটিংস',
     'dashboard.settingsDesc': 'আপনার পছন্দ কনফিগার করুন',
+    
+    // Dashboard Stats
+    'dashboard.totalAdmin': 'মোট অ্যাডমিন',
+    'dashboard.totalUser': 'মোট ইউজার',
+    'dashboard.totalChamber': 'মোট চেম্বার',
+    'dashboard.totalIncome': 'মোট আয়',
+    'dashboard.totalExpense': 'মোট ব্যয়',
+    'dashboard.netIncome': 'নিট আয়',
+    'dashboard.deposit': 'জমা',
+    'dashboard.cashInHand': 'হাতে নগদ',
+    
+    // Dashboard Filters
+    'dashboard.filters': 'ফিল্টার',
+    'dashboard.filterByChamber': 'চেম্বার দিয়ে ফিল্টার',
+    'dashboard.filterByAdmin': 'অ্যাডমিন দিয়ে ফিল্টার',
+    'dashboard.startDate': 'শুরুর তারিখ',
+    'dashboard.endDate': 'শেষের তারিখ',
+    'dashboard.allChambers': 'সকল চেম্বার',
+    'dashboard.allAdmins': 'সকল অ্যাডমিন',
+    'dashboard.selectStartDate': 'শুরুর তারিখ নির্বাচন করুন',
+    'dashboard.selectEndDate': 'শেষের তারিখ নির্বাচন করুন',
+    'dashboard.resetFilters': 'ফিল্টার রিসেট',
+    'dashboard.applyFilters': 'ফিল্টার প্রয়োগ',
+    'dashboard.pickDate': 'তারিখ নির্বাচন করুন',
     
     // Sidebar
     'sidebar.dashboard': 'ড্যাশবোর্ড',
@@ -116,6 +199,23 @@ const translations = {
     
     // Common
     'common.language': 'ভাষা',
+    
+    // Calendar
+    'calendar.today': 'আজ',
+    'calendar.previousMonth': 'পূর্ববর্তী মাস',
+    'calendar.nextMonth': 'পরবর্তী মাস',
+    'calendar.january': 'জানুয়ারী',
+    'calendar.february': 'ফেব্রুয়ারী',
+    'calendar.march': 'মার্চ',
+    'calendar.april': 'এপ্রিল',
+    'calendar.may': 'মে',
+    'calendar.june': 'জুন',
+    'calendar.july': 'জুলাই',
+    'calendar.august': 'আগস্ট',
+    'calendar.september': 'সেপ্টেম্বর',
+    'calendar.october': 'অক্টোবর',
+    'calendar.november': 'নভেম্বর',
+    'calendar.december': 'ডিসেম্বর',
   }
 }
 
@@ -142,10 +242,55 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return translations[language][key as keyof typeof translations['en']] || key
   }
 
+  const formatNumber = (num: number): string => {
+    const formattedNum = num.toLocaleString()
+    return language === 'bn' ? englishToBengaliNumbers(formattedNum) : formattedNum
+  }
+
+  const formatCurrency = (amount: number): string => {
+    const formatted = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'BDT',
+      minimumFractionDigits: 0,
+    }).format(amount).replace('BDT', '৳')
+    
+    return language === 'bn' ? englishToBengaliNumbers(formatted) : formatted
+  }
+
+  const formatDate = (date: Date, format: string = 'MMMM d, yyyy'): string => {
+    if (language === 'bn') {
+      const day = englishToBengaliNumbers(date.getDate().toString())
+      const month = bengaliMonths[date.getMonth()]
+      const year = englishToBengaliNumbers(date.getFullYear().toString())
+      
+      if (format === 'MMMM d, yyyy') {
+        return `${month} ${day}, ${year}`
+      }
+      // Add more format options as needed
+      return `${day}/${englishToBengaliNumbers((date.getMonth() + 1).toString())}/${year}`
+    }
+    
+    // For English, use dynamic import to avoid SSR issues
+    if (typeof window !== 'undefined') {
+      const { format: formatFn } = require('date-fns')
+      return formatFn(date, format)
+    }
+    
+    // Fallback for SSR
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  }
+
   const value = {
     language,
     setLanguage: handleLanguageChange,
-    t
+    t,
+    formatNumber,
+    formatCurrency,
+    formatDate
   }
 
   return (

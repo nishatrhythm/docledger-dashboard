@@ -10,6 +10,22 @@ import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { useLanguage } from "@/contexts/LanguageContext"
+
+// Bengali month names
+const bengaliMonths = [
+  'জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন',
+  'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'
+]
+
+// Bengali weekday names
+const bengaliWeekdays = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি']
+
+// English to Bengali number conversion
+const englishToBengaliNumbers = (num: string): string => {
+  const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+  return num.replace(/[0-9]/g, (digit) => bengaliDigits[parseInt(digit)])
+}
 
 function Calendar({
   className,
@@ -23,7 +39,32 @@ function Calendar({
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
 }) {
+  const { language } = useLanguage()
   const defaultClassNames = getDefaultClassNames()
+
+  const customFormatters = {
+    formatMonthDropdown: (date: Date) => {
+      if (language === 'bn') {
+        return bengaliMonths[date.getMonth()]
+      }
+      return date.toLocaleString("default", { month: "long" })
+    },
+    formatYearDropdown: (date: Date) => {
+      const year = date.getFullYear().toString()
+      return language === 'bn' ? englishToBengaliNumbers(year) : year
+    },
+    formatWeekdayName: (date: Date) => {
+      if (language === 'bn') {
+        return bengaliWeekdays[date.getDay()]
+      }
+      return date.toLocaleDateString('en-US', { weekday: 'short' })
+    },
+    formatDay: (date: Date) => {
+      const day = date.getDate().toString()
+      return language === 'bn' ? englishToBengaliNumbers(day) : day
+    },
+    ...formatters,
+  }
 
   return (
     <DayPicker
@@ -32,15 +73,11 @@ function Calendar({
         "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
+        language === 'bn' && "font-bengali",
         className
       )}
       captionLayout={captionLayout}
-      formatters={{
-        formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "long" }),
-        formatYearDropdown: (date) => date.getFullYear().toString(),
-        ...formatters,
-      }}
+      formatters={customFormatters}
       classNames={{
         root: cn("w-[280px]", defaultClassNames.root),
         months: cn(
