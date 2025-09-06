@@ -169,12 +169,12 @@ export default function Dashboard() {
 
           {/* Filter Section */}
           <Card className="mb-6 lg:mb-8">
-            <CardHeader className="pb-4">
+            <CardHeader className="pb-0 sm:pb-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                 <CardTitle className="text-lg sm:text-xl">{t('dashboard.filters')}</CardTitle>
-                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                  <Button 
-                    variant="outline" 
+                <div className="hidden sm:flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                  <Button
+                    variant="outline"
                     onClick={() => {
                       setSelectedChamber(undefined)
                       setSelectedAdmin(undefined)
@@ -188,11 +188,30 @@ export default function Dashboard() {
                   <Button className="text-sm sm:text-base h-9 sm:h-10">{t('dashboard.applyFilters')}</Button>
                 </div>
               </div>
+              
+              {/* Mobile Chamber Filter - directly below header */}
+              <div className="mt-0 sm:hidden">
+                <div className="space-y-1">
+                  <Label htmlFor="chamber-filter-mobile" className="text-sm">{t('dashboard.filterByChamber')}</Label>
+                  <Select value={selectedChamber} onValueChange={setSelectedChamber}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder={t('dashboard.allChambers')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {demoChambers.map((chamber) => (
+                        <SelectItem key={chamber.id} value={chamber.id.toString()}>
+                          {language === 'bn' ? chamber.nameBn : chamber.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Chamber Filter */}
-                <div className="space-y-2">
+                {/* Chamber Filter - Hidden on mobile, shown on desktop */}
+                <div className="space-y-1 hidden sm:block">
                   <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('dashboard.filterByChamber')}</Label>
                   <Select value={selectedChamber} onValueChange={setSelectedChamber}>
                     <SelectTrigger className="h-10 sm:h-11">
@@ -209,7 +228,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Admin Filter */}
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
                   <Select value={selectedAdmin} onValueChange={setSelectedAdmin}>
                     <SelectTrigger className="h-10 sm:h-11">
@@ -226,7 +245,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Start Date Filter */}
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label className="text-sm sm:text-base">{t('dashboard.startDate')}</Label>
                   <DatePicker
                     date={startDate}
@@ -237,7 +256,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* End Date Filter */}
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <Label className="text-sm sm:text-base">{t('dashboard.endDate')}</Label>
                   <DatePicker
                     date={endDate}
@@ -246,6 +265,23 @@ export default function Dashboard() {
                     className="h-10 sm:h-11"
                   />
                 </div>
+              </div>
+
+              {/* Mobile Filter Buttons */}
+              <div className="mt-4 sm:hidden flex flex-col space-y-2">
+                <Button className="text-sm h-9">{t('dashboard.applyFilters')}</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSelectedChamber(undefined)
+                    setSelectedAdmin(undefined)
+                    setStartDate(undefined)
+                    setEndDate(undefined)
+                  }}
+                  className="text-sm h-9"
+                >
+                  {t('dashboard.resetFilters')}
+                </Button>
               </div>
             </CardContent>
           </Card>
