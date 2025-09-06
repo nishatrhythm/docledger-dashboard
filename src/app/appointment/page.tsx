@@ -414,7 +414,7 @@ export default function AppointmentPage() {
   }
 
   const handleModalInputChange = (field: keyof typeof newAppointmentForm) => (e: React.ChangeEvent<HTMLInputElement> | string | Date | undefined) => {
-    let value: any
+    let value: string | Date | undefined
     if (field === 'date') {
       value = e as Date | undefined
     } else if (typeof e === 'string') {
@@ -424,7 +424,7 @@ export default function AppointmentPage() {
     }
     
     // Format phone number as user types
-    if (field === 'patientPhone' && typeof e !== 'string' && e instanceof Event === false) {
+    if (field === 'patientPhone' && typeof value === 'string') {
       value = formatMobileNumber(value)
     }
 
@@ -472,6 +472,8 @@ export default function AppointmentPage() {
   const handleEdit = (appointmentId: number) => {
     // This will be implemented later
     showToast.info('Edit functionality', 'Edit functionality will be implemented soon')
+    // TODO: Implement edit functionality using appointmentId
+    console.log('Edit appointment:', appointmentId)
   }
 
   const handleSearch = () => {

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { BiTime } from "react-icons/bi"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface TimePickerProps {
   time?: string
@@ -21,12 +22,21 @@ interface TimePickerProps {
 export function TimePicker({
   time,
   onTimeChange,
-  placeholder = "Select time",
+  placeholder,
   className,
   disabled = false,
   ...props
 }: TimePickerProps) {
   const [open, setOpen] = React.useState(false)
+  const { t, language } = useLanguage()
+  
+  const defaultPlaceholder = placeholder || t('appointment.selectTime')
+  
+  // Bengali number conversion function
+  const englishToBengaliNumbers = (num: string): string => {
+    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+    return num.replace(/[0-9]/g, (digit) => bengaliDigits[parseInt(digit)])
+  }
   
   // Generate time slots from 9:00 AM to 9:00 PM in 30-minute intervals
   const generateTimeSlots = () => {
@@ -37,7 +47,13 @@ export function TimePicker({
         const ampm = hour >= 12 ? 'PM' : 'AM'
         const displayHour = hour12 === 0 ? 12 : hour12
         const timeString = `${displayHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`
-        slots.push(timeString)
+        
+        // Convert digits to Bengali if language is Bengali
+        const localizedTime = language === 'bn' 
+          ? englishToBengaliNumbers(timeString)
+          : timeString
+        
+        slots.push(localizedTime)
       }
     }
     return slots
@@ -46,9 +62,23 @@ export function TimePicker({
   const timeSlots = generateTimeSlots()
 
   const handleTimeSelect = (selectedTime: string) => {
-    onTimeChange?.(selectedTime)
+    // When storing the time, we need to store the original English format
+    // for consistency with the backend/database
+    const englishTime = language === 'bn' 
+      ? selectedTime.replace(/[০-৯]/g, (bengaliDigit) => {
+          const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+          return bengaliDigits.indexOf(bengaliDigit).toString()
+        })
+      : selectedTime
+    
+    onTimeChange?.(englishTime)
     setOpen(false)
   }
+
+  // Display the time in the appropriate language
+  const displayTime = time && language === 'bn' 
+    ? englishToBengaliNumbers(time)
+    : time
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -58,22 +88,23 @@ export function TimePicker({
           className={cn(
             "justify-start text-left font-normal",
             !time && "text-muted-foreground",
+            language === 'bn' && "font-bengali",
             className
           )}
           disabled={disabled}
           {...props}
         >
           <BiTime className="mr-2 h-4 w-4" />
-          {time || placeholder}
+          {displayTime || defaultPlaceholder}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className={cn("w-auto p-0", language === 'bn' && "font-bengali")} align="start">
         <div className="max-h-60 overflow-y-auto">
           <div className="grid grid-cols-2 gap-1 p-2">
             {timeSlots.map((slot) => (
               <Button
                 key={slot}
-                variant={time === slot ? "default" : "ghost"}
+                variant={displayTime === slot ? "default" : "ghost"}
                 size="sm"
                 className="justify-start text-xs h-8"
                 onClick={() => handleTimeSelect(slot)}

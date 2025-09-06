@@ -581,7 +581,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'bn') && savedLanguage !== language) {
       setLanguage(savedLanguage)
     }
-  }, [])
+  }, [language])
 
   // Save language preference to localStorage when it changes
   const handleLanguageChange = (lang: Language) => {

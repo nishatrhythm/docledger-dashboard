@@ -172,6 +172,8 @@ export default function AdminPage() {
   const handleEdit = (userId: number) => {
     // This will be implemented later
     showToast.info('Edit functionality', 'Edit functionality will be implemented soon')
+    // TODO: Implement edit functionality using userId
+    console.log('Edit user:', userId)
   }
 
   const handleSearch = () => {
