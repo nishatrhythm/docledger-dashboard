@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import Logo from '@/components/ui/Logo'
 import { 
@@ -27,6 +28,8 @@ interface SidebarProps {
 
 const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: SidebarProps) => {
   const { t } = useLanguage()
+  const pathname = usePathname()
+  const router = useRouter()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(isMobileMenuOpen)
   const [isMobile, setIsMobile] = useState(false)
@@ -135,18 +138,12 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
           <ul className={cn("space-y-1", (isCollapsed && !isMobile) ? "px-2" : "px-3")}>
             {menuItems.map((item) => {
               const Icon = item.icon
+              const isActive = pathname === item.href
               return (
                 <li key={item.id}>
-                  <a
-                    href={item.href}
-                    className={cn(
-                      "flex items-center text-base font-medium text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 cursor-pointer group",
-                      (isCollapsed && !isMobile)
-                        ? "justify-center p-2" 
-                        : "px-3 py-2"
-                    )}
-                    title={(isCollapsed && !isMobile) ? item.label : undefined}
+                  <button
                     onClick={() => {
+                      router.push(item.href)
                       if (isMobile) {
                         if (onMobileMenuToggle) {
                           onMobileMenuToggle()
@@ -155,12 +152,27 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
                         }
                       }
                     }}
+                    className={cn(
+                      "w-full flex items-center text-base font-medium rounded-lg transition-colors duration-200 cursor-pointer group",
+                      (isCollapsed && !isMobile)
+                        ? "justify-center p-2" 
+                        : "px-3 py-2",
+                      isActive 
+                        ? "bg-black text-white" 
+                        : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    )}
+                    title={(isCollapsed && !isMobile) ? item.label : undefined}
                   >
-                    <Icon className="w-5 h-5 text-gray-400 group-hover:text-gray-500 flex-shrink-0" />
+                    <Icon className={cn(
+                      "w-5 h-5 flex-shrink-0",
+                      isActive 
+                        ? "text-white" 
+                        : "text-gray-400 group-hover:text-gray-500"
+                    )} />
                     {(!isCollapsed || isMobile) && (
                       <span className="ml-3">{item.label}</span>
                     )}
-                  </a>
+                  </button>
                 </li>
               )
             })}

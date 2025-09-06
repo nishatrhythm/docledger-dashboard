@@ -103,6 +103,7 @@ const translations = {
     
     // Common
     'common.language': 'Language',
+    'common.search': 'Search',
     
     // Toast
     'toast.success': 'Success',
@@ -133,6 +134,25 @@ const translations = {
     'calendar.october': 'October',
     'calendar.november': 'November',
     'calendar.december': 'December',
+    
+    // Admin
+    'admin.title': 'Admin Management',
+    'admin.subtitle': 'Manage admin users and their permissions',
+    'admin.search': 'Search users...',
+    'admin.searchPlaceholder': 'Search by name or phone number',
+    'admin.name': 'Name',
+    'admin.phoneNumber': 'Phone Number',
+    'admin.status': 'Status',
+    'admin.actions': 'Actions',
+    'admin.edit': 'Edit',
+    'admin.active': 'Active',
+    'admin.inactive': 'Inactive',
+    'admin.previous': 'Previous',
+    'admin.next': 'Next',
+    'admin.showing': 'Showing',
+    'admin.to': 'to',
+    'admin.of': 'of',
+    'admin.results': 'results',
   },
   bn: {
     // Login Form
@@ -210,6 +230,7 @@ const translations = {
     
     // Common
     'common.language': 'ভাষা',
+    'common.search': 'খুঁজুন',
     
     // Toast
     'toast.success': 'সফল',
@@ -240,6 +261,25 @@ const translations = {
     'calendar.october': 'অক্টোবর',
     'calendar.november': 'নভেম্বর',
     'calendar.december': 'ডিসেম্বর',
+    
+    // Admin
+    'admin.title': 'অ্যাডমিন ব্যবস্থাপনা',
+    'admin.subtitle': 'অ্যাডমিন ইউজার এবং তাদের অনুমতি পরিচালনা করুন',
+    'admin.search': 'ইউজার খুঁজুন...',
+    'admin.searchPlaceholder': 'নাম বা ফোন নম্বর দিয়ে খুঁজুন',
+    'admin.name': 'নাম',
+    'admin.phoneNumber': 'ফোন নম্বর',
+    'admin.status': 'অবস্থা',
+    'admin.actions': 'কার্যক্রম',
+    'admin.edit': 'সম্পাদনা',
+    'admin.active': 'সক্রিয়',
+    'admin.inactive': 'নিষ্ক্রিয়',
+    'admin.previous': 'পূর্ববর্তী',
+    'admin.next': 'পরবর্তী',
+    'admin.showing': 'দেখানো হচ্ছে',
+    'admin.to': 'থেকে',
+    'admin.of': 'এর মধ্যে',
+    'admin.results': 'ফলাফল',
   }
 }
 
