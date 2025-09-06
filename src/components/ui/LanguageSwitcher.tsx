@@ -25,10 +25,10 @@ const LanguageSwitcher = ({ variant = 'default', size = 'md' }: LanguageSwitcher
       variant={buttonVariant}
       size={buttonSize}
       onClick={toggleLanguage}
-      className={`flex items-center space-x-2 cursor-pointer ${
+      className={`flex items-center space-x-0.5 cursor-pointer text-xs sm:text-sm ${
         variant === 'light' 
-          ? 'bg-white/10 border-white/20 text-white hover:bg-white/20' 
-          : ''
+          ? 'bg-white/10 border-white/20 text-white hover:bg-slate-600 hover:text-white hover:border-slate-500' 
+          : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
       }`}
     >
       <HiLanguage className="w-4 h-4" />

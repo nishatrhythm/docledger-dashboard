@@ -1,6 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react'
+import { format as formatDateFn } from 'date-fns'
 
 type Language = 'en' | 'bn'
 
@@ -24,9 +25,6 @@ const bengaliMonths = [
   'জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন',
   'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'
 ]
-
-// Bengali weekday names
-const bengaliWeekdays = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র', 'শনি']
 
 const translations = {
   en: {
@@ -221,13 +219,34 @@ const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en')
+// Helper to detect client-side rendering
+const isClient = typeof window !== 'undefined'
 
-  // Load language preference from localStorage on mount
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  // Add a state to track if we've mounted to avoid hydration mismatch
+  const [mounted, setMounted] = useState(false)
+  
+  // Use a state initialization function to check localStorage synchronously at first render
+  const [language, setLanguage] = useState<Language>(() => {
+    // Only access localStorage on the client-side
+    if (isClient) {
+      const savedLanguage = localStorage.getItem('docledger-language') as Language
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'bn')) {
+        return savedLanguage
+      }
+    }
+    return 'en'
+  })
+
+  // Mark component as mounted after first render
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  
+  // This useEffect is kept to handle any changes to localStorage that might happen outside this component
   useEffect(() => {
     const savedLanguage = localStorage.getItem('docledger-language') as Language
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'bn')) {
+    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'bn') && savedLanguage !== language) {
       setLanguage(savedLanguage)
     }
   }, [])
@@ -272,8 +291,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     
     // For English, use dynamic import to avoid SSR issues
     if (typeof window !== 'undefined') {
-      const { format: formatFn } = require('date-fns')
-      return formatFn(date, format)
+      return formatDateFn(date, format)
     }
     
     // Fallback for SSR
@@ -293,6 +311,16 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     formatDate
   }
 
+  // If we haven't mounted yet, return a div with the same className structure but no content
+  // to avoid flickering. We could also return null, but that might cause layout shifts.
+  if (!mounted && isClient) {
+    return (
+      <div className="font-sans">
+        {/* Empty div with the same structure to prevent layout shift */}
+      </div>
+    )
+  }
+  
   return (
     <LanguageContext.Provider value={value}>
       <div className={language === 'bn' ? 'font-bengali' : 'font-sans'}>

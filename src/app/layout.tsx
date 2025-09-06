@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Baloo_Da_2 } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import ClientOnly from "@/components/ClientOnly";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,9 +36,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${balooDa.variable} font-sans antialiased`}
       >
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <ClientOnly>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </ClientOnly>
       </body>
     </html>
   );

@@ -129,12 +129,12 @@ export default function Dashboard() {
   ]
   
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="h-screen bg-gray-50 flex overflow-hidden">
       {/* Sidebar */}
       <Sidebar isMobileMenuOpen={isMobileMenuOpen} onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
       
       {/* Main Content */}
-      <div className="flex-1 lg:ml-0">
+      <div className="flex-1 flex flex-col overflow-auto lg:ml-0">
         {/* Header */}
         <header className="sticky top-0 bg-white shadow-sm border-b z-30">
           <div className="px-4 sm:px-6 lg:px-8">
@@ -152,7 +152,7 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
                 <LanguageSwitcher size="sm" />
-                <Button variant="outline" size="sm" className="cursor-pointer text-xs sm:text-sm">
+                <Button variant="destructive" size="sm" className="cursor-pointer text-xs sm:text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:text-red-700">
                   {t('dashboard.logout')}
                 </Button>
               </div>
@@ -161,8 +161,8 @@ export default function Dashboard() {
         </header>
 
         {/* Main Content Area */}
-        <main className="p-4 sm:p-6 lg:p-8">
-          <div className="mb-6 lg:mb-8">
+        <main className="p-4 sm:p-6 lg:p-8 overflow-y-auto flex-1">
+          <div className="mb-6 lg:mb-8 text-center lg:text-left">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('dashboard.title')}</h2>
             <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('dashboard.subtitle')}</p>
           </div>
@@ -170,7 +170,24 @@ export default function Dashboard() {
           {/* Filter Section */}
           <Card className="mb-6 lg:mb-8">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg sm:text-xl">{t('dashboard.filters')}</CardTitle>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                <CardTitle className="text-lg sm:text-xl">{t('dashboard.filters')}</CardTitle>
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      setSelectedChamber(undefined)
+                      setSelectedAdmin(undefined)
+                      setStartDate(undefined)
+                      setEndDate(undefined)
+                    }}
+                    className="text-sm sm:text-base h-9 sm:h-10"
+                  >
+                    {t('dashboard.resetFilters')}
+                  </Button>
+                  <Button className="text-sm sm:text-base h-9 sm:h-10">{t('dashboard.applyFilters')}</Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -229,22 +246,6 @@ export default function Dashboard() {
                     className="h-10 sm:h-11"
                   />
                 </div>
-              </div>
-              
-              <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2">
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setSelectedChamber(undefined)
-                    setSelectedAdmin(undefined)
-                    setStartDate(undefined)
-                    setEndDate(undefined)
-                  }}
-                  className="text-sm sm:text-base h-9 sm:h-10"
-                >
-                  {t('dashboard.resetFilters')}
-                </Button>
-                <Button className="text-sm sm:text-base h-9 sm:h-10">{t('dashboard.applyFilters')}</Button>
               </div>
             </CardContent>
           </Card>

@@ -81,11 +81,13 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
           className="fixed inset-0 bg-black/20 z-40 lg:hidden"
           onClick={handleOverlayClick}
         />
-      )}      {/* Sidebar */}
+      )}
+
+      {/* Sidebar */}
       <div className={cn(
-        'bg-white border-r border-gray-200 min-h-screen flex flex-col transition-all duration-300 z-50',
+        'bg-white border-r border-gray-200 h-screen flex flex-col transition-all duration-300 z-50',
         // Desktop behavior
-        'lg:relative lg:translate-x-0',
+        'lg:sticky lg:top-0 lg:translate-x-0',
         !isMobile && (isCollapsed ? 'w-16' : 'w-64'),
         // Mobile behavior
         'fixed lg:static',
@@ -95,7 +97,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
       )}>
         {/* Header */}
         <div className={cn(
-          "h-14 sm:h-16 flex items-center border-b border-gray-200",
+          "h-14 sm:h-16 flex items-center border-b border-gray-200 flex-shrink-0",
           isCollapsed && !isMobile ? "justify-center px-2" : "justify-between px-4"
         )}>
           {(!isCollapsed || isMobile) && (
@@ -129,7 +131,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
         </div>
 
         {/* Navigation Menu */}
-        <nav className="flex-1 py-4">
+        <nav className="flex-1 py-4 overflow-y-auto min-h-0">
           <ul className={cn("space-y-1", (isCollapsed && !isMobile) ? "px-2" : "px-3")}>
             {menuItems.map((item) => {
               const Icon = item.icon
@@ -166,7 +168,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-gray-200 flex-shrink-0">
           {(!isCollapsed || isMobile) && (
             <p className="text-sm text-gray-500 text-center">
               © {new Date().getFullYear()} {t('sidebar.docledger')}

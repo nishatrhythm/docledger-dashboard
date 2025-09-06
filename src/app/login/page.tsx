@@ -18,7 +18,7 @@ export default function LoginPage() {
       transition={{ duration: 0.5 }}
     >
       {/* Left Panel - Logo and Branding (Desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 xl:w-2/5 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 xl:p-12 items-center justify-center relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 xl:p-12 items-center justify-center relative overflow-hidden">
         {/* Language Switcher for desktop */}
         <div className="absolute top-4 xl:top-6 right-4 xl:right-6 z-20">
           <LanguageSwitcher variant="light" size="sm" />
@@ -120,7 +120,7 @@ export default function LoginPage() {
 
       {/* Right Panel - Login Form */}
       <div 
-        className="w-full lg:w-1/2 xl:w-3/5 flex flex-col bg-white min-h-screen relative overflow-hidden"
+        className="w-full lg:w-1/2 flex flex-col bg-white min-h-screen relative overflow-hidden"
       >
         {/* Mobile Header with Logo and Language Switcher */}
         <div className="lg:hidden flex flex-col items-center pt-6 sm:pt-8 pb-4 sm:pb-6 relative">
