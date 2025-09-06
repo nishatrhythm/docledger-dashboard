@@ -74,12 +74,12 @@ const Sidebar = ({ className }: SidebarProps) => {
               <li key={item.id}>
                 <a
                   href={item.href}
-                  className={cn(
-                    "flex items-center text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 cursor-pointer group",
-                    isCollapsed 
-                      ? "justify-center p-2" 
-                      : "px-3 py-2"
-                  )}
+                    className={cn(
+                      "flex items-center text-base font-medium text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 cursor-pointer group",
+                      isCollapsed 
+                        ? "justify-center p-2" 
+                        : "px-3 py-2"
+                    )}
                   title={isCollapsed ? item.label : undefined}
                 >
                   <Icon className="w-5 h-5 text-gray-400 group-hover:text-gray-500 flex-shrink-0" />
@@ -96,7 +96,7 @@ const Sidebar = ({ className }: SidebarProps) => {
       {/* Footer */}
       <div className="p-4 border-t border-gray-200">
         {!isCollapsed && (
-          <p className="text-xs text-gray-500 text-center">
+            <p className="text-sm text-gray-500 text-center">
             © {new Date().getFullYear()} {t('sidebar.docledger')}
           </p>
         )}

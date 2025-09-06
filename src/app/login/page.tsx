@@ -100,7 +100,7 @@ export default function LoginPage() {
             <Logo size="xxl" variant="light" showText={false} className="mb-8 select-none pointer-events-none" />
           </motion.div>
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-white mb-4"
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
@@ -108,7 +108,7 @@ export default function LoginPage() {
             {t('login.brandTitle')}
           </motion.h2>
           <motion.p 
-            className="text-xl text-slate-300 leading-relaxed"
+            className="text-xl lg:text-2xl text-slate-300 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
@@ -168,7 +168,7 @@ export default function LoginPage() {
         {/* Footer */}
         <div className="p-8 pt-0 relative z-10">
           <div className="border-t border-gray-200 pt-4">
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-sm text-gray-500 text-center">
               © {new Date().getFullYear()} {t('sidebar.docledger')}. {t('login.allRightsReserved')}.
             </p>
           </div>

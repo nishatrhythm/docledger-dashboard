@@ -117,9 +117,41 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-base;
+    font-size: 16px; /* Ensure minimum base font size */
   }
   .font-bengali {
     font-family: var(--font-baloo-da), system-ui, sans-serif;
+  }
+  
+  /* Increase default font sizes across common elements */
+  h1 {
+    @apply text-3xl lg:text-4xl;
+  }
+  h2 {
+    @apply text-2xl lg:text-3xl;
+  }
+  h3 {
+    @apply text-xl lg:text-2xl;
+  }
+  h4 {
+    @apply text-lg lg:text-xl;
+  }
+  h5 {
+    @apply text-base lg:text-lg;
+  }
+  h6 {
+    @apply text-base;
+  }
+  p {
+    @apply text-base lg:text-lg;
+  }
+  
+  /* Ensure better readability for small text */
+  .text-xs {
+    font-size: 0.8125rem; /* 13px instead of 12px */
+  }
+  .text-sm {
+    font-size: 0.9375rem; /* 15px instead of 14px */
   }
 }
