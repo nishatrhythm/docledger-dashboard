@@ -259,6 +259,17 @@ const demoAppointments = [
 
 export default function AppointmentPage() {
   const { t, formatNumber, formatCurrency, formatDate, language } = useLanguage()
+  
+  // Bengali number conversion function
+  const englishToBengaliNumbers = (num: string): string => {
+    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']
+    return num.replace(/[0-9]/g, (digit) => bengaliDigits[parseInt(digit)])
+  }
+  
+  // Format time with Bengali numerals if language is Bengali
+  const formatTime = (time: string): string => {
+    return language === 'bn' ? englishToBengaliNumbers(time) : time
+  }
   const router = useRouter()
   const { showToast } = useLocalizedToast()
   const [searchQuery, setSearchQuery] = useState('')
@@ -737,7 +748,7 @@ export default function AppointmentPage() {
                             <TableCell className="px-3 py-4">{patientTypeDisplay}</TableCell>
                             <TableCell className="px-3 py-4">{appointment.patientPhone}</TableCell>
                             <TableCell className="px-3 py-4">{formatDate(appointment.date, 'MMM d, yyyy')}</TableCell>
-                            <TableCell className="px-3 py-4">{appointment.time}</TableCell>
+                            <TableCell className="px-3 py-4">{formatTime(appointment.time)}</TableCell>
                             <TableCell className="px-3 py-4">{formatCurrency(appointment.amount)}</TableCell>
                             <TableCell className="text-center px-3 py-4">
                               <Button

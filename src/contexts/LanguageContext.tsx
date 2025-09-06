@@ -602,7 +602,8 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const formatted = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'BDT',
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(amount).replace('BDT', '৳')
     
     return language === 'bn' ? englishToBengaliNumbers(formatted) : formatted
@@ -616,6 +617,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       
       if (format === 'MMMM d, yyyy') {
         return `${month} ${day}, ${year}`
+      }
+      if (format === 'MMM d, yyyy') {
+        // For abbreviated month format like "Sep 10, 2025"
+        return `${bengaliMonths[date.getMonth()]} ${day}, ${year}`
       }
       // Add more format options as needed
       return `${day}/${englishToBengaliNumbers((date.getMonth() + 1).toString())}/${year}`
