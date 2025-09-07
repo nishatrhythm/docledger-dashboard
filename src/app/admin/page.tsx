@@ -226,7 +226,6 @@ export default function AdminPage() {
                 >
                   <MdMenu className="w-5 h-5 text-gray-600" />
                 </button>
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 flex items-center">{t('admin.title')}</h1>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
@@ -429,7 +428,7 @@ export default function AdminPage() {
       </div>
 
       {/* Add Admin Modal */}
-      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">{t('admin.addNewAdmin')}</DialogTitle>

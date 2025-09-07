@@ -3,7 +3,8 @@ import { cn } from "@/lib/utils"
 
 interface DialogProps {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChange?: (open: boolean) => void
+  disableOutsideClick?: boolean
   children: React.ReactNode
 }
 
@@ -32,7 +33,7 @@ interface DialogFooterProps {
   children: React.ReactNode
 }
 
-const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
+const Dialog = ({ open, onOpenChange, disableOutsideClick = false, children }: DialogProps) => {
   if (!open) return null
 
   return (
@@ -40,7 +41,7 @@ const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/20 backdrop-blur-sm"
-        onClick={() => onOpenChange(false)}
+        onClick={() => !disableOutsideClick && onOpenChange && onOpenChange(false)}
       />
       {/* Content */}
       <div className="relative z-50 max-h-[90vh] w-full max-w-lg overflow-y-auto">

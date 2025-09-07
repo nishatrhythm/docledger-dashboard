@@ -336,7 +336,6 @@ export default function ChamberPage() {
                 >
                   <MdMenu className="w-5 h-5 text-gray-600" />
                 </button>
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 flex items-center">{t('chamber.title')}</h1>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
@@ -391,7 +390,7 @@ export default function ChamberPage() {
             <CardContent className="pt-1">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
                 {/* Admin Filter */}
-                <div className="w-full sm:w-60 space-y-1">
+                <div className="w-full sm:w-1/4 space-y-1">
                   <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
                   <Select value={selectedAdmin} onValueChange={setSelectedAdmin}>
                     <SelectTrigger className="h-10 sm:h-11">
@@ -562,7 +561,7 @@ export default function ChamberPage() {
       </div>
 
       {/* Add Chamber Modal */}
-      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">{t('chamber.addNewChamber')}</DialogTitle>

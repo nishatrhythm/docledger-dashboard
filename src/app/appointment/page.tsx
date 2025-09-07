@@ -577,7 +577,6 @@ export default function AppointmentPage() {
                 >
                   <MdMenu className="w-5 h-5 text-gray-600" />
                 </button>
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 flex items-center">{t('appointment.title')}</h1>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
@@ -632,7 +631,7 @@ export default function AppointmentPage() {
             <CardContent className="pt-1">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
                 {/* Admin Filter */}
-                <div className="w-full sm:w-48 space-y-1">
+                <div className="w-full sm:w-1/4 space-y-1">
                   <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
                   <Select value={selectedAdmin} onValueChange={(value) => {
                     setSelectedAdmin(value)
@@ -652,7 +651,7 @@ export default function AppointmentPage() {
                 </div>
 
                 {/* Chamber Filter */}
-                <div className="w-full sm:w-48 space-y-1">
+                <div className="w-full sm:w-1/4 space-y-1">
                   <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('appointment.filterByChamber')}</Label>
                   <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedAdmin}>
                     <SelectTrigger className="h-10 sm:h-11">
@@ -838,7 +837,7 @@ export default function AppointmentPage() {
       </div>
 
       {/* Add Appointment Modal */}
-      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">{t('appointment.addNewAppointment')}</DialogTitle>
@@ -1023,7 +1022,9 @@ export default function AppointmentPage() {
                 <BiMoney className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   id="appointmentAmount"
-                  type="text"
+                  type="number"
+                  step="0.01"
+                  inputMode="decimal"
                   value={newAppointmentForm.amount}
                   onChange={handleModalInputChange('amount')}
                   placeholder={t('appointment.amountPlaceholder')}

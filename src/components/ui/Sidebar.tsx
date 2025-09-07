@@ -32,21 +32,34 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
   const router = useRouter()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(isMobileMenuOpen)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => {
+    // Initialize mobile state immediately to prevent flash
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1024
+    }
+    return false
+  })
+  const [hasCheckedMobile, setHasCheckedMobile] = useState(typeof window !== 'undefined')
 
   // Check if we're on mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024)
+      const newIsMobile = window.innerWidth < 1024
+      setIsMobile(newIsMobile)
+      setHasCheckedMobile(true)
       if (window.innerWidth >= 1024) {
         setIsMobileOpen(false)
       }
     }
     
-    checkMobile()
+    // Only add listener if we haven't checked yet or need to re-check
+    if (!hasCheckedMobile) {
+      checkMobile()
+    }
+    
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  }, [hasCheckedMobile])
 
   // Sync mobile menu state with prop
   useEffect(() => {
@@ -88,7 +101,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
 
       {/* Sidebar */}
       <div className={cn(
-        'bg-white border-r border-gray-200 h-screen flex flex-col transition-all duration-300 z-50',
+        'bg-white border-r border-gray-200 h-screen flex flex-col z-50',
         // Desktop behavior
         'lg:sticky lg:top-0 lg:translate-x-0',
         !isMobile && (isCollapsed ? 'w-16' : 'w-64'),
@@ -96,6 +109,8 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
         'fixed lg:static',
         isMobile && 'w-64',
         isMobile && (isMobileOpen ? 'translate-x-0' : '-translate-x-full'),
+        // Add transition only after we've checked mobile state to prevent flash
+        hasCheckedMobile && 'transition-all duration-300',
         className
       )}>
         {/* Header */}

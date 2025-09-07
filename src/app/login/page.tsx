@@ -122,26 +122,11 @@ export default function LoginPage() {
       <div 
         className="w-full lg:w-1/2 flex flex-col bg-white min-h-screen relative overflow-hidden"
       >
-        {/* Mobile Header with Logo and Language Switcher */}
-        <div className="lg:hidden flex flex-col items-center pt-6 sm:pt-8 pb-4 sm:pb-6 relative">
+        {/* Mobile Header with Language Switcher */}
+        <div className="lg:hidden flex flex-col items-center pt-6 sm:pt-8 pb-4 sm:pb-6 relative z-10">
           {/* Language Switcher positioned at top-right */}
-          <div className="absolute top-4 sm:top-6 right-4 sm:right-6">
+          <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20">
             <LanguageSwitcher size="sm" />
-          </div>
-          
-          {/* Logo centered */}
-          <div className="flex justify-center">
-            <Logo size="lg" />
-          </div>
-          
-          {/* Brand text */}
-          <div className="text-center mt-4">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-              {t('login.brandTitle')}
-            </h2>
-            <p className="text-base sm:text-lg text-gray-600">
-              {t('login.brandSubtitle')}
-            </p>
           </div>
         </div>
         
@@ -174,6 +159,20 @@ export default function LoginPage() {
         {/* Main content area */}
         <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 pt-2 sm:pt-4 lg:pt-0">
           <div className="w-full max-w-sm sm:max-w-md relative z-10">
+            {/* Logo for mobile - vertically centered with form */}
+            <div className="lg:hidden flex justify-center mb-4 sm:mb-6">
+              <Logo size="lg" showText={false} />
+            </div>
+            
+            {/* Brand text for mobile - vertically centered with form */}
+            <div className="lg:hidden text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                {t('login.brandTitle')}
+              </h2>
+              <p className="text-base sm:text-lg text-gray-600">
+                {t('login.brandSubtitle')}
+              </p>
+            </div>
             <LoginForm />
           </div>
         </div>
