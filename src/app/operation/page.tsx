@@ -43,7 +43,7 @@ import {
   MdEdit,
   MdChevronLeft,
   MdChevronRight,
-  MdCalendarToday
+  MdLocalHospital
 } from 'react-icons/md'
 import { BiPhone, BiUser, BiBuildings, BiMoney } from 'react-icons/bi'
 
@@ -111,14 +111,23 @@ const demoChambers = [
   },
 ]
 
-// Patient types
-const patientTypes = [
-  { value: 'new', labelEn: 'New', labelBn: 'নতুন' },
-  { value: 'old', labelEn: 'Old', labelBn: 'পুরাতন' }
+// Operation types
+const operationTypes = [
+  { value: 'longo', labelEn: 'Longo', labelBn: 'লঙ্গো' },
+  { value: 'perianal_abscess', labelEn: 'Perianal Abscess', labelBn: 'পেরিয়ানাল অ্যাবসেস' },
+  { value: 'fistulectomy', labelEn: 'Fistulectomy', labelBn: 'ফিস্টুলেক্টমি' },
+  { value: 'gluteal_labial_perineal_abscess', labelEn: 'Gluteal / Labial / Perineal Abscess / Axillary Abscess', labelBn: 'গ্লুটিয়াল / ল্যাবিয়াল / পেরিনিয়াল অ্যাবসেস / অ্যাক্সিলারি অ্যাবসেস' },
+  { value: 'limberg_flap', labelEn: 'Limberg Flap for Pilonidal Sinus / Axillary Hidradenitis Suppurativa', labelBn: 'পাইলোনিডাল সাইনাস / অ্যাক্সিলারি হাইড্রাডেনাইটিস সাপ্পুরেটিভার জন্য লিমবার্গ ফ্ল্যাপ' },
+  { value: 'breast_abscess', labelEn: 'Breast Abscess', labelBn: 'স্তন অ্যাবসেস' },
+  { value: 'wle_tubercular_breast', labelEn: 'WLE for Tubercular Breast Abscess / Chronic Breast Abscess / IGM', labelBn: 'টিউবারকুলার স্তন অ্যাবসেস / দীর্ঘস্থায়ী স্তন অ্যাবসেস / আইজিএম এর জন্য WLE' },
+  { value: 'enucleation_fa', labelEn: 'Enucleation of FA', labelBn: 'FA এর এনুক্লিয়েশন' },
+  { value: 'mrm_plus_level_ii', labelEn: 'MRM Plus Level II Axillary Dissection', labelBn: 'MRM প্লাস লেভেল II অ্যাক্সিলারি ডিসেকশন' },
+  { value: 'open_chol_lap_chol', labelEn: 'Open Chol / Lap Chol', labelBn: 'ওপেন কোল / ল্যাপ কোল' },
+  { value: 'mesh_hernioplasty', labelEn: 'Mesh Hernioplasty', labelBn: 'মেশ হার্নিওপ্লাস্টি' }
 ]
 
-// Demo data for appointments
-const demoAppointments = [
+// Demo data for operations
+const demoOperations = [
   { 
     id: 1, 
     adminId: 1,
@@ -129,11 +138,11 @@ const demoAppointments = [
     chamberNameBn: 'হৃদরোগ চেম্বার',
     patientName: 'Mohammad Karim', 
     patientNameBn: 'মোহাম্মদ করিম',
-    patientType: 'new',
     patientPhone: '01712345678',
+    operationType: 'longo',
     date: new Date('2025-09-10'),
     time: '10:00 AM',
-    amount: 1500.00,
+    amount: 15000.00,
     isActive: true 
   },
   { 
@@ -146,11 +155,11 @@ const demoAppointments = [
     chamberNameBn: 'স্নায়ুরোগ কেন্দ্র',
     patientName: 'Fatima Begum', 
     patientNameBn: 'ফাতিমা বেগম',
-    patientType: 'old',
     patientPhone: '01823456789',
+    operationType: 'perianal_abscess',
     date: new Date('2025-09-11'),
     time: '02:30 PM',
-    amount: 2000.50,
+    amount: 20000.50,
     isActive: true 
   },
   { 
@@ -163,11 +172,11 @@ const demoAppointments = [
     chamberNameBn: 'অর্থোপেডিক ক্লিনিক',
     patientName: 'Abdul Rahman', 
     patientNameBn: 'আব্দুল রহমান',
-    patientType: 'new',
     patientPhone: '01934567890',
+    operationType: 'fistulectomy',
     date: new Date('2025-09-12'),
     time: '04:00 PM',
-    amount: 1800.75,
+    amount: 18000.75,
     isActive: false 
   },
   { 
@@ -180,11 +189,11 @@ const demoAppointments = [
     chamberNameBn: 'সাধারণ চিকিৎসা',
     patientName: 'Rashida Khatun', 
     patientNameBn: 'রশিদা খাতুন',
-    patientType: 'old',
     patientPhone: '01645678901',
+    operationType: 'breast_abscess',
     date: new Date('2025-09-13'),
     time: '11:30 AM',
-    amount: 1200.00,
+    amount: 12000.00,
     isActive: true 
   },
   { 
@@ -197,11 +206,11 @@ const demoAppointments = [
     chamberNameBn: 'শিশু চিকিৎসা',
     patientName: 'Sakib Ahmed', 
     patientNameBn: 'সাকিব আহমেদ',
-    patientType: 'new',
     patientPhone: '01756789012',
+    operationType: 'mesh_hernioplasty',
     date: new Date('2025-09-14'),
     time: '09:30 AM',
-    amount: 1000.00,
+    amount: 25000.00,
     isActive: true 
   },
   { 
@@ -214,11 +223,11 @@ const demoAppointments = [
     chamberNameBn: 'গাইনোকোলজি ক্লিনিক',
     patientName: 'Nasreen Akter', 
     patientNameBn: 'নাসরীন আক্তার',
-    patientType: 'old',
     patientPhone: '01867890123',
+    operationType: 'wle_tubercular_breast',
     date: new Date('2025-09-15'),
     time: '03:00 PM',
-    amount: 2500.25,
+    amount: 30000.25,
     isActive: false 
   },
   { 
@@ -231,11 +240,11 @@ const demoAppointments = [
     chamberNameBn: 'জরুরি চিকিৎসা',
     patientName: 'Aminul Islam', 
     patientNameBn: 'আমিনুল ইসলাম',
-    patientType: 'new',
     patientPhone: '01978901234',
+    operationType: 'open_chol_lap_chol',
     date: new Date('2025-09-16'),
     time: '06:30 PM',
-    amount: 3000.50,
+    amount: 35000.50,
     isActive: true 
   },
   { 
@@ -248,16 +257,16 @@ const demoAppointments = [
     chamberNameBn: 'চর্মরোগ কেন্দ্র',
     patientName: 'Salma Khatun', 
     patientNameBn: 'সালমা খাতুন',
-    patientType: 'old',
     patientPhone: '01589012345',
+    operationType: 'limberg_flap',
     date: new Date('2025-09-17'),
     time: '05:00 PM',
-    amount: 1750.00,
+    amount: 22000.00,
     isActive: true 
   },
 ]
 
-export default function AppointmentPage() {
+export default function OperationPage() {
   const { t, formatNumber, formatCurrency, formatDate, language } = useLanguage()
   
   // Bengali number conversion function
@@ -277,19 +286,19 @@ export default function AppointmentPage() {
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [appointments, setAppointments] = useState(demoAppointments)
+  const [operations, setOperations] = useState(demoOperations)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
-  const [newAppointmentForm, setNewAppointmentForm] = useState({
+  const [newOperationForm, setNewOperationForm] = useState({
     adminId: '',
     chamberId: '',
     patientName: '',
-    patientType: '',
+    operationType: '',
     patientPhone: '',
     date: undefined as Date | undefined,
     time: '',
     amount: ''
   })
-  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberId?: string; patientName?: string; patientType?: string; patientPhone?: string; date?: string; time?: string; amount?: string}>({})
+  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberId?: string; patientName?: string; operationType?: string; patientPhone?: string; date?: string; time?: string; amount?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const itemsPerPage = 5
 
@@ -303,53 +312,53 @@ export default function AppointmentPage() {
     }, 1000) // Small delay to show the toast
   }
 
-  const validateAddAppointmentForm = () => {
-    const newErrors: {adminId?: string; chamberId?: string; patientName?: string; patientType?: string; patientPhone?: string; date?: string; time?: string; amount?: string} = {}
+  const validateAddOperationForm = () => {
+    const newErrors: {adminId?: string; chamberId?: string; patientName?: string; operationType?: string; patientPhone?: string; date?: string; time?: string; amount?: string} = {}
 
-    if (!newAppointmentForm.adminId) {
-      newErrors.adminId = t('appointment.adminRequired')
+    if (!newOperationForm.adminId) {
+      newErrors.adminId = t('operation.adminRequired')
     }
 
-    if (!newAppointmentForm.chamberId) {
-      newErrors.chamberId = t('appointment.chamberRequired')
+    if (!newOperationForm.chamberId) {
+      newErrors.chamberId = t('operation.chamberRequired')
     }
 
-    if (!newAppointmentForm.patientName.trim()) {
-      newErrors.patientName = t('appointment.patientNameRequired')
+    if (!newOperationForm.patientName.trim()) {
+      newErrors.patientName = t('operation.patientNameRequired')
     }
 
-    if (!newAppointmentForm.patientType) {
-      newErrors.patientType = t('appointment.patientTypeRequired')
+    if (!newOperationForm.operationType) {
+      newErrors.operationType = t('operation.operationTypeRequired')
     }
 
-    const phoneValidation = validateBangladeshiMobile(newAppointmentForm.patientPhone, t)
+    const phoneValidation = validateBangladeshiMobile(newOperationForm.patientPhone, t)
     if (!phoneValidation.isValid) {
       newErrors.patientPhone = phoneValidation.error || t('validation.phoneRequired')
     }
 
-    if (!newAppointmentForm.date) {
-      newErrors.date = t('appointment.dateRequired')
+    if (!newOperationForm.date) {
+      newErrors.date = t('operation.dateRequired')
     } else {
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-      const selectedDate = new Date(newAppointmentForm.date)
+      const selectedDate = new Date(newOperationForm.date)
       selectedDate.setHours(0, 0, 0, 0)
       
       if (selectedDate < today) {
-        newErrors.date = t('appointment.pastDateNotAllowed')
+        newErrors.date = t('operation.pastDateNotAllowed')
       }
     }
 
-    if (!newAppointmentForm.time) {
-      newErrors.time = t('appointment.timeRequired')
+    if (!newOperationForm.time) {
+      newErrors.time = t('operation.timeRequired')
     }
 
-    if (!newAppointmentForm.amount.trim()) {
-      newErrors.amount = t('appointment.amountRequired')
+    if (!newOperationForm.amount.trim()) {
+      newErrors.amount = t('operation.amountRequired')
     } else {
-      const amount = parseFloat(newAppointmentForm.amount)
+      const amount = parseFloat(newOperationForm.amount)
       if (isNaN(amount) || amount <= 0) {
-        newErrors.amount = t('appointment.invalidAmount')
+        newErrors.amount = t('operation.invalidAmount')
       }
     }
 
@@ -357,10 +366,10 @@ export default function AppointmentPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleAddAppointment = async (e: React.FormEvent) => {
+  const handleAddOperation = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!validateAddAppointmentForm()) {
+    if (!validateAddOperationForm()) {
       return
     }
 
@@ -368,34 +377,34 @@ export default function AppointmentPage() {
 
     // Simulate API call
     setTimeout(() => {
-      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newAppointmentForm.adminId)
-      const selectedChamberData = demoChambers.find(chamber => chamber.id.toString() === newAppointmentForm.chamberId)
+      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newOperationForm.adminId)
+      const selectedChamberData = demoChambers.find(chamber => chamber.id.toString() === newOperationForm.chamberId)
       
-      const newAppointment = {
-        id: Math.max(...appointments.map(a => a.id)) + 1,
-        adminId: parseInt(newAppointmentForm.adminId),
+      const newOperation = {
+        id: Math.max(...operations.map(a => a.id)) + 1,
+        adminId: parseInt(newOperationForm.adminId),
         adminName: selectedAdminData?.name || '',
         adminNameBn: selectedAdminData?.nameBn || '',
-        chamberId: parseInt(newAppointmentForm.chamberId),
+        chamberId: parseInt(newOperationForm.chamberId),
         chamberName: selectedChamberData?.name || '',
         chamberNameBn: selectedChamberData?.nameBn || '',
-        patientName: newAppointmentForm.patientName,
-        patientNameBn: newAppointmentForm.patientName, // In real app, you might want separate Bengali name field
-        patientType: newAppointmentForm.patientType,
-        patientPhone: newAppointmentForm.patientPhone,
-        date: newAppointmentForm.date!,
-        time: newAppointmentForm.time,
-        amount: parseFloat(newAppointmentForm.amount),
+        patientName: newOperationForm.patientName,
+        patientNameBn: newOperationForm.patientName, // In real app, you might want separate Bengali name field
+        operationType: newOperationForm.operationType,
+        patientPhone: newOperationForm.patientPhone,
+        date: newOperationForm.date!,
+        time: newOperationForm.time,
+        amount: parseFloat(newOperationForm.amount),
         isActive: true
       }
 
-      setAppointments(prevAppointments => [newAppointment, ...prevAppointments])
+      setOperations(prevOperations => [newOperation, ...prevOperations])
       setIsAddModalOpen(false)
-      setNewAppointmentForm({ 
+      setNewOperationForm({ 
         adminId: '', 
         chamberId: '', 
         patientName: '', 
-        patientType: '', 
+        operationType: '', 
         patientPhone: '', 
         date: undefined, 
         time: '', 
@@ -404,17 +413,17 @@ export default function AppointmentPage() {
       setFormErrors({})
       setIsSubmitting(false)
 
-      showToast.success(t('appointment.appointmentAdded'), t('appointment.appointmentAddedDesc'))
+      showToast.success(t('operation.operationAdded'), t('operation.operationAddedDesc'))
     }, 1000)
   }
 
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
-    setNewAppointmentForm({ 
+    setNewOperationForm({ 
       adminId: '', 
       chamberId: '', 
       patientName: '', 
-      patientType: '', 
+      operationType: '', 
       patientPhone: '', 
       date: undefined, 
       time: '', 
@@ -424,7 +433,7 @@ export default function AppointmentPage() {
     setIsSubmitting(false)
   }
 
-  const handleModalInputChange = (field: keyof typeof newAppointmentForm) => (e: React.ChangeEvent<HTMLInputElement> | string | Date | undefined) => {
+  const handleModalInputChange = (field: keyof typeof newOperationForm) => (e: React.ChangeEvent<HTMLInputElement> | string | Date | undefined) => {
     let value: string | Date | undefined
     if (field === 'date') {
       value = e as Date | undefined
@@ -453,7 +462,7 @@ export default function AppointmentPage() {
       }
     }
     
-    setNewAppointmentForm(prev => {
+    setNewOperationForm(prev => {
       const newForm = { ...prev, [field]: value }
       
       // Reset chamber selection when admin changes
@@ -470,21 +479,21 @@ export default function AppointmentPage() {
     }
   }
 
-  const handleStatusToggle = (appointmentId: number) => {
-    setAppointments(prevAppointments => 
-      prevAppointments.map(appointment => 
-        appointment.id === appointmentId 
-          ? { ...appointment, isActive: !appointment.isActive }
-          : appointment
+  const handleStatusToggle = (operationId: number) => {
+    setOperations(prevOperations => 
+      prevOperations.map(operation => 
+        operation.id === operationId 
+          ? { ...operation, isActive: !operation.isActive }
+          : operation
       )
     )
   }
 
-  const handleEdit = (appointmentId: number) => {
+  const handleEdit = (operationId: number) => {
     // This will be implemented later
     showToast.info('Edit functionality', 'Edit functionality will be implemented soon')
-    // TODO: Implement edit functionality using appointmentId
-    console.log('Edit appointment:', appointmentId)
+    // TODO: Implement edit functionality using operationId
+    console.log('Edit operation:', operationId)
   }
 
   const handleSearch = () => {
@@ -501,9 +510,9 @@ export default function AppointmentPage() {
 
   // Get available chambers based on selected admin
   const availableChambers = useMemo(() => {
-    if (!newAppointmentForm.adminId) return []
-    return demoChambers.filter(chamber => chamber.adminId.toString() === newAppointmentForm.adminId)
-  }, [newAppointmentForm.adminId])
+    if (!newOperationForm.adminId) return []
+    return demoChambers.filter(chamber => chamber.adminId.toString() === newOperationForm.adminId)
+  }, [newOperationForm.adminId])
 
   // Get chambers for filter dropdown based on selected admin
   const filterChambers = useMemo(() => {
@@ -511,48 +520,48 @@ export default function AppointmentPage() {
     return demoChambers.filter(chamber => chamber.adminId.toString() === selectedAdmin)
   }, [selectedAdmin])
 
-  // Filter appointments based on search query, selected admin, and selected chamber
-  const filteredAppointments = useMemo(() => {
-    let filtered = appointments
+  // Filter operations based on search query, selected admin, and selected chamber
+  const filteredOperations = useMemo(() => {
+    let filtered = operations
 
     // Filter by admin if selected
     if (selectedAdmin) {
-      filtered = filtered.filter(appointment => appointment.adminId.toString() === selectedAdmin)
+      filtered = filtered.filter(operation => operation.adminId.toString() === selectedAdmin)
     }
 
     // Filter by chamber if selected
     if (selectedChamber) {
-      filtered = filtered.filter(appointment => appointment.chamberId.toString() === selectedChamber)
+      filtered = filtered.filter(operation => operation.chamberId.toString() === selectedChamber)
     }
 
     // Filter by search query
     if (searchQuery) {
-      filtered = filtered.filter(appointment => {
-        const adminName = language === 'bn' ? appointment.adminNameBn : appointment.adminName
-        const chamberName = language === 'bn' ? appointment.chamberNameBn : appointment.chamberName
-        const patientName = language === 'bn' ? appointment.patientNameBn : appointment.patientName
-        const patientTypeLabel = patientTypes.find(pt => pt.value === appointment.patientType)
-        const patientType = patientTypeLabel ? (language === 'bn' ? patientTypeLabel.labelBn : patientTypeLabel.labelEn) : ''
+      filtered = filtered.filter(operation => {
+        const adminName = language === 'bn' ? operation.adminNameBn : operation.adminName
+        const chamberName = language === 'bn' ? operation.chamberNameBn : operation.chamberName
+        const patientName = language === 'bn' ? operation.patientNameBn : operation.patientName
+        const operationTypeLabel = operationTypes.find(ot => ot.value === operation.operationType)
+        const operationType = operationTypeLabel ? (language === 'bn' ? operationTypeLabel.labelBn : operationTypeLabel.labelEn) : ''
         
         return adminName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                chamberName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               patientType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               appointment.patientPhone.includes(searchQuery) ||
-               formatDate(appointment.date).toLowerCase().includes(searchQuery.toLowerCase()) ||
-               appointment.time.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               formatCurrency(appointment.amount).includes(searchQuery)
+               operationType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+               operation.patientPhone.includes(searchQuery) ||
+               formatDate(operation.date).toLowerCase().includes(searchQuery.toLowerCase()) ||
+               operation.time.toLowerCase().includes(searchQuery.toLowerCase()) ||
+               formatCurrency(operation.amount).includes(searchQuery)
       })
     }
 
     return filtered
-  }, [appointments, searchQuery, selectedAdmin, selectedChamber, language, formatDate, formatCurrency])
+  }, [operations, searchQuery, selectedAdmin, selectedChamber, language, formatDate, formatCurrency])
 
   // Pagination logic
-  const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage)
+  const totalPages = Math.ceil(filteredOperations.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const currentAppointments = filteredAppointments.slice(startIndex, endIndex)
+  const currentOperations = filteredOperations.slice(startIndex, endIndex)
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -599,15 +608,15 @@ export default function AppointmentPage() {
           <div className="mb-6 lg:mb-8 text-center lg:text-left">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('appointment.title')}</h2>
-                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('appointment.subtitle')}</p>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('operation.title')}</h2>
+                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('operation.subtitle')}</p>
               </div>
               <Button
                 onClick={() => setIsAddModalOpen(true)}
                 className="lg:self-start w-auto max-w-fit mx-auto lg:mx-0"
               >
-                <MdCalendarToday className="w-4 h-4 mr-2" />
-                {t('appointment.addAppointment')}
+                <MdLocalHospital className="w-4 h-4 mr-2" />
+                {t('operation.addOperation')}
               </Button>
             </div>
           </div>
@@ -652,10 +661,10 @@ export default function AppointmentPage() {
 
                 {/* Chamber Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
-                  <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('appointment.filterByChamber')}</Label>
+                  <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('operation.filterByChamber')}</Label>
                   <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedAdmin}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={selectedAdmin ? t('appointment.allChambers') : t('appointment.selectAdminFirst')} />
+                      <SelectValue placeholder={selectedAdmin ? t('operation.allChambers') : t('operation.selectAdminFirst')} />
                     </SelectTrigger>
                     <SelectContent>
                       {filterChambers.map((chamber) => (
@@ -669,14 +678,14 @@ export default function AppointmentPage() {
 
                 {/* Search Field */}
                 <div className="w-full sm:w-80 space-y-1">
-                  <Label htmlFor="search" className="text-sm sm:text-base">{t('appointment.search')}</Label>
+                  <Label htmlFor="search" className="text-sm sm:text-base">{t('operation.search')}</Label>
                   <div className="relative">
                     <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <Input
                       id="search"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder={t('appointment.searchPlaceholder')}
+                      placeholder={t('operation.searchPlaceholder')}
                       className="pl-10 h-10 sm:h-11"
                     />
                   </div>
@@ -715,59 +724,59 @@ export default function AppointmentPage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('appointment.adminName')}</TableHead>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('appointment.chamberName')}</TableHead>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('appointment.patientName')}</TableHead>
-                      <TableHead className="w-[100px] h-10 px-3">{t('appointment.patientType')}</TableHead>
-                      <TableHead className="w-[120px] h-10 px-3">{t('appointment.patientPhone')}</TableHead>
-                      <TableHead className="w-[120px] h-10 px-3">{t('appointment.date')}</TableHead>
-                      <TableHead className="w-[100px] h-10 px-3">{t('appointment.time')}</TableHead>
-                      <TableHead className="w-[100px] h-10 px-3">{t('appointment.amount')}</TableHead>
-                      <TableHead className="w-[100px] text-center h-10 px-3">{t('appointment.actions')}</TableHead>
-                      <TableHead className="w-[120px] text-center h-10 px-3">{t('appointment.status')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('operation.adminName')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('operation.chamberName')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('operation.patientName')}</TableHead>
+                      <TableHead className="w-[120px] h-10 px-3">{t('operation.patientPhone')}</TableHead>
+                      <TableHead className="w-[200px] h-10 px-3">{t('operation.operationType')}</TableHead>
+                      <TableHead className="w-[120px] h-10 px-3">{t('operation.date')}</TableHead>
+                      <TableHead className="w-[100px] h-10 px-3">{t('operation.time')}</TableHead>
+                      <TableHead className="w-[100px] h-10 px-3">{t('operation.amount')}</TableHead>
+                      <TableHead className="w-[100px] text-center h-10 px-3">{t('operation.actions')}</TableHead>
+                      <TableHead className="w-[120px] text-center h-10 px-3">{t('operation.status')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {currentAppointments.length > 0 ? (
-                      currentAppointments.map((appointment) => {
-                        const patientTypeLabel = patientTypes.find(pt => pt.value === appointment.patientType)
-                        const patientTypeDisplay = patientTypeLabel ? (language === 'bn' ? patientTypeLabel.labelBn : patientTypeLabel.labelEn) : appointment.patientType
+                    {currentOperations.length > 0 ? (
+                      currentOperations.map((operation) => {
+                        const operationTypeLabel = operationTypes.find(ot => ot.value === operation.operationType)
+                        const operationTypeDisplay = operationTypeLabel ? (language === 'bn' ? operationTypeLabel.labelBn : operationTypeLabel.labelEn) : operation.operationType
                         
                         return (
-                          <TableRow key={appointment.id}>
+                          <TableRow key={operation.id}>
                             <TableCell className="font-medium px-3 py-4">
-                              {language === 'bn' ? appointment.adminNameBn : appointment.adminName}
+                              {language === 'bn' ? operation.adminNameBn : operation.adminName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
-                              {language === 'bn' ? appointment.chamberNameBn : appointment.chamberName}
+                              {language === 'bn' ? operation.chamberNameBn : operation.chamberName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
-                              {language === 'bn' ? appointment.patientNameBn : appointment.patientName}
+                              {language === 'bn' ? operation.patientNameBn : operation.patientName}
                             </TableCell>
-                            <TableCell className="px-3 py-4">{patientTypeDisplay}</TableCell>
-                            <TableCell className="px-3 py-4">{appointment.patientPhone}</TableCell>
-                            <TableCell className="px-3 py-4">{formatDate(appointment.date, 'MMM d, yyyy')}</TableCell>
-                            <TableCell className="px-3 py-4">{formatTime(appointment.time)}</TableCell>
-                            <TableCell className="px-3 py-4">{formatCurrency(appointment.amount)}</TableCell>
+                            <TableCell className="px-3 py-4">{operation.patientPhone}</TableCell>
+                            <TableCell className="px-3 py-4">{operationTypeDisplay}</TableCell>
+                            <TableCell className="px-3 py-4">{formatDate(operation.date, 'MMM d, yyyy')}</TableCell>
+                            <TableCell className="px-3 py-4">{formatTime(operation.time)}</TableCell>
+                            <TableCell className="px-3 py-4">{formatCurrency(operation.amount)}</TableCell>
                             <TableCell className="text-center px-3 py-4">
                               <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => handleEdit(appointment.id)}
+                                onClick={() => handleEdit(operation.id)}
                                 className="h-8"
                               >
                                 <MdEdit className="w-4 h-4 mr-1" />
-                                {t('appointment.edit')}
+                                {t('operation.edit')}
                               </Button>
                             </TableCell>
                             <TableCell className="text-center px-3 py-4">
                               <div className="flex items-center justify-center space-x-2">
                                 <Switch
-                                  checked={appointment.isActive}
-                                  onCheckedChange={() => handleStatusToggle(appointment.id)}
+                                  checked={operation.isActive}
+                                  onCheckedChange={() => handleStatusToggle(operation.id)}
                                 />
                                 <span className="text-sm text-gray-600">
-                                  {appointment.isActive ? t('appointment.active') : t('appointment.inactive')}
+                                  {operation.isActive ? t('operation.active') : t('operation.inactive')}
                                 </span>
                               </div>
                             </TableCell>
@@ -777,7 +786,7 @@ export default function AppointmentPage() {
                     ) : (
                       <TableRow>
                         <TableCell colSpan={10} className="text-center py-8 px-3 text-gray-500">
-                          {t('appointment.noAppointments')}
+                          {t('operation.noOperations')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -786,10 +795,10 @@ export default function AppointmentPage() {
               </div>
 
               {/* Pagination */}
-              {filteredAppointments.length > 0 && (
+              {filteredOperations.length > 0 && (
                 <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 p-3 border-t bg-gray-100 rounded-b-xl">
                   <div className="text-sm text-gray-700">
-                    {t('appointment.showing')} {formatNumber(startIndex + 1)} {t('appointment.to')} {formatNumber(Math.min(endIndex, filteredAppointments.length))} {t('appointment.of')} {formatNumber(filteredAppointments.length)} {t('appointment.results')}
+                    {t('operation.showing')} {formatNumber(startIndex + 1)} {t('operation.to')} {formatNumber(Math.min(endIndex, filteredOperations.length))} {t('operation.of')} {formatNumber(filteredOperations.length)} {t('operation.results')}
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
@@ -800,7 +809,7 @@ export default function AppointmentPage() {
                       className="h-8"
                     >
                       <MdChevronLeft className="w-4 h-4 mr-1" />
-                      {t('appointment.previous')}
+                      {t('operation.previous')}
                     </Button>
                     
                     {/* Page Numbers */}
@@ -825,7 +834,7 @@ export default function AppointmentPage() {
                       disabled={currentPage === totalPages}
                       className="h-8"
                     >
-                      {t('appointment.next')}
+                      {t('operation.next')}
                       <MdChevronRight className="w-4 h-4 ml-1" />
                     </Button>
                   </div>
@@ -836,31 +845,31 @@ export default function AppointmentPage() {
         </main>
       </div>
 
-      {/* Add Appointment Modal */}
+      {/* Add Operation Modal */}
       <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold">{t('appointment.addNewAppointment')}</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">{t('operation.addNewOperation')}</DialogTitle>
             <DialogDescription>
-              {t('appointment.addNewAppointmentDesc')}
+              {t('operation.addNewOperationDesc')}
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleAddAppointment} className="space-y-4" autoComplete="off">
+          <form onSubmit={handleAddOperation} className="space-y-4" autoComplete="off">
             {/* Admin Name Dropdown */}
             <div className="space-y-2">
               <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('appointment.adminName')} <span className="text-red-500">*</span>
+                {t('operation.adminName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newAppointmentForm.adminId} 
+                  value={newOperationForm.adminId} 
                   onValueChange={handleModalInputChange('adminId')}
                   disabled={isSubmitting}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.adminId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={t('appointment.selectAdmin')} />
+                    <SelectValue placeholder={t('operation.selectAdmin')} />
                   </SelectTrigger>
                   <SelectContent>
                     {demoAdmins.map((admin) => (
@@ -879,17 +888,17 @@ export default function AppointmentPage() {
             {/* Chamber Name Dropdown */}
             <div className="space-y-2">
               <Label htmlFor="chamberName" className="text-sm font-medium">
-                {t('appointment.chamberName')} <span className="text-red-500">*</span>
+                {t('operation.chamberName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiBuildings className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newAppointmentForm.chamberId} 
+                  value={newOperationForm.chamberId} 
                   onValueChange={handleModalInputChange('chamberId')}
-                  disabled={isSubmitting || !newAppointmentForm.adminId}
+                  disabled={isSubmitting || !newOperationForm.adminId}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.chamberId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={newAppointmentForm.adminId ? t('appointment.selectChamber') : t('appointment.selectAdminFirst')} />
+                    <SelectValue placeholder={newOperationForm.adminId ? t('operation.selectChamber') : t('operation.selectAdminFirst')} />
                   </SelectTrigger>
                   <SelectContent>
                     {availableChambers.map((chamber) => (
@@ -908,16 +917,16 @@ export default function AppointmentPage() {
             {/* Patient Name Field */}
             <div className="space-y-2">
               <Label htmlFor="patientName" className="text-sm font-medium">
-                {t('appointment.patientName')} <span className="text-red-500">*</span>
+                {t('operation.patientName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   id="patientName"
                   type="text"
-                  value={newAppointmentForm.patientName}
+                  value={newOperationForm.patientName}
                   onChange={handleModalInputChange('patientName')}
-                  placeholder={t('appointment.patientNamePlaceholder')}
+                  placeholder={t('operation.patientNamePlaceholder')}
                   className={`pl-10 ${formErrors.patientName ? 'border-red-500 focus:border-red-500' : ''}`}
                   disabled={isSubmitting}
                   autoComplete="off"
@@ -928,43 +937,43 @@ export default function AppointmentPage() {
               )}
             </div>
 
-            {/* Patient Type Dropdown */}
+            {/* Operation Type Dropdown */}
             <div className="space-y-2">
-              <Label htmlFor="patientType" className="text-sm font-medium">
-                {t('appointment.patientType')} <span className="text-red-500">*</span>
+              <Label htmlFor="operationType" className="text-sm font-medium">
+                {t('operation.operationType')} <span className="text-red-500">*</span>
               </Label>
               <Select 
-                value={newAppointmentForm.patientType} 
-                onValueChange={handleModalInputChange('patientType')}
+                value={newOperationForm.operationType} 
+                onValueChange={handleModalInputChange('operationType')}
                 disabled={isSubmitting}
               >
-                <SelectTrigger className={formErrors.patientType ? 'border-red-500 focus:border-red-500' : ''}>
-                  <SelectValue placeholder={t('appointment.selectPatientType')} />
+                <SelectTrigger className={formErrors.operationType ? 'border-red-500 focus:border-red-500' : ''}>
+                  <SelectValue placeholder={t('operation.selectOperationType')} />
                 </SelectTrigger>
                 <SelectContent>
-                  {patientTypes.map((type) => (
+                  {operationTypes.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {language === 'bn' ? type.labelBn : type.labelEn}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              {formErrors.patientType && (
-                <p className="text-sm text-red-600">{formErrors.patientType}</p>
+              {formErrors.operationType && (
+                <p className="text-sm text-red-600">{formErrors.operationType}</p>
               )}
             </div>
 
             {/* Phone Field */}
             <div className="space-y-2">
               <Label htmlFor="patientPhone" className="text-sm font-medium">
-                {t('appointment.patientPhone')} <span className="text-red-500">*</span>
+                {t('operation.patientPhone')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   id="patientPhone"
                   type="tel"
-                  value={newAppointmentForm.patientPhone}
+                  value={newOperationForm.patientPhone}
                   onChange={handleModalInputChange('patientPhone')}
                   placeholder={t('auth.phonePlaceholder')}
                   className={`pl-10 ${formErrors.patientPhone ? 'border-red-500 focus:border-red-500' : ''}`}
@@ -981,12 +990,12 @@ export default function AppointmentPage() {
             {/* Date Field */}
             <div className="space-y-2">
               <Label className="text-sm font-medium">
-                {t('appointment.date')} <span className="text-red-500">*</span>
+                {t('operation.date')} <span className="text-red-500">*</span>
               </Label>
               <DatePicker
-                date={newAppointmentForm.date}
+                date={newOperationForm.date}
                 onDateChange={handleModalInputChange('date')}
-                placeholder={t('appointment.selectDate')}
+                placeholder={t('operation.selectDate')}
                 className={`h-10 ${formErrors.date ? 'border-red-500 focus:border-red-500' : ''}`}
                 disabled={isSubmitting}
                 allowFutureDates={true}
@@ -998,13 +1007,13 @@ export default function AppointmentPage() {
 
             {/* Time Field */}
             <div className="space-y-2">
-              <Label htmlFor="appointmentTime" className="text-sm font-medium">
-                {t('appointment.time')} <span className="text-red-500">*</span>
+              <Label htmlFor="operationTime" className="text-sm font-medium">
+                {t('operation.time')} <span className="text-red-500">*</span>
               </Label>
               <TimePicker
-                time={newAppointmentForm.time}
+                time={newOperationForm.time}
                 onTimeChange={handleModalInputChange('time')}
-                placeholder={t('appointment.selectTime')}
+                placeholder={t('operation.selectTime')}
                 className={`w-full ${formErrors.time ? 'border-red-500 focus:border-red-500' : ''}`}
                 disabled={isSubmitting}
               />
@@ -1015,19 +1024,19 @@ export default function AppointmentPage() {
 
             {/* Amount Field */}
             <div className="space-y-2">
-              <Label htmlFor="appointmentAmount" className="text-sm font-medium">
-                {t('appointment.amount')} <span className="text-red-500">*</span>
+              <Label htmlFor="operationAmount" className="text-sm font-medium">
+                {t('operation.amount')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiMoney className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
-                  id="appointmentAmount"
+                  id="operationAmount"
                   type="number"
                   step="0.01"
                   inputMode="decimal"
-                  value={newAppointmentForm.amount}
+                  value={newOperationForm.amount}
                   onChange={handleModalInputChange('amount')}
-                  placeholder={t('appointment.amountPlaceholder')}
+                  placeholder={t('operation.amountPlaceholder')}
                   className={`pl-10 ${formErrors.amount ? 'border-red-500 focus:border-red-500' : ''} [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]`}
                   disabled={isSubmitting}
                   autoComplete="off"
