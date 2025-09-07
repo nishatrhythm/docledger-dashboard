@@ -45,7 +45,7 @@ import {
   MdRemoveRedEye,
   MdDownload
 } from 'react-icons/md'
-import { BiUser, BiBuildings, BiMoney, BiFileBlank } from 'react-icons/bi'
+import { BiUser, BiBuildings, BiMoney, BiCreditCard } from 'react-icons/bi'
 
 // Demo data for admin users (for dropdown)
 const demoAdmins = [
@@ -111,8 +111,102 @@ const demoChambers = [
   },
 ]
 
-// Demo data for expenditures
-const demoExpenditures = [
+// Demo data for accounts (based on admin)
+const demoAccounts = [
+  { 
+    id: 1, 
+    adminId: 1,
+    name: 'Cardiology Chamber - Main Account', 
+    nameBn: 'হৃদরোগ চেম্বার - মূল অ্যাকাউন্ট',
+    accountNumber: '1234567890',
+    bankName: 'Islami Bank Bangladesh',
+    bankNameBn: 'ইসলামী ব্যাংক বাংলাদেশ'
+  },
+  { 
+    id: 2, 
+    adminId: 1,
+    name: 'Cardiology Chamber - Savings Account', 
+    nameBn: 'হৃদরোগ চেম্বার - সঞ্চয় অ্যাকাউন্ট',
+    accountNumber: '1234567891',
+    bankName: 'Dutch Bangla Bank',
+    bankNameBn: 'ডাচ-বাংলা ব্যাংক'
+  },
+  { 
+    id: 3, 
+    adminId: 2,
+    name: 'Neurology Center - Business Account', 
+    nameBn: 'স্নায়ুরোগ কেন্দ্র - ব্যবসায়িক অ্যাকাউন্ট',
+    accountNumber: '2234567890',
+    bankName: 'Brac Bank',
+    bankNameBn: 'ব্র্যাক ব্যাংক'
+  },
+  { 
+    id: 4, 
+    adminId: 2,
+    name: 'Neurology Center - Cash Account', 
+    nameBn: 'স্নায়ুরোগ কেন্দ্র - নগদ অ্যাকাউন্ট',
+    accountNumber: '2234567891',
+    bankName: 'City Bank',
+    bankNameBn: 'সিটি ব্যাংক'
+  },
+  { 
+    id: 5, 
+    adminId: 3,
+    name: 'Orthopedic Clinic - Main Account', 
+    nameBn: 'অর্থোপেডিক ক্লিনিক - মূল অ্যাকাউন্ট',
+    accountNumber: '3234567890',
+    bankName: 'Eastern Bank',
+    bankNameBn: 'ইস্টার্ন ব্যাংক'
+  },
+  { 
+    id: 6, 
+    adminId: 4,
+    name: 'General Medicine - Primary Account', 
+    nameBn: 'সাধারণ চিকিৎসা - প্রাথমিক অ্যাকাউন্ট',
+    accountNumber: '4234567890',
+    bankName: 'Standard Chartered Bank',
+    bankNameBn: 'স্ট্যান্ডার্ড চার্টার্ড ব্যাংক'
+  },
+  { 
+    id: 7, 
+    adminId: 5,
+    name: 'Pediatric Care - Main Account', 
+    nameBn: 'শিশু চিকিৎসা - মূল অ্যাকাউন্ট',
+    accountNumber: '5234567890',
+    bankName: 'Prime Bank',
+    bankNameBn: 'প্রাইম ব্যাংক'
+  },
+  { 
+    id: 8, 
+    adminId: 6,
+    name: 'Gynecology Clinic - Business Account', 
+    nameBn: 'গাইনোকোলজি ক্লিনিক - ব্যবসায়িক অ্যাকাউন্ট',
+    accountNumber: '6234567890',
+    bankName: 'Mercantile Bank',
+    bankNameBn: 'মার্কেন্টাইল ব্যাংক'
+  },
+  { 
+    id: 9, 
+    adminId: 7,
+    name: 'Emergency Care - Emergency Fund', 
+    nameBn: 'জরুরি চিকিৎসা - জরুরি তহবিল',
+    accountNumber: '7234567890',
+    bankName: 'AB Bank',
+    bankNameBn: 'এবি ব্যাংক'
+  },
+  { 
+    id: 10, 
+    adminId: 8,
+    name: 'Dermatology Center - Main Account', 
+    nameBn: 'চর্মরোগ কেন্দ্র - মূল অ্যাকাউন্ট',
+    accountNumber: '8234567890',
+    bankName: 'Southeast Bank',
+    bankNameBn: 'সাউথইস্ট ব্যাংক'
+  },
+]
+
+// Demo data for deposits
+const demoDeposits = [
   { 
     id: 1, 
     adminId: 1,
@@ -121,12 +215,13 @@ const demoExpenditures = [
     chamberId: 1,
     chamberName: 'Cardiology Chamber',
     chamberNameBn: 'হৃদরোগ চেম্বার',
-    expenditureDetails: 'Medical Equipment Purchase - ECG Machine',
-    expenditureDetailsBn: 'চিকিৎসা সরঞ্জাম ক্রয় - ইসিজি মেশিন',
-    amount: 25000.00,
+    accountId: 1,
+    accountName: 'Cardiology Chamber - Main Account',
+    accountNameBn: 'হৃদরোগ চেম্বার - মূল অ্যাকাউন্ট',
+    amount: 50000.00,
     attachments: [
-      new File([""], "ecg-machine-receipt.pdf", { type: "application/pdf" }),
-      new File([""], "warranty-card.jpg", { type: "image/jpeg" })
+      new File([""], "deposit-slip-1.jpg", { type: "image/jpeg" }),
+      new File([""], "bank-receipt-1.pdf", { type: "application/pdf" })
     ],
     date: new Date('2025-09-08'),
     isActive: true 
@@ -139,11 +234,12 @@ const demoExpenditures = [
     chamberId: 2,
     chamberName: 'Neurology Center',
     chamberNameBn: 'স্নায়ুরোগ কেন্দ্র',
-    expenditureDetails: 'Office Supplies and Stationery',
-    expenditureDetailsBn: 'অফিস সরবরাহ এবং স্টেশনারি',
-    amount: 3500.50,
+    accountId: 3,
+    accountName: 'Neurology Center - Business Account',
+    accountNameBn: 'স্নায়ুরোগ কেন্দ্র - ব্যবসায়িক অ্যাকাউন্ট',
+    amount: 75000.50,
     attachments: [
-      new File([""], "office-supplies.jpg", { type: "image/jpeg" })
+      new File([""], "deposit-slip-2.png", { type: "image/png" })
     ],
     date: new Date('2025-09-07'),
     isActive: true 
@@ -156,11 +252,13 @@ const demoExpenditures = [
     chamberId: 3,
     chamberName: 'Orthopedic Clinic',
     chamberNameBn: 'অর্থোপেডিক ক্লিনিক',
-    expenditureDetails: 'Rent Payment for Chamber - September',
-    expenditureDetailsBn: 'চেম্বারের ভাড়া পেমেন্ট - সেপ্টেম্বর',
-    amount: 15000.00,
+    accountId: 5,
+    accountName: 'Orthopedic Clinic - Main Account',
+    accountNameBn: 'অর্থোপেডিক ক্লিনিক - মূল অ্যাকাউন্ট',
+    amount: 60000.00,
     attachments: [
-      new File([""], "rent-receipt-september.png", { type: "image/png" })
+      new File([""], "deposit-receipt-3.pdf", { type: "application/pdf" }),
+      new File([""], "transaction-slip-3.jpg", { type: "image/jpeg" })
     ],
     date: new Date('2025-09-06'),
     isActive: false 
@@ -173,12 +271,12 @@ const demoExpenditures = [
     chamberId: 4,
     chamberName: 'General Medicine',
     chamberNameBn: 'সাধারণ চিকিৎসা',
-    expenditureDetails: 'Pharmacy Stock Purchase',
-    expenditureDetailsBn: 'ফার্মেসি স্টক ক্রয়',
-    amount: 8750.25,
+    accountId: 6,
+    accountName: 'General Medicine - Primary Account',
+    accountNameBn: 'সাধারণ চিকিৎসা - প্রাথমিক অ্যাকাউন্ট',
+    amount: 40000.25,
     attachments: [
-      new File([""], "pharmacy-invoice.pdf", { type: "application/pdf" }),
-      new File([""], "pharmacy-delivery-note.jpg", { type: "image/jpeg" })
+      new File([""], "bank-deposit-4.jpg", { type: "image/jpeg" })
     ],
     date: new Date('2025-09-05'),
     isActive: true 
@@ -191,11 +289,13 @@ const demoExpenditures = [
     chamberId: 5,
     chamberName: 'Pediatric Care',
     chamberNameBn: 'শিশু চিকিৎসা',
-    expenditureDetails: 'Cleaning and Maintenance Services',
-    expenditureDetailsBn: 'পরিষ্কার এবং রক্ষণাবেক্ষণ সেবা',
-    amount: 4200.00,
+    accountId: 7,
+    accountName: 'Pediatric Care - Main Account',
+    accountNameBn: 'শিশু চিকিৎসা - মূল অ্যাকাউন্ট',
+    amount: 85000.00,
     attachments: [
-      new File([""], "cleaning-service-bill.jpg", { type: "image/jpeg" })
+      new File([""], "cash-deposit-5.pdf", { type: "application/pdf" }),
+      new File([""], "receipt-5.jpg", { type: "image/jpeg" })
     ],
     date: new Date('2025-09-04'),
     isActive: true 
@@ -208,13 +308,12 @@ const demoExpenditures = [
     chamberId: 6,
     chamberName: 'Gynecology Clinic',
     chamberNameBn: 'গাইনোকোলজি ক্লিনিক',
-    expenditureDetails: 'Utility Bills - Electricity and Water',
-    expenditureDetailsBn: 'ইউটিলিটি বিল - বিদ্যুৎ এবং পানি',
-    amount: 6300.75,
+    accountId: 8,
+    accountName: 'Gynecology Clinic - Business Account',
+    accountNameBn: 'গাইনোকোলজি ক্লিনিক - ব্যবসায়িক অ্যাকাউন্ট',
+    amount: 30000.75,
     attachments: [
-      new File([""], "utility-bills.pdf", { type: "application/pdf" }),
-      new File([""], "electricity-bill.jpg", { type: "image/jpeg" }),
-      new File([""], "water-bill.jpg", { type: "image/jpeg" })
+      new File([""], "online-deposit-6.png", { type: "image/png" })
     ],
     date: new Date('2025-09-03'),
     isActive: false 
@@ -227,11 +326,13 @@ const demoExpenditures = [
     chamberId: 7,
     chamberName: 'Emergency Care',
     chamberNameBn: 'জরুরি চিকিৎসা',
-    expenditureDetails: 'Emergency Medical Equipment Repair',
-    expenditureDetailsBn: 'জরুরি চিকিৎসা সরঞ্জাম মেরামত',
-    amount: 12500.00,
+    accountId: 9,
+    accountName: 'Emergency Care - Emergency Fund',
+    accountNameBn: 'জরুরি চিকিৎসা - জরুরি তহবিল',
+    amount: 120000.00,
     attachments: [
-      new File([""], "equipment-repair.png", { type: "image/png" })
+      new File([""], "emergency-fund-deposit.pdf", { type: "application/pdf" }),
+      new File([""], "bank-statement-7.jpg", { type: "image/jpeg" })
     ],
     date: new Date('2025-09-02'),
     isActive: true 
@@ -244,19 +345,20 @@ const demoExpenditures = [
     chamberId: 8,
     chamberName: 'Dermatology Center',
     chamberNameBn: 'চর্মরোগ কেন্দ্র',
-    expenditureDetails: 'Medical Conference and Training Fees',
-    expenditureDetailsBn: 'চিকিৎসা সম্মেলন এবং প্রশিক্ষণ ফি',
-    amount: 18000.00,
+    accountId: 10,
+    accountName: 'Dermatology Center - Main Account',
+    accountNameBn: 'চর্মরোগ কেন্দ্র - মূল অ্যাকাউন্ট',
+    amount: 55000.00,
     attachments: [
-      new File([""], "conference-receipt.jpg", { type: "image/jpeg" }),
-      new File([""], "conference-certificate.pdf", { type: "application/pdf" })
+      new File([""], "monthly-deposit-8.jpg", { type: "image/jpeg" }),
+      new File([""], "transaction-receipt-8.pdf", { type: "application/pdf" })
     ],
     date: new Date('2025-09-01'),
     isActive: true 
   },
 ]
 
-export default function ExpenditurePage() {
+export default function DepositPage() {
   const { t, formatNumber, formatCurrency, formatDate, language } = useLanguage()
   
   // Bengali number conversion function
@@ -272,16 +374,16 @@ export default function ExpenditurePage() {
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [expenditures, setExpenditures] = useState(demoExpenditures)
+  const [deposits, setDeposits] = useState(demoDeposits)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
-  const [newExpenditureForm, setNewExpenditureForm] = useState({
+  const [newDepositForm, setNewDepositForm] = useState({
     adminId: '',
     chamberId: '',
-    expenditureDetails: '',
+    accountId: '',
     amount: '',
     attachments: [] as File[]
   })
-  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberId?: string; expenditureDetails?: string; amount?: string; attachments?: string}>({})
+  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberId?: string; accountId?: string; amount?: string; attachments?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const itemsPerPage = 5
@@ -296,42 +398,42 @@ export default function ExpenditurePage() {
     }, 1000) // Small delay to show the toast
   }
 
-  const validateAddExpenditureForm = () => {
-    const newErrors: {adminId?: string; chamberId?: string; expenditureDetails?: string; amount?: string; attachments?: string} = {}
+  const validateAddDepositForm = () => {
+    const newErrors: {adminId?: string; chamberId?: string; accountId?: string; amount?: string; attachments?: string} = {}
 
-    if (!newExpenditureForm.adminId) {
-      newErrors.adminId = t('expenditure.adminRequired')
+    if (!newDepositForm.adminId) {
+      newErrors.adminId = t('deposit.adminRequired')
     }
 
-    if (!newExpenditureForm.chamberId) {
-      newErrors.chamberId = t('expenditure.chamberRequired')
+    if (!newDepositForm.chamberId) {
+      newErrors.chamberId = t('deposit.chamberRequired')
     }
 
-    if (!newExpenditureForm.expenditureDetails.trim()) {
-      newErrors.expenditureDetails = t('expenditure.expenditureDetailsRequired')
+    if (!newDepositForm.accountId) {
+      newErrors.accountId = t('deposit.accountRequired')
     }
 
-    if (!newExpenditureForm.amount.trim()) {
-      newErrors.amount = t('expenditure.amountRequired')
+    if (!newDepositForm.amount.trim()) {
+      newErrors.amount = t('deposit.amountRequired')
     } else {
-      const amount = parseFloat(newExpenditureForm.amount)
+      const amount = parseFloat(newDepositForm.amount)
       if (isNaN(amount) || amount <= 0) {
-        newErrors.amount = t('expenditure.invalidAmount')
+        newErrors.amount = t('deposit.invalidAmount')
       }
     }
 
-    if (newExpenditureForm.attachments.length === 0) {
-      newErrors.attachments = t('expenditure.attachmentRequired')
+    if (newDepositForm.attachments.length === 0) {
+      newErrors.attachments = t('deposit.attachmentRequired')
     }
 
     setFormErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  const handleAddExpenditure = async (e: React.FormEvent) => {
+  const handleAddDeposit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!validateAddExpenditureForm()) {
+    if (!validateAddDepositForm()) {
       return
     }
 
@@ -339,31 +441,33 @@ export default function ExpenditurePage() {
 
     // Simulate API call
     setTimeout(() => {
-      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newExpenditureForm.adminId)
-      const selectedChamberData = demoChambers.find(chamber => chamber.id.toString() === newExpenditureForm.chamberId)
+      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newDepositForm.adminId)
+      const selectedChamberData = demoChambers.find(chamber => chamber.id.toString() === newDepositForm.chamberId)
+      const selectedAccountData = demoAccounts.find(account => account.id.toString() === newDepositForm.accountId)
       
-      const newExpenditure = {
-        id: Math.max(...expenditures.map(e => e.id)) + 1,
-        adminId: parseInt(newExpenditureForm.adminId),
+      const newDeposit = {
+        id: Math.max(...deposits.map(d => d.id)) + 1,
+        adminId: parseInt(newDepositForm.adminId),
         adminName: selectedAdminData?.name || '',
         adminNameBn: selectedAdminData?.nameBn || '',
-        chamberId: parseInt(newExpenditureForm.chamberId),
+        chamberId: parseInt(newDepositForm.chamberId),
         chamberName: selectedChamberData?.name || '',
         chamberNameBn: selectedChamberData?.nameBn || '',
-        expenditureDetails: newExpenditureForm.expenditureDetails,
-        expenditureDetailsBn: newExpenditureForm.expenditureDetails, // In real app, you might want separate Bengali field
-        amount: parseFloat(newExpenditureForm.amount),
-        attachments: newExpenditureForm.attachments,
+        accountId: parseInt(newDepositForm.accountId),
+        accountName: selectedAccountData?.name || '',
+        accountNameBn: selectedAccountData?.nameBn || '',
+        amount: parseFloat(newDepositForm.amount),
+        attachments: newDepositForm.attachments,
         date: new Date(),
         isActive: true
       }
 
-      setExpenditures(prevExpenditures => [newExpenditure, ...prevExpenditures])
+      setDeposits(prevDeposits => [newDeposit, ...prevDeposits])
       setIsAddModalOpen(false)
-      setNewExpenditureForm({ 
+      setNewDepositForm({ 
         adminId: '', 
         chamberId: '', 
-        expenditureDetails: '', 
+        accountId: '',
         amount: '',
         attachments: []
       })
@@ -371,16 +475,16 @@ export default function ExpenditurePage() {
       setPreviewUrls([])
       setIsSubmitting(false)
 
-      showToast.success(t('expenditure.expenditureAdded'), t('expenditure.expenditureAddedDesc'))
+      showToast.success(t('deposit.depositAdded'), t('deposit.depositAddedDesc'))
     }, 1000)
   }
 
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
-    setNewExpenditureForm({ 
+    setNewDepositForm({ 
       adminId: '', 
       chamberId: '', 
-      expenditureDetails: '', 
+      accountId: '',
       amount: '',
       attachments: []
     })
@@ -389,14 +493,14 @@ export default function ExpenditurePage() {
     setIsSubmitting(false)
   }
 
-  const handleModalInputChange = (field: keyof typeof newExpenditureForm) => (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | string) => {
+  const handleModalInputChange = (field: keyof typeof newDepositForm) => (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | string) => {
     let value: string | File[]
     if (field === 'attachments') {
       const fileInput = e as React.ChangeEvent<HTMLInputElement>
       const newFiles = Array.from(fileInput.target.files || [])
       
       // Append new files to existing files instead of replacing
-      const existingFiles = newExpenditureForm.attachments || []
+      const existingFiles = newDepositForm.attachments || []
       value = [...existingFiles, ...newFiles]
       
       // Create previews for new image files and append to existing previews
@@ -430,12 +534,13 @@ export default function ExpenditurePage() {
       }
     }
     
-    setNewExpenditureForm(prev => {
+    setNewDepositForm(prev => {
       const newForm = { ...prev, [field]: value }
       
-      // Reset chamber selection when admin changes
+      // Reset chamber and account selection when admin changes
       if (field === 'adminId') {
         newForm.chamberId = ''
+        newForm.accountId = ''
       }
       
       return newForm
@@ -448,15 +553,15 @@ export default function ExpenditurePage() {
   }
 
   const handleRemoveFile = (index: number) => {
-    const fileToRemove = newExpenditureForm.attachments[index]
-    const newFiles = newExpenditureForm.attachments.filter((_, i) => i !== index)
+    const fileToRemove = newDepositForm.attachments[index]
+    const newFiles = newDepositForm.attachments.filter((_, i) => i !== index)
     
     // If the removed file was an image, we need to remove its preview URL
     if (fileToRemove && fileToRemove.type.startsWith('image/')) {
       // Find the preview URL index for this image file
       let imageIndex = 0
       for (let i = 0; i < index; i++) {
-        if (newExpenditureForm.attachments[i].type.startsWith('image/')) {
+        if (newDepositForm.attachments[i].type.startsWith('image/')) {
           imageIndex++
         }
       }
@@ -471,23 +576,23 @@ export default function ExpenditurePage() {
       }
     }
     
-    setNewExpenditureForm(prev => ({ ...prev, attachments: newFiles }))
+    setNewDepositForm(prev => ({ ...prev, attachments: newFiles }))
   }
 
-  const handleStatusToggle = (expenditureId: number) => {
-    setExpenditures(prevExpenditures => 
-      prevExpenditures.map(expenditure => 
-        expenditure.id === expenditureId 
-          ? { ...expenditure, isActive: !expenditure.isActive }
-          : expenditure
+  const handleStatusToggle = (depositId: number) => {
+    setDeposits(prevDeposits => 
+      prevDeposits.map(deposit => 
+        deposit.id === depositId 
+          ? { ...deposit, isActive: !deposit.isActive }
+          : deposit
       )
     )
   }
 
-  const handleEdit = (expenditureId: number) => {
+  const handleEdit = (depositId: number) => {
     // This will be implemented later
     showToast.info('Edit functionality', 'Edit functionality will be implemented soon')
-    console.log('Edit expenditure:', expenditureId)
+    console.log('Edit deposit:', depositId)
   }
 
   const handleSearch = () => {
@@ -521,9 +626,15 @@ export default function ExpenditurePage() {
 
   // Get available chambers based on selected admin
   const availableChambers = useMemo(() => {
-    if (!newExpenditureForm.adminId) return []
-    return demoChambers.filter(chamber => chamber.adminId.toString() === newExpenditureForm.adminId)
-  }, [newExpenditureForm.adminId])
+    if (!newDepositForm.adminId) return []
+    return demoChambers.filter(chamber => chamber.adminId.toString() === newDepositForm.adminId)
+  }, [newDepositForm.adminId])
+
+  // Get available accounts based on selected admin
+  const availableAccounts = useMemo(() => {
+    if (!newDepositForm.adminId) return []
+    return demoAccounts.filter(account => account.adminId.toString() === newDepositForm.adminId)
+  }, [newDepositForm.adminId])
 
   // Get chambers for filter dropdown based on selected admin
   const filterChambers = useMemo(() => {
@@ -531,42 +642,42 @@ export default function ExpenditurePage() {
     return demoChambers.filter(chamber => chamber.adminId.toString() === selectedAdmin)
   }, [selectedAdmin])
 
-  // Filter expenditures based on search query, selected admin, and selected chamber
-  const filteredExpenditures = useMemo(() => {
-    let filtered = expenditures
+  // Filter deposits based on search query, selected admin, and selected chamber
+  const filteredDeposits = useMemo(() => {
+    let filtered = deposits
 
     // Filter by admin if selected
     if (selectedAdmin) {
-      filtered = filtered.filter(expenditure => expenditure.adminId.toString() === selectedAdmin)
+      filtered = filtered.filter(deposit => deposit.adminId.toString() === selectedAdmin)
     }
 
     // Filter by chamber if selected
     if (selectedChamber) {
-      filtered = filtered.filter(expenditure => expenditure.chamberId.toString() === selectedChamber)
+      filtered = filtered.filter(deposit => deposit.chamberId.toString() === selectedChamber)
     }
 
     // Filter by search query
     if (searchQuery) {
-      filtered = filtered.filter(expenditure => {
-        const adminName = language === 'bn' ? expenditure.adminNameBn : expenditure.adminName
-        const chamberName = language === 'bn' ? expenditure.chamberNameBn : expenditure.chamberName
-        const expenditureDetails = language === 'bn' ? expenditure.expenditureDetailsBn : expenditure.expenditureDetails
+      filtered = filtered.filter(deposit => {
+        const adminName = language === 'bn' ? deposit.adminNameBn : deposit.adminName
+        const chamberName = language === 'bn' ? deposit.chamberNameBn : deposit.chamberName
+        const accountName = language === 'bn' ? deposit.accountNameBn : deposit.accountName
         
         return adminName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                chamberName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               expenditureDetails.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               formatCurrency(expenditure.amount).includes(searchQuery)
+               accountName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+               formatCurrency(deposit.amount).includes(searchQuery)
       })
     }
 
     return filtered
-  }, [expenditures, searchQuery, selectedAdmin, selectedChamber, language, formatCurrency])
+  }, [deposits, searchQuery, selectedAdmin, selectedChamber, language, formatCurrency])
 
   // Pagination logic
-  const totalPages = Math.ceil(filteredExpenditures.length / itemsPerPage)
+  const totalPages = Math.ceil(filteredDeposits.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const currentExpenditures = filteredExpenditures.slice(startIndex, endIndex)
+  const currentDeposits = filteredDeposits.slice(startIndex, endIndex)
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -613,15 +724,15 @@ export default function ExpenditurePage() {
           <div className="mb-6 lg:mb-8 text-center lg:text-left">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('expenditure.title')}</h2>
-                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('expenditure.subtitle')}</p>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('deposit.title')}</h2>
+                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('deposit.subtitle')}</p>
               </div>
               <Button
                 onClick={() => setIsAddModalOpen(true)}
                 className="lg:self-start w-auto max-w-fit mx-auto lg:mx-0"
               >
                 <MdAccountBalanceWallet className="w-4 h-4 mr-2" />
-                {t('expenditure.addExpenditure')}
+                {t('deposit.addDeposit')}
               </Button>
             </div>
           </div>
@@ -666,10 +777,10 @@ export default function ExpenditurePage() {
 
                 {/* Chamber Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
-                  <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('expenditure.filterByChamber')}</Label>
+                  <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('deposit.filterByChamber')}</Label>
                   <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedAdmin}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={selectedAdmin ? t('expenditure.allChambers') : t('expenditure.selectAdminFirst')} />
+                      <SelectValue placeholder={selectedAdmin ? t('deposit.allChambers') : t('deposit.selectAdminFirst')} />
                     </SelectTrigger>
                     <SelectContent>
                       {filterChambers.map((chamber) => (
@@ -683,14 +794,14 @@ export default function ExpenditurePage() {
 
                 {/* Search Field */}
                 <div className="w-full sm:w-80 space-y-1">
-                  <Label htmlFor="search" className="text-sm sm:text-base">{t('expenditure.search')}</Label>
+                  <Label htmlFor="search" className="text-sm sm:text-base">{t('deposit.search')}</Label>
                   <div className="relative">
                     <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <Input
                       id="search"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder={t('expenditure.searchPlaceholder')}
+                      placeholder={t('deposit.searchPlaceholder')}
                       className="pl-10 h-10 sm:h-11"
                     />
                   </div>
@@ -729,35 +840,35 @@ export default function ExpenditurePage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('expenditure.adminName')}</TableHead>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('expenditure.chamberName')}</TableHead>
-                      <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('expenditure.expenditureDetails')}</TableHead>
-                      <TableHead className="w-[100px] h-10 px-3">{t('expenditure.amount')}</TableHead>
-                      <TableHead className="w-[100px] text-center h-10 px-3">{t('expenditure.actions')}</TableHead>
-                      <TableHead className="w-[120px] text-center h-10 px-3">{t('expenditure.status')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('deposit.adminName')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('deposit.chamberName')}</TableHead>
+                      <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('deposit.account')}</TableHead>
+                      <TableHead className="w-[100px] h-10 px-3">{t('deposit.amount')}</TableHead>
+                      <TableHead className="w-[100px] text-center h-10 px-3">{t('deposit.actions')}</TableHead>
+                      <TableHead className="w-[120px] text-center h-10 px-3">{t('deposit.status')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {currentExpenditures.length > 0 ? (
-                      currentExpenditures.map((expenditure) => {
+                    {currentDeposits.length > 0 ? (
+                      currentDeposits.map((deposit) => {
                         return (
-                          <TableRow key={expenditure.id}>
+                          <TableRow key={deposit.id}>
                             <TableCell className="font-medium px-3 py-4">
-                              {language === 'bn' ? expenditure.adminNameBn : expenditure.adminName}
+                              {language === 'bn' ? deposit.adminNameBn : deposit.adminName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
-                              {language === 'bn' ? expenditure.chamberNameBn : expenditure.chamberName}
+                              {language === 'bn' ? deposit.chamberNameBn : deposit.chamberName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
                               <div className="max-w-xs">
                                 <p className="text-sm break-words">
-                                  {language === 'bn' ? expenditure.expenditureDetailsBn : expenditure.expenditureDetails}
+                                  {language === 'bn' ? deposit.accountNameBn : deposit.accountName}
                                 </p>
-                                {expenditure.attachments && expenditure.attachments.length > 0 && (
+                                {deposit.attachments && deposit.attachments.length > 0 && (
                                   <div className="mt-2">
-                                    <p className="text-xs text-gray-500 mb-1">{expenditure.attachments.length} file(s)</p>
+                                    <p className="text-xs text-gray-500 mb-1">{deposit.attachments.length} file(s)</p>
                                     <div className="flex flex-wrap gap-1">
-                                      {expenditure.attachments.map((attachment, index) => (
+                                      {deposit.attachments.map((attachment, index) => (
                                         <div key={index} className="flex gap-1">
                                           <Button
                                             variant="outline"
@@ -783,26 +894,26 @@ export default function ExpenditurePage() {
                                 )}
                               </div>
                             </TableCell>
-                            <TableCell className="px-3 py-4">{formatCurrency(expenditure.amount)}</TableCell>
+                            <TableCell className="px-3 py-4">{formatCurrency(deposit.amount)}</TableCell>
                             <TableCell className="text-center px-3 py-4">
                               <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => handleEdit(expenditure.id)}
+                                onClick={() => handleEdit(deposit.id)}
                                 className="h-8"
                               >
                                 <MdEdit className="w-4 h-4 mr-1" />
-                                {t('expenditure.edit')}
+                                {t('deposit.edit')}
                               </Button>
                             </TableCell>
                             <TableCell className="text-center px-3 py-4">
                               <div className="flex items-center justify-center space-x-2">
                                 <Switch
-                                  checked={expenditure.isActive}
-                                  onCheckedChange={() => handleStatusToggle(expenditure.id)}
+                                  checked={deposit.isActive}
+                                  onCheckedChange={() => handleStatusToggle(deposit.id)}
                                 />
                                 <span className="text-sm text-gray-600">
-                                  {expenditure.isActive ? t('expenditure.active') : t('expenditure.inactive')}
+                                  {deposit.isActive ? t('deposit.active') : t('deposit.inactive')}
                                 </span>
                               </div>
                             </TableCell>
@@ -812,7 +923,7 @@ export default function ExpenditurePage() {
                     ) : (
                       <TableRow>
                         <TableCell colSpan={6} className="text-center py-8 px-3 text-gray-500">
-                          {t('expenditure.noExpenditures')}
+                          {t('deposit.noDeposits')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -821,10 +932,10 @@ export default function ExpenditurePage() {
               </div>
 
               {/* Pagination */}
-              {filteredExpenditures.length > 0 && (
+              {filteredDeposits.length > 0 && (
                 <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 p-3 border-t bg-gray-100 rounded-b-xl">
                   <div className="text-sm text-gray-700">
-                    {t('expenditure.showing')} {formatNumber(startIndex + 1)} {t('expenditure.to')} {formatNumber(Math.min(endIndex, filteredExpenditures.length))} {t('expenditure.of')} {formatNumber(filteredExpenditures.length)} {t('expenditure.results')}
+                    {t('deposit.showing')} {formatNumber(startIndex + 1)} {t('deposit.to')} {formatNumber(Math.min(endIndex, filteredDeposits.length))} {t('deposit.of')} {formatNumber(filteredDeposits.length)} {t('deposit.results')}
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
@@ -835,7 +946,7 @@ export default function ExpenditurePage() {
                       className="h-8"
                     >
                       <MdChevronLeft className="w-4 h-4 mr-1" />
-                      {t('expenditure.previous')}
+                      {t('deposit.previous')}
                     </Button>
                     
                     {/* Page Numbers */}
@@ -860,7 +971,7 @@ export default function ExpenditurePage() {
                       disabled={currentPage === totalPages}
                       className="h-8"
                     >
-                      {t('expenditure.next')}
+                      {t('deposit.next')}
                       <MdChevronRight className="w-4 h-4 ml-1" />
                     </Button>
                   </div>
@@ -871,31 +982,31 @@ export default function ExpenditurePage() {
         </main>
       </div>
 
-      {/* Add Expenditure Modal */}
+      {/* Add Deposit Modal */}
       <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold">{t('expenditure.addNewExpenditure')}</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">{t('deposit.addNewDeposit')}</DialogTitle>
             <DialogDescription>
-              {t('expenditure.addNewExpenditureDesc')}
+              {t('deposit.addNewDepositDesc')}
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleAddExpenditure} className="space-y-4" autoComplete="off">
+          <form onSubmit={handleAddDeposit} className="space-y-4" autoComplete="off">
             {/* Admin Name Dropdown */}
             <div className="space-y-2">
               <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('expenditure.adminName')} <span className="text-red-500">*</span>
+                {t('deposit.adminName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newExpenditureForm.adminId} 
+                  value={newDepositForm.adminId} 
                   onValueChange={handleModalInputChange('adminId')}
                   disabled={isSubmitting}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.adminId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={t('expenditure.selectAdmin')} />
+                    <SelectValue placeholder={t('deposit.selectAdmin')} />
                   </SelectTrigger>
                   <SelectContent>
                     {demoAdmins.map((admin) => (
@@ -914,17 +1025,17 @@ export default function ExpenditurePage() {
             {/* Chamber Name Dropdown */}
             <div className="space-y-2">
               <Label htmlFor="chamberName" className="text-sm font-medium">
-                {t('expenditure.chamberName')} <span className="text-red-500">*</span>
+                {t('deposit.chamberName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiBuildings className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newExpenditureForm.chamberId} 
+                  value={newDepositForm.chamberId} 
                   onValueChange={handleModalInputChange('chamberId')}
-                  disabled={isSubmitting || !newExpenditureForm.adminId}
+                  disabled={isSubmitting || !newDepositForm.adminId}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.chamberId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={newExpenditureForm.adminId ? t('expenditure.selectChamber') : t('expenditure.selectAdminFirst')} />
+                    <SelectValue placeholder={newDepositForm.adminId ? t('deposit.selectChamber') : t('deposit.selectAdminFirst')} />
                   </SelectTrigger>
                   <SelectContent>
                     {availableChambers.map((chamber) => (
@@ -940,42 +1051,50 @@ export default function ExpenditurePage() {
               )}
             </div>
 
-            {/* Expenditure Details Field */}
+            {/* Account Dropdown */}
             <div className="space-y-2">
-              <Label htmlFor="expenditureDetails" className="text-sm font-medium">
-                {t('expenditure.expenditureDetails')} <span className="text-red-500">*</span>
+              <Label htmlFor="accountName" className="text-sm font-medium">
+                {t('deposit.account')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
-                <BiFileBlank className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
-                <textarea
-                  id="expenditureDetails"
-                  value={newExpenditureForm.expenditureDetails}
-                  onChange={handleModalInputChange('expenditureDetails')}
-                  placeholder={t('expenditure.expenditureDetailsPlaceholder')}
-                  className={`w-full pl-10 pr-3 py-2 text-sm border rounded-md resize-none h-20 focus:outline-none focus:ring-2 focus:ring-blue-500 ${formErrors.expenditureDetails ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
-                  disabled={isSubmitting}
-                />
+                <BiCreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
+                <Select 
+                  value={newDepositForm.accountId} 
+                  onValueChange={handleModalInputChange('accountId')}
+                  disabled={isSubmitting || !newDepositForm.adminId}
+                >
+                  <SelectTrigger className={`pl-10 ${formErrors.accountId ? 'border-red-500 focus:border-red-500' : ''}`}>
+                    <SelectValue placeholder={newDepositForm.adminId ? t('deposit.selectAccount') : t('deposit.selectAdminFirst')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableAccounts.map((account) => (
+                      <SelectItem key={account.id} value={account.id.toString()}>
+                        {language === 'bn' ? account.nameBn : account.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              {formErrors.expenditureDetails && (
-                <p className="text-sm text-red-600">{formErrors.expenditureDetails}</p>
+              {formErrors.accountId && (
+                <p className="text-sm text-red-600">{formErrors.accountId}</p>
               )}
             </div>
 
             {/* Amount Field */}
             <div className="space-y-2">
-              <Label htmlFor="expenditureAmount" className="text-sm font-medium">
-                {t('expenditure.amount')} <span className="text-red-500">*</span>
+              <Label htmlFor="depositAmount" className="text-sm font-medium">
+                {t('deposit.amount')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiMoney className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
-                  id="expenditureAmount"
+                  id="depositAmount"
                   type="number"
                   step="0.01"
                   inputMode="decimal"
-                  value={newExpenditureForm.amount}
+                  value={newDepositForm.amount}
                   onChange={handleModalInputChange('amount')}
-                  placeholder={t('expenditure.amountPlaceholder')}
+                  placeholder={t('deposit.amountPlaceholder')}
                   className={`pl-10 ${formErrors.amount ? 'border-red-500 focus:border-red-500' : ''} [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]`}
                   disabled={isSubmitting}
                   autoComplete="off"
@@ -989,7 +1108,7 @@ export default function ExpenditurePage() {
             {/* Attachment Field */}
             <div className="space-y-2">
               <Label htmlFor="attachments" className="text-sm font-medium">
-                {t('expenditure.attachment')} <span className="text-red-500">*</span>
+                {t('deposit.attachment')} <span className="text-red-500">*</span>
               </Label>
               
               {/* Custom File Input */}
@@ -1007,64 +1126,64 @@ export default function ExpenditurePage() {
                   <div className="flex items-center gap-3">
                     <MdAttachFile className="w-5 h-5 text-gray-500" />
                     <div className="text-sm">
-                      {newExpenditureForm.attachments.length === 0 ? (
-                        <span className="text-gray-500">{t('expenditure.dragDropFiles')}</span>
+                      {newDepositForm.attachments.length === 0 ? (
+                        <span className="text-gray-500">{t('deposit.dragDropFiles')}</span>
                       ) : (
                         <span className="text-gray-700">
-                          {newExpenditureForm.attachments.length} {' '}
-                          {newExpenditureForm.attachments.length === 1 
-                            ? t('expenditure.fileSelected') 
-                            : t('expenditure.filesSelected')
+                          {newDepositForm.attachments.length} {' '}
+                          {newDepositForm.attachments.length === 1 
+                            ? t('deposit.fileSelected') 
+                            : t('deposit.filesSelected')
                           }
                         </span>
                       )}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    {newExpenditureForm.attachments.length > 0 && (
+                    {newDepositForm.attachments.length > 0 && (
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
                         className="h-8 px-3 text-xs"
                       >
-                        {t('expenditure.addMoreFiles')}
+                        {t('deposit.addMoreFiles')}
                       </Button>
                     )}
-                    {newExpenditureForm.attachments.length === 0 && (
+                    {newDepositForm.attachments.length === 0 && (
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
                         className="h-8 px-3 text-xs"
                       >
-                        {t('expenditure.chooseFiles')}
+                        {t('deposit.chooseFiles')}
                       </Button>
                     )}
                   </div>
                 </div>
               </div>
               
-              <p className="text-xs text-gray-500">{t('expenditure.attachmentHelper')}</p>
+              <p className="text-xs text-gray-500">{t('deposit.attachmentHelper')}</p>
               <p className="text-xs text-blue-600 mt-1">
-                {t('expenditure.multipleFilesTip')}
+                {t('deposit.multipleFilesTip')}
               </p>
               {formErrors.attachments && (
                 <p className="text-sm text-red-600">{formErrors.attachments}</p>
               )}
               
               {/* File previews */}
-              {newExpenditureForm.attachments.some(file => file.type.startsWith('image/')) && (
+              {newDepositForm.attachments.some(file => file.type.startsWith('image/')) && (
                 <div className="mt-2">
-                  <Label className="text-sm font-medium">{t('expenditure.preview')}</Label>
+                  <Label className="text-sm font-medium">{t('deposit.preview')}</Label>
                   <div className="grid grid-cols-3 gap-2 mt-1 border rounded-lg p-2">
-                    {newExpenditureForm.attachments.map((file, index) => {
+                    {newDepositForm.attachments.map((file, index) => {
                       if (!file.type.startsWith('image/')) return null
                       
                       // Find the preview URL for this image file
                       let imageIndex = 0
                       for (let i = 0; i < index; i++) {
-                        if (newExpenditureForm.attachments[i].type.startsWith('image/')) {
+                        if (newDepositForm.attachments[i].type.startsWith('image/')) {
                           imageIndex++
                         }
                       }
@@ -1091,11 +1210,11 @@ export default function ExpenditurePage() {
               )}
               
               {/* Non-image files list */}
-              {newExpenditureForm.attachments.some(file => !file.type.startsWith('image/')) && (
+              {newDepositForm.attachments.some(file => !file.type.startsWith('image/')) && (
                 <div className="mt-2">
-                  <Label className="text-sm font-medium">{t('expenditure.selectedFiles')}</Label>
+                  <Label className="text-sm font-medium">{t('deposit.selectedFiles')}</Label>
                   <div className="mt-1 space-y-1">
-                    {newExpenditureForm.attachments.map((file, index) => {
+                    {newDepositForm.attachments.map((file, index) => {
                       if (file.type.startsWith('image/')) return null
                       return (
                         <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded border">
