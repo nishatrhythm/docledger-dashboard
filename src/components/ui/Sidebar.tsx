@@ -12,7 +12,7 @@ import {
   MdCalendarToday,
   MdLocalHospital,
   MdAccountBalanceWallet,
-  MdAccountBox,
+  MdAccountBalance,
   MdSavings,
   MdMenu,
   MdMenuOpen,
@@ -85,7 +85,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
     { id: 'appointment', label: t('sidebar.appointment'), icon: MdCalendarToday, href: '/appointment' },
     { id: 'operation', label: t('sidebar.operation'), icon: MdLocalHospital, href: '/operation' },
     { id: 'expenditure', label: t('sidebar.expenditure'), icon: MdAccountBalanceWallet, href: '/expenditure' },
-    { id: 'account', label: t('sidebar.account'), icon: MdAccountBox, href: '/account' },
+    { id: 'account', label: t('sidebar.account'), icon: MdAccountBalance, href: '/account' },
     { id: 'deposit', label: t('sidebar.deposit'), icon: MdSavings, href: '/deposit' },
   ]
 
