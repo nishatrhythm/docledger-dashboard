@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { createPortal } from "react-dom"
 
 interface DialogProps {
   open: boolean
@@ -37,7 +38,7 @@ interface DialogFooterProps {
 const Dialog = ({ open, onOpenChange, disableOutsideClick = false, children, maxWidth = "max-w-lg" }: DialogProps) => {
   if (!open) return null
 
-  return (
+  const dialogContent = (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div 
@@ -50,6 +51,11 @@ const Dialog = ({ open, onOpenChange, disableOutsideClick = false, children, max
       </div>
     </div>
   )
+
+  // Use portal to render at document body level
+  return typeof window !== 'undefined' 
+    ? createPortal(dialogContent, document.body)
+    : null
 }
 
 const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(

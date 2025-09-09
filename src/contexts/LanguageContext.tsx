@@ -97,6 +97,23 @@ const translations = {
     'account.admin': 'Admin',
     'account.user': 'User',
     
+    // Change Password
+    'changePassword.currentPassword': 'Current Password',
+    'changePassword.newPassword': 'New Password',
+    'changePassword.confirmPassword': 'Confirm Password',
+    'changePassword.currentPasswordPlaceholder': 'Enter current password',
+    'changePassword.newPasswordPlaceholder': 'Enter new password',
+    'changePassword.confirmPasswordPlaceholder': 'Confirm new password',
+    'changePassword.currentPasswordRequired': 'Current password is required',
+    'changePassword.newPasswordRequired': 'New password is required',
+    'changePassword.confirmPasswordRequired': 'Confirm password is required',
+    'changePassword.passwordsDoNotMatch': 'Passwords do not match',
+    'changePassword.newPasswordSameAsCurrent': 'New password must be different from current password',
+    'changePassword.changing': 'Changing...',
+    'changePassword.changePassword': 'Change Password',
+    'changePassword.passwordChanged': 'Password Changed',
+    'changePassword.passwordChangedDesc': 'Your password has been changed successfully',
+    
     // Common
     'common.language': 'Language',
     'common.search': 'Search',
@@ -603,6 +620,23 @@ const translations = {
     'account.superAdmin': 'সুপার অ্যাডমিন',
     'account.admin': 'অ্যাডমিন',
     'account.user': 'ইউজার',
+    
+    // Change Password
+    'changePassword.currentPassword': 'বর্তমান পাসওয়ার্ড',
+    'changePassword.newPassword': 'নতুন পাসওয়ার্ড',
+    'changePassword.confirmPassword': 'পাসওয়ার্ড নিশ্চিত করুন',
+    'changePassword.currentPasswordPlaceholder': 'বর্তমান পাসওয়ার্ড লিখুন',
+    'changePassword.newPasswordPlaceholder': 'নতুন পাসওয়ার্ড লিখুন',
+    'changePassword.confirmPasswordPlaceholder': 'নতুন পাসওয়ার্ড নিশ্চিত করুন',
+    'changePassword.currentPasswordRequired': 'বর্তমান পাসওয়ার্ড প্রয়োজন',
+    'changePassword.newPasswordRequired': 'নতুন পাসওয়ার্ড প্রয়োজন',
+    'changePassword.confirmPasswordRequired': 'পাসওয়ার্ড নিশ্চিতকরণ প্রয়োজন',
+    'changePassword.passwordsDoNotMatch': 'পাসওয়ার্ড মিলছে না',
+    'changePassword.newPasswordSameAsCurrent': 'নতুন পাসওয়ার্ড বর্তমান পাসওয়ার্ড থেকে আলাদা হতে হবে',
+    'changePassword.changing': 'পরিবর্তন করা হচ্ছে...',
+    'changePassword.changePassword': 'পাসওয়ার্ড পরিবর্তন করুন',
+    'changePassword.passwordChanged': 'পাসওয়ার্ড পরিবর্তিত হয়েছে',
+    'changePassword.passwordChangedDesc': 'আপনার পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে',
     
     // Validation
     'validation.phoneRequired': 'ফোন নম্বর প্রয়োজন',

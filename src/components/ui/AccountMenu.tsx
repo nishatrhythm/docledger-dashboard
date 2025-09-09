@@ -7,6 +7,7 @@ import { MdAccountCircle, MdLogout, MdKey, MdExpandMore } from 'react-icons/md'
 import { cn } from '@/lib/utils'
 import { useLocalizedToast } from '@/hooks/use-localized-toast'
 import { Button } from '@/components/ui/button'
+import ChangePasswordDialog from '@/components/ui/ChangePasswordDialog'
 
 interface AccountMenuProps {
   isCollapsed?: boolean
@@ -17,6 +18,7 @@ const AccountMenu = ({ isCollapsed = false, isMobile = false }: AccountMenuProps
   const { t } = useLanguage()
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false)
   const { showToast } = useLocalizedToast()
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -48,9 +50,7 @@ const AccountMenu = ({ isCollapsed = false, isMobile = false }: AccountMenuProps
   }
 
   const handleChangePassword = () => {
-    // Navigate to change password page or open modal
-    // For now, we'll just log it
-    console.log('Change password clicked')
+    setIsChangePasswordOpen(true)
     setIsOpen(false)
   }
 
@@ -117,6 +117,9 @@ const AccountMenu = ({ isCollapsed = false, isMobile = false }: AccountMenuProps
           </button>
         </div>
       )}
+
+      {/* Change Password Dialog */}
+      <ChangePasswordDialog isOpen={isChangePasswordOpen} onClose={() => setIsChangePasswordOpen(false)} />
     </div>
   )
 }
