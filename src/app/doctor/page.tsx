@@ -34,13 +34,13 @@ import {
   MdEdit,
   MdChevronLeft,
   MdChevronRight,
-  MdPersonAdd
+  MdLocalHospital
 } from 'react-icons/md'
 import { BiLock, BiPhone, BiUser } from 'react-icons/bi'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 // Demo data for doctors
-const demoUsers = [
+const demoDoctors = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান', phone: '01712345678', isActive: true },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান', phone: '01823456789', isActive: true },
   { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী', phone: '01934567890', isActive: false },
@@ -62,7 +62,7 @@ export default function DoctorPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [users, setUsers] = useState(demoUsers)
+  const [users, setUsers] = useState(demoDoctors)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [newDoctorForm, setNewDoctorForm] = useState({
     name: '',
@@ -255,7 +255,7 @@ export default function DoctorPage() {
                 onClick={() => setIsAddModalOpen(true)}
                 className="lg:self-start w-auto max-w-fit mx-auto lg:mx-0"
               >
-                <MdPersonAdd className="w-4 h-4 mr-2" />
+                <MdLocalHospital className="w-4 h-4 mr-2" />
                 {t('doctor.addDoctor')}
               </Button>
             </div>

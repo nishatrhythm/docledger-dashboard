@@ -6,7 +6,6 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import Logo from '@/components/ui/Logo'
 import { 
   MdDashboard, 
-  MdAdminPanelSettings, 
   MdMeetingRoom,
   MdPerson,
   MdCalendarToday,
@@ -16,7 +15,8 @@ import {
   MdSavings,
   MdMenu,
   MdMenuOpen,
-  MdClose
+  MdClose,
+  MdHealing
 } from 'react-icons/md'
 import { cn } from '@/lib/utils'
 
@@ -79,11 +79,11 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
 
   const menuItems = [
     { id: 'dashboard', label: t('sidebar.dashboard'), icon: MdDashboard, href: '/dashboard' },
-    { id: 'doctor', label: t('sidebar.doctor'), icon: MdAdminPanelSettings, href: '/doctor' },
+    { id: 'doctor', label: t('sidebar.doctor'), icon: MdLocalHospital, href: '/doctor' },
     { id: 'chamber', label: t('sidebar.chamber'), icon: MdMeetingRoom, href: '/chamber' },
     { id: 'user', label: t('sidebar.user'), icon: MdPerson, href: '/user' },
     { id: 'appointment', label: t('sidebar.appointment'), icon: MdCalendarToday, href: '/appointment' },
-    { id: 'operation', label: t('sidebar.operation'), icon: MdLocalHospital, href: '/operation' },
+    { id: 'operation', label: t('sidebar.operation'), icon: MdHealing, href: '/operation' },
     { id: 'expenditure', label: t('sidebar.expenditure'), icon: MdAccountBalanceWallet, href: '/expenditure' },
     { id: 'account', label: t('sidebar.account'), icon: MdAccountBalance, href: '/account' },
     { id: 'deposit', label: t('sidebar.deposit'), icon: MdSavings, href: '/deposit' },

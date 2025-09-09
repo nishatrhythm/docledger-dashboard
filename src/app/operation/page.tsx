@@ -43,7 +43,7 @@ import {
   MdEdit,
   MdChevronLeft,
   MdChevronRight,
-  MdLocalHospital
+  MdHealing
 } from 'react-icons/md'
 import { BiPhone, BiUser, BiBuildings, BiMoney } from 'react-icons/bi'
 
@@ -615,7 +615,7 @@ export default function OperationPage() {
                 onClick={() => setIsAddModalOpen(true)}
                 className="lg:self-start w-auto max-w-fit mx-auto lg:mx-0"
               >
-                <MdLocalHospital className="w-4 h-4 mr-2" />
+                <MdHealing className="w-4 h-4 mr-2" />
                 {t('operation.addOperation')}
               </Button>
             </div>

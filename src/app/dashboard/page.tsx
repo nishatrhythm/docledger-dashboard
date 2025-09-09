@@ -19,7 +19,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useLocalizedToast } from '@/hooks/use-localized-toast'
 import { 
   MdPeople, 
-  MdAdminPanelSettings, 
+  MdLocalHospital, 
   MdMeetingRoom, 
   MdTrendingUp, 
   MdTrendingDown, 
@@ -79,7 +79,7 @@ export default function Dashboard() {
     {
       title: t('dashboard.totalDoctor'),
       value: demoStats.totalDoctor,
-      icon: MdAdminPanelSettings,
+      icon: MdLocalHospital,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
       format: 'number'
