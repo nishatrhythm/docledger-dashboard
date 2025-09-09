@@ -162,7 +162,8 @@ const LoginForm = () => {
             )}
           </Button>
 
-          <div className="text-center pt-3 sm:pt-4 border-t border-gray-200">
+          <div className="text-center pt-3 sm:pt-4 relative">
+            <div className="absolute top-0 left-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
             <p className="text-xs sm:text-sm text-gray-500">
               {t('login.needHelp')}{' '}
               <a 

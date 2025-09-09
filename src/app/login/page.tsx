@@ -156,19 +156,16 @@ export default function LoginPage() {
           }}
         />
         
-        {/* Main content area */}
-        <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 pt-2 sm:pt-4 lg:pt-0">
+        {/* Main content area - vertically centered for mobile */}
+        <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 lg:pt-0 min-h-0">
           <div className="w-full max-w-sm sm:max-w-md relative z-10">
-            {/* Logo for mobile - vertically centered with form */}
+            {/* Logo for mobile - icon and text side by side */}
             <div className="lg:hidden flex justify-center mb-4 sm:mb-6">
-              <Logo size="lg" showText={false} />
+              <Logo size="md" showText={true} />
             </div>
             
-            {/* Brand text for mobile - vertically centered with form */}
+            {/* Brand subtitle for mobile */}
             <div className="lg:hidden text-center mb-6 sm:mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                {t('login.brandTitle')}
-              </h2>
               <p className="text-base sm:text-lg text-gray-600">
                 {t('login.brandSubtitle')}
               </p>

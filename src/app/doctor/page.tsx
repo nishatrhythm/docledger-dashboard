@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/dialog'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 import Sidebar from '@/components/ui/Sidebar'
+import ResetPasswordDialog from '@/components/ui/ResetPasswordDialog'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useLocalizedToast } from '@/hooks/use-localized-toast'
 import { validateBangladeshiMobile, validatePassword, formatMobileNumber } from '@/lib/validation'
@@ -72,6 +73,8 @@ export default function DoctorPage() {
   const [formErrors, setFormErrors] = useState<{name?: string; phone?: string; password?: string}>({})
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false)
+  const [selectedUserForReset, setSelectedUserForReset] = useState<{id: number; name: string} | null>(null)
   const itemsPerPage = 5
 
   const validateAddDoctorForm = () => {
@@ -164,6 +167,22 @@ export default function DoctorPage() {
     showToast.info('Edit functionality', 'Edit functionality will be implemented soon')
     // TODO: Implement edit functionality using userId
     console.log('Edit user:', userId)
+  }
+
+  const handleResetPassword = (userId: number) => {
+    const user = users.find(u => u.id === userId)
+    if (user) {
+      setSelectedUserForReset({
+        id: user.id,
+        name: language === 'bn' ? user.nameBn : user.name
+      })
+      setIsResetPasswordModalOpen(true)
+    }
+  }
+
+  const handleCloseResetPasswordModal = () => {
+    setIsResetPasswordModalOpen(false)
+    setSelectedUserForReset(null)
   }
 
   const handleSearch = () => {
@@ -311,7 +330,7 @@ export default function DoctorPage() {
                     <TableRow>
                       <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('doctor.name')}</TableHead>
                       <TableHead className="w-[150px] h-10 px-3">{t('doctor.phoneNumber')}</TableHead>
-                      <TableHead className="w-[100px] text-center h-10 px-3">{t('doctor.actions')}</TableHead>
+                      <TableHead className="w-[180px] text-center h-10 px-3">{t('doctor.actions')}</TableHead>
                       <TableHead className="w-[120px] text-center h-10 px-3">{t('doctor.status')}</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -324,15 +343,26 @@ export default function DoctorPage() {
                           </TableCell>
                           <TableCell className="px-3 py-4">{user.phone}</TableCell>
                           <TableCell className="text-center px-3 py-4">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleEdit(user.id)}
-                              className="h-8"
-                            >
-                              <MdEdit className="w-4 h-4 mr-1" />
-                              {t('doctor.edit')}
-                            </Button>
+                            <div className="flex flex-col sm:flex-row gap-2 items-center justify-center">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleEdit(user.id)}
+                                className="h-8 w-full sm:w-auto"
+                              >
+                                <MdEdit className="w-4 h-4 mr-1" />
+                                {t('doctor.edit')}
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleResetPassword(user.id)}
+                                className="h-8 w-full sm:w-auto"
+                              >
+                                <BiLock className="w-4 h-4 mr-1" />
+                                {t('doctor.resetPassword')}
+                              </Button>
+                            </div>
                           </TableCell>
                           <TableCell className="text-center px-3 py-4">
                             <div className="flex items-center justify-center space-x-2">
@@ -523,6 +553,14 @@ export default function DoctorPage() {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Reset Password Modal */}
+      <ResetPasswordDialog
+        isOpen={isResetPasswordModalOpen}
+        onClose={handleCloseResetPasswordModal}
+        userName={selectedUserForReset?.name}
+        userType="doctor"
+      />
     </div>
   )
 }

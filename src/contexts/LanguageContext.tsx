@@ -114,6 +114,20 @@ const translations = {
     'changePassword.passwordChanged': 'Password Changed',
     'changePassword.passwordChangedDesc': 'Your password has been changed successfully',
     
+    // Reset Password
+    'resetPassword.resetPassword': 'Reset Password',
+    'resetPassword.resetPasswordFor': 'Reset password for',
+    'resetPassword.newPassword': 'New Password',
+    'resetPassword.confirmPassword': 'Confirm Password',
+    'resetPassword.newPasswordPlaceholder': 'Enter new password',
+    'resetPassword.confirmPasswordPlaceholder': 'Confirm new password',
+    'resetPassword.newPasswordRequired': 'New password is required',
+    'resetPassword.confirmPasswordRequired': 'Confirm password is required',
+    'resetPassword.passwordsDoNotMatch': 'Passwords do not match',
+    'resetPassword.resetting': 'Resetting...',
+    'resetPassword.passwordReset': 'Password Reset',
+    'resetPassword.passwordResetDesc': 'Password has been reset successfully',
+    
     // Common
     'common.language': 'Language',
     'common.search': 'Search',
@@ -176,6 +190,7 @@ const translations = {
     'doctor.status': 'Status',
     'doctor.actions': 'Actions',
     'doctor.edit': 'Edit',
+    'doctor.resetPassword': 'Reset Password',
     'doctor.active': 'Active',
     'doctor.inactive': 'Inactive',
     'doctor.previous': 'Previous',
@@ -235,6 +250,7 @@ const translations = {
     'user.status': 'Status',
     'user.actions': 'Actions',
     'user.edit': 'Edit',
+    'user.resetPassword': 'Reset Password',
     'user.active': 'Active',
     'user.inactive': 'Inactive',
     'user.previous': 'Previous',
@@ -638,6 +654,20 @@ const translations = {
     'changePassword.passwordChanged': 'পাসওয়ার্ড পরিবর্তিত হয়েছে',
     'changePassword.passwordChangedDesc': 'আপনার পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে',
     
+    // Reset Password
+    'resetPassword.resetPassword': 'পাসওয়ার্ড রিসেট',
+    'resetPassword.resetPasswordFor': 'এর জন্য পাসওয়ার্ড রিসেট',
+    'resetPassword.newPassword': 'নতুন পাসওয়ার্ড',
+    'resetPassword.confirmPassword': 'পাসওয়ার্ড নিশ্চিত করুন',
+    'resetPassword.newPasswordPlaceholder': 'নতুন পাসওয়ার্ড লিখুন',
+    'resetPassword.confirmPasswordPlaceholder': 'নতুন পাসওয়ার্ড নিশ্চিত করুন',
+    'resetPassword.newPasswordRequired': 'নতুন পাসওয়ার্ড প্রয়োজন',
+    'resetPassword.confirmPasswordRequired': 'পাসওয়ার্ড নিশ্চিতকরণ প্রয়োজন',
+    'resetPassword.passwordsDoNotMatch': 'পাসওয়ার্ড মিলছে না',
+    'resetPassword.resetting': 'রিসেট করা হচ্ছে...',
+    'resetPassword.passwordReset': 'পাসওয়ার্ড রিসেট হয়েছে',
+    'resetPassword.passwordResetDesc': 'পাসওয়ার্ড সফলভাবে রিসেট হয়েছে',
+    
     // Validation
     'validation.phoneRequired': 'ফোন নম্বর প্রয়োজন',
     'validation.phoneLength': 'ফোন নম্বর অবশ্যই ১১ সংখ্যার হতে হবে',
@@ -702,6 +732,7 @@ const translations = {
     'doctor.status': 'অবস্থা',
     'doctor.actions': 'কার্যক্রম',
     'doctor.edit': 'সম্পাদনা',
+    'doctor.resetPassword': 'পাসওয়ার্ড রিসেট',
     'doctor.active': 'সক্রিয়',
     'doctor.inactive': 'নিষ্ক্রিয়',
     'doctor.previous': 'পূর্ববর্তী',
@@ -761,6 +792,7 @@ const translations = {
     'user.status': 'অবস্থা',
     'user.actions': 'কার্যক্রম',
     'user.edit': 'সম্পাদনা',
+    'user.resetPassword': 'পাসওয়ার্ড রিসেট',
     'user.active': 'সক্রিয়',
     'user.inactive': 'নিষ্ক্রিয়',
     'user.previous': 'পূর্ববর্তী',
