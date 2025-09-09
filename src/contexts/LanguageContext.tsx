@@ -1136,7 +1136,19 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setMounted(true)
   }, [])
-  
+
+  // Update document lang and font when language changes
+  useEffect(() => {
+    document.documentElement.lang = language
+    if (language === 'bn') {
+      document.body.classList.add('font-bengali')
+      document.body.classList.remove('font-sans')
+    } else {
+      document.body.classList.add('font-sans')
+      document.body.classList.remove('font-bengali')
+    }
+  }, [language])
+
   // This useEffect is kept to handle any changes to localStorage that might happen outside this component
   useEffect(() => {
     const savedLanguage = localStorage.getItem('docledger-language') as Language
