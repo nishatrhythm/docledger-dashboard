@@ -6,6 +6,7 @@ interface DialogProps {
   onOpenChange?: (open: boolean) => void
   disableOutsideClick?: boolean
   children: React.ReactNode
+  maxWidth?: string
 }
 
 interface DialogContentProps {
@@ -33,7 +34,7 @@ interface DialogFooterProps {
   children: React.ReactNode
 }
 
-const Dialog = ({ open, onOpenChange, disableOutsideClick = false, children }: DialogProps) => {
+const Dialog = ({ open, onOpenChange, disableOutsideClick = false, children, maxWidth = "max-w-lg" }: DialogProps) => {
   if (!open) return null
 
   return (
@@ -44,7 +45,7 @@ const Dialog = ({ open, onOpenChange, disableOutsideClick = false, children }: D
         onClick={() => !disableOutsideClick && onOpenChange && onOpenChange(false)}
       />
       {/* Content */}
-      <div className="relative z-50 max-h-[90vh] w-full max-w-lg overflow-y-auto">
+      <div className={cn("relative z-50 max-h-[90vh] w-full overflow-y-auto", maxWidth)}>
         {children}
       </div>
     </div>
@@ -68,8 +69,9 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
 DialogContent.displayName = "DialogContent"
 
 const DialogHeader = ({ className, children }: DialogHeaderProps) => (
-  <div className={cn("flex flex-col space-y-1.5 text-center sm:text-left mb-4", className)}>
+  <div className={cn("flex flex-col space-y-1.5 text-center sm:text-left mb-4 pb-4 relative", className)}>
     {children}
+    <div className="absolute bottom-0 left-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
   </div>
 )
 
@@ -100,7 +102,8 @@ const DialogDescription = React.forwardRef<HTMLParagraphElement, DialogDescripti
 DialogDescription.displayName = "DialogDescription"
 
 const DialogFooter = ({ className, children }: DialogFooterProps) => (
-  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-6", className)}>
+  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-6 pt-4 relative", className)}>
+    <div className="absolute top-0 left-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
     {children}
   </div>
 )

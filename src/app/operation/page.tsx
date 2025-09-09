@@ -846,8 +846,8 @@ export default function OperationPage() {
       </div>
 
       {/* Add Operation Modal */}
-      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
-        <DialogContent className="sm:max-w-md">
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true} maxWidth="max-w-lg sm:max-w-4xl">
+        <DialogContent className="">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">{t('operation.addNewOperation')}</DialogTitle>
             <DialogDescription>
@@ -856,7 +856,7 @@ export default function OperationPage() {
           </DialogHeader>
 
           <form onSubmit={handleAddOperation} className="space-y-4" autoComplete="off">
-            {/* Doctor Name Dropdown */}
+            {/* Doctor Name Dropdown - Full Width */}
             <div className="space-y-2">
               <Label htmlFor="doctorName" className="text-sm font-medium">
                 {t('operation.doctorName')} <span className="text-red-500">*</span>
@@ -885,7 +885,7 @@ export default function OperationPage() {
               )}
             </div>
 
-            {/* Chamber Name Dropdown */}
+            {/* Chamber Name Dropdown - Full Width */}
             <div className="space-y-2">
               <Label htmlFor="chamberName" className="text-sm font-medium">
                 {t('operation.chamberName')} <span className="text-red-500">*</span>
@@ -914,137 +914,146 @@ export default function OperationPage() {
               )}
             </div>
 
-            {/* Patient Name Field */}
-            <div className="space-y-2">
-              <Label htmlFor="patientName" className="text-sm font-medium">
-                {t('operation.patientName')} <span className="text-red-500">*</span>
-              </Label>
-              <div className="relative">
-                <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
-                  id="patientName"
-                  type="text"
-                  value={newOperationForm.patientName}
-                  onChange={handleModalInputChange('patientName')}
-                  placeholder={t('operation.patientNamePlaceholder')}
-                  className={`pl-10 ${formErrors.patientName ? 'border-red-500 focus:border-red-500' : ''}`}
-                  disabled={isSubmitting}
-                  autoComplete="off"
-                />
+            {/* Patient Name (Left) and Patient Phone (Right) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Patient Name Field */}
+              <div className="space-y-2">
+                <Label htmlFor="patientName" className="text-sm font-medium">
+                  {t('operation.patientName')} <span className="text-red-500">*</span>
+                </Label>
+                <div className="relative">
+                  <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    id="patientName"
+                    type="text"
+                    value={newOperationForm.patientName}
+                    onChange={handleModalInputChange('patientName')}
+                    placeholder={t('operation.patientNamePlaceholder')}
+                    className={`pl-10 ${formErrors.patientName ? 'border-red-500 focus:border-red-500' : ''}`}
+                    disabled={isSubmitting}
+                    autoComplete="off"
+                  />
+                </div>
+                {formErrors.patientName && (
+                  <p className="text-sm text-red-600">{formErrors.patientName}</p>
+                )}
               </div>
-              {formErrors.patientName && (
-                <p className="text-sm text-red-600">{formErrors.patientName}</p>
-              )}
-            </div>
 
-            {/* Operation Type Dropdown */}
-            <div className="space-y-2">
-              <Label htmlFor="operationType" className="text-sm font-medium">
-                {t('operation.operationType')} <span className="text-red-500">*</span>
-              </Label>
-              <Select 
-                value={newOperationForm.operationType} 
-                onValueChange={handleModalInputChange('operationType')}
-                disabled={isSubmitting}
-              >
-                <SelectTrigger className={formErrors.operationType ? 'border-red-500 focus:border-red-500' : ''}>
-                  <SelectValue placeholder={t('operation.selectOperationType')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {operationTypes.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {language === 'bn' ? type.labelBn : type.labelEn}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {formErrors.operationType && (
-                <p className="text-sm text-red-600">{formErrors.operationType}</p>
-              )}
-            </div>
-
-            {/* Phone Field */}
-            <div className="space-y-2">
-              <Label htmlFor="patientPhone" className="text-sm font-medium">
-                {t('operation.patientPhone')} <span className="text-red-500">*</span>
-              </Label>
-              <div className="relative">
-                <BiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
-                  id="patientPhone"
-                  type="tel"
-                  value={newOperationForm.patientPhone}
-                  onChange={handleModalInputChange('patientPhone')}
-                  placeholder={t('auth.phonePlaceholder')}
-                  className={`pl-10 ${formErrors.patientPhone ? 'border-red-500 focus:border-red-500' : ''}`}
-                  disabled={isSubmitting}
-                  maxLength={11}
-                  autoComplete="off"
-                />
+              {/* Phone Field */}
+              <div className="space-y-2">
+                <Label htmlFor="patientPhone" className="text-sm font-medium">
+                  {t('operation.patientPhone')} <span className="text-red-500">*</span>
+                </Label>
+                <div className="relative">
+                  <BiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    id="patientPhone"
+                    type="tel"
+                    value={newOperationForm.patientPhone}
+                    onChange={handleModalInputChange('patientPhone')}
+                    placeholder={t('auth.phonePlaceholder')}
+                    className={`pl-10 ${formErrors.patientPhone ? 'border-red-500 focus:border-red-500' : ''}`}
+                    disabled={isSubmitting}
+                    maxLength={11}
+                    autoComplete="off"
+                  />
+                </div>
+                {formErrors.patientPhone && (
+                  <p className="text-sm text-red-600">{formErrors.patientPhone}</p>
+                )}
               </div>
-              {formErrors.patientPhone && (
-                <p className="text-sm text-red-600">{formErrors.patientPhone}</p>
-              )}
             </div>
 
-            {/* Date Field */}
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">
-                {t('operation.date')} <span className="text-red-500">*</span>
-              </Label>
-              <DatePicker
-                date={newOperationForm.date}
-                onDateChange={handleModalInputChange('date')}
-                placeholder={t('operation.selectDate')}
-                className={`h-10 ${formErrors.date ? 'border-red-500 focus:border-red-500' : ''}`}
-                disabled={isSubmitting}
-                allowFutureDates={true}
-              />
-              {formErrors.date && (
-                <p className="text-sm text-red-600">{formErrors.date}</p>
-              )}
-            </div>
-
-            {/* Time Field */}
-            <div className="space-y-2">
-              <Label htmlFor="operationTime" className="text-sm font-medium">
-                {t('operation.time')} <span className="text-red-500">*</span>
-              </Label>
-              <TimePicker
-                time={newOperationForm.time}
-                onTimeChange={handleModalInputChange('time')}
-                placeholder={t('operation.selectTime')}
-                className={`w-full ${formErrors.time ? 'border-red-500 focus:border-red-500' : ''}`}
-                disabled={isSubmitting}
-              />
-              {formErrors.time && (
-                <p className="text-sm text-red-600">{formErrors.time}</p>
-              )}
-            </div>
-
-            {/* Amount Field */}
-            <div className="space-y-2">
-              <Label htmlFor="operationAmount" className="text-sm font-medium">
-                {t('operation.amount')} <span className="text-red-500">*</span>
-              </Label>
-              <div className="relative">
-                <BiMoney className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <Input
-                  id="operationAmount"
-                  type="number"
-                  step="0.01"
-                  inputMode="decimal"
-                  value={newOperationForm.amount}
-                  onChange={handleModalInputChange('amount')}
-                  placeholder={t('operation.amountPlaceholder')}
-                  className={`pl-10 ${formErrors.amount ? 'border-red-500 focus:border-red-500' : ''} [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]`}
+            {/* Operation Type (Left) and Amount (Right) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Operation Type Dropdown */}
+              <div className="space-y-2">
+                <Label htmlFor="operationType" className="text-sm font-medium">
+                  {t('operation.operationType')} <span className="text-red-500">*</span>
+                </Label>
+                <Select 
+                  value={newOperationForm.operationType} 
+                  onValueChange={handleModalInputChange('operationType')}
                   disabled={isSubmitting}
-                  autoComplete="off"
-                />
+                >
+                  <SelectTrigger className={formErrors.operationType ? 'border-red-500 focus:border-red-500' : ''}>
+                    <SelectValue placeholder={t('operation.selectOperationType')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {operationTypes.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {language === 'bn' ? type.labelBn : type.labelEn}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {formErrors.operationType && (
+                  <p className="text-sm text-red-600">{formErrors.operationType}</p>
+                )}
               </div>
-              {formErrors.amount && (
-                <p className="text-sm text-red-600">{formErrors.amount}</p>
-              )}
+
+              {/* Amount Field */}
+              <div className="space-y-2">
+                <Label htmlFor="operationAmount" className="text-sm font-medium">
+                  {t('operation.amount')} <span className="text-red-500">*</span>
+                </Label>
+                <div className="relative">
+                  <BiMoney className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    id="operationAmount"
+                    type="number"
+                    step="0.01"
+                    inputMode="decimal"
+                    value={newOperationForm.amount}
+                    onChange={handleModalInputChange('amount')}
+                    placeholder={t('operation.amountPlaceholder')}
+                    className={`pl-10 ${formErrors.amount ? 'border-red-500 focus:border-red-500' : ''} [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]`}
+                    disabled={isSubmitting}
+                    autoComplete="off"
+                  />
+                </div>
+                {formErrors.amount && (
+                  <p className="text-sm text-red-600">{formErrors.amount}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Date (Left) and Time (Right) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Date Field */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">
+                  {t('operation.date')} <span className="text-red-500">*</span>
+                </Label>
+                <DatePicker
+                  date={newOperationForm.date}
+                  onDateChange={handleModalInputChange('date')}
+                  placeholder={t('operation.selectDate')}
+                  className={`h-10 ${formErrors.date ? 'border-red-500 focus:border-red-500' : ''}`}
+                  disabled={isSubmitting}
+                  allowFutureDates={true}
+                />
+                {formErrors.date && (
+                  <p className="text-sm text-red-600">{formErrors.date}</p>
+                )}
+              </div>
+
+              {/* Time Field */}
+              <div className="space-y-2">
+                <Label htmlFor="operationTime" className="text-sm font-medium">
+                  {t('operation.time')} <span className="text-red-500">*</span>
+                </Label>
+                <TimePicker
+                  time={newOperationForm.time}
+                  onTimeChange={handleModalInputChange('time')}
+                  placeholder={t('operation.selectTime')}
+                  className={`w-full h-10 ${formErrors.time ? 'border-red-500 focus:border-red-500' : ''}`}
+                  disabled={isSubmitting}
+                />
+                {formErrors.time && (
+                  <p className="text-sm text-red-600">{formErrors.time}</p>
+                )}
+              </div>
             </div>
 
             <DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
