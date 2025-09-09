@@ -92,6 +92,10 @@ const translations = {
     'sidebar.account': 'Bank Account',
     'sidebar.deposit': 'Deposit',
     'sidebar.docledger': 'DocLedger',
+    'account.changePassword': 'Change Password',
+    'account.superAdmin': 'Super Admin',
+    'account.admin': 'Admin',
+    'account.user': 'User',
     
     // Common
     'common.language': 'Language',
@@ -595,6 +599,10 @@ const translations = {
     'sidebar.account': 'ব্যাংক অ্যাকাউন্ট',
     'sidebar.deposit': 'জমা',
     'sidebar.docledger': 'ডকলেজার',
+    'account.changePassword': 'পাসওয়ার্ড পরিবর্তন',
+    'account.superAdmin': 'সুপার অ্যাডমিন',
+    'account.admin': 'অ্যাডমিন',
+    'account.user': 'ইউজার',
     
     // Validation
     'validation.phoneRequired': 'ফোন নম্বর প্রয়োজন',

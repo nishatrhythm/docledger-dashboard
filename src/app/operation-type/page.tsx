@@ -250,16 +250,6 @@ export default function OperationTypePage() {
 
   const itemsPerPage = 5
 
-  const handleLogout = () => {
-    // Show logout success toast
-    showToast.success(t('toast.logoutSuccess'), t('toast.logoutSuccessDesc'))
-    
-    // Redirect to login page
-    setTimeout(() => {
-      router.push('/login')
-    }, 1000) // Small delay to show the toast
-  }
-
   // Get available chambers based on selected doctor
   const availableChambers = useMemo(() => {
     if (!newOperationTypeForm.doctorId) return []
@@ -453,14 +443,6 @@ export default function OperationTypePage() {
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
                 <LanguageSwitcher size="sm" />
-                <Button 
-                  variant="destructive" 
-                  size="sm" 
-                  onClick={handleLogout}
-                  className="cursor-pointer text-xs sm:text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:text-red-700"
-                >
-                  {t('dashboard.logout')}
-                </Button>
               </div>
             </div>
           </div>

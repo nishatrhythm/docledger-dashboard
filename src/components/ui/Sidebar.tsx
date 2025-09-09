@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
 import Logo from '@/components/ui/Logo'
+import AccountMenu from '@/components/ui/AccountMenu'
 import { 
   MdDashboard, 
   MdMeetingRoom,
@@ -196,13 +197,9 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
           </ul>
         </nav>
 
-        {/* Footer */}
+        {/* Footer with Account Menu */}
         <div className="p-4 border-t border-gray-200 flex-shrink-0">
-          {(!isCollapsed || isMobile) && (
-            <p className="text-sm text-gray-500 text-center">
-              © {new Date().getFullYear()} {t('sidebar.docledger')}
-            </p>
-          )}
+          <AccountMenu isCollapsed={isCollapsed} isMobile={isMobile} />
         </div>
       </div>
     </>

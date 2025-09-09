@@ -65,16 +65,6 @@ export default function Dashboard() {
   const [endDate, setEndDate] = useState<Date | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const handleLogout = () => {
-    // Show logout success toast
-    showToast.success(t('toast.logoutSuccess'), t('toast.logoutSuccessDesc'))
-    
-    // Redirect to login page
-    setTimeout(() => {
-      router.push('/login')
-    }, 1000) // Small delay to show the toast
-  }
-
   const statsCards = [
     {
       title: t('dashboard.totalDoctor'),
@@ -165,14 +155,6 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <span className="hidden sm:inline text-sm lg:text-base text-gray-600">{t('dashboard.welcome')}</span>
                 <LanguageSwitcher size="sm" />
-                <Button 
-                  variant="destructive" 
-                  size="sm" 
-                  onClick={handleLogout}
-                  className="cursor-pointer text-xs sm:text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 hover:text-red-700"
-                >
-                  {t('dashboard.logout')}
-                </Button>
               </div>
             </div>
           </div>
