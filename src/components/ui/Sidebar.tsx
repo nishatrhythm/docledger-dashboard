@@ -16,7 +16,8 @@ import {
   MdMenu,
   MdMenuOpen,
   MdClose,
-  MdHealing
+  MdHealing,
+  MdCategory
 } from 'react-icons/md'
 import { cn } from '@/lib/utils'
 
@@ -83,6 +84,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
     { id: 'chamber', label: t('sidebar.chamber'), icon: MdMeetingRoom, href: '/chamber' },
     { id: 'user', label: t('sidebar.user'), icon: MdPerson, href: '/user' },
     { id: 'appointment', label: t('sidebar.appointment'), icon: MdCalendarToday, href: '/appointment' },
+    { id: 'operationType', label: t('sidebar.operationType'), icon: MdCategory, href: '/operation-type' },
     { id: 'operation', label: t('sidebar.operation'), icon: MdHealing, href: '/operation' },
     { id: 'expenditure', label: t('sidebar.expenditure'), icon: MdAccountBalanceWallet, href: '/expenditure' },
     { id: 'account', label: t('sidebar.account'), icon: MdAccountBalance, href: '/account' },

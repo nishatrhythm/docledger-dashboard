@@ -1124,7 +1124,7 @@ export default function DepositPage() {
                 />
                 <div className={`flex items-center justify-between p-3 border-2 border-dashed rounded-lg cursor-pointer transition-colors hover:border-blue-400 hover:bg-blue-50 ${formErrors.attachments ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}>
                   <div className="flex items-center gap-3">
-                    <MdAttachFile className="w-5 h-5 text-gray-500" />
+                    <MdAttachFile className="w-5 h-5 text-gray-500 flex-shrink-0" />
                     <div className="text-sm">
                       {newDepositForm.attachments.length === 0 ? (
                         <span className="text-gray-500">{t('deposit.dragDropFiles')}</span>
@@ -1219,7 +1219,7 @@ export default function DepositPage() {
                       return (
                         <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded border">
                           <div className="flex items-center gap-2">
-                            <MdAttachFile className="w-4 h-4 text-gray-500" />
+                            <MdAttachFile className="w-4 h-4 text-gray-500 flex-shrink-0" />
                             <span className="text-sm text-gray-700">{file.name}</span>
                           </div>
                           <button
