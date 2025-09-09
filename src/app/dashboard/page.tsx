@@ -31,7 +31,7 @@ import {
 
 // Demo data
 const demoStats = {
-  totalAdmin: 12,
+  totalDoctor: 12,
   totalUser: 248,
   totalChamber: 8,
   totalIncome: 125000,
@@ -48,7 +48,7 @@ const demoChambers = [
   { id: 4, name: 'Chamber 4 - General Medicine', nameBn: 'চেম্বার ৪ - সাধারণ চিকিৎসা' },
 ]
 
-const demoAdmins = [
+const demoDoctors = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান' },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান' },
   { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী' },
@@ -60,7 +60,7 @@ export default function Dashboard() {
   const router = useRouter()
   const { showToast } = useLocalizedToast()
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
-  const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>()
   const [startDate, setStartDate] = useState<Date | undefined>()
   const [endDate, setEndDate] = useState<Date | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -77,8 +77,8 @@ export default function Dashboard() {
 
   const statsCards = [
     {
-      title: t('dashboard.totalAdmin'),
-      value: demoStats.totalAdmin,
+      title: t('dashboard.totalDoctor'),
+      value: demoStats.totalDoctor,
       icon: MdAdminPanelSettings,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
@@ -195,7 +195,7 @@ export default function Dashboard() {
                     variant="outline"
                     onClick={() => {
                       setSelectedChamber(undefined)
-                      setSelectedAdmin(undefined)
+                      setSelectedDoctor(undefined)
                       setStartDate(undefined)
                       setEndDate(undefined)
                     }}
@@ -245,17 +245,17 @@ export default function Dashboard() {
                   </Select>
                 </div>
 
-                {/* Admin Filter */}
+                {/* Doctor Filter */}
                 <div className="space-y-1">
-                  <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
-                  <Select value={selectedAdmin} onValueChange={setSelectedAdmin}>
+                  <Label htmlFor="doctor-filter" className="text-sm sm:text-base">{t('dashboard.filterByDoctor')}</Label>
+                  <Select value={selectedDoctor} onValueChange={setSelectedDoctor}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={t('dashboard.allAdmins')} />
+                      <SelectValue placeholder={t('dashboard.allDoctors')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {demoAdmins.map((admin) => (
-                        <SelectItem key={admin.id} value={admin.id.toString()}>
-                          {language === 'bn' ? admin.nameBn : admin.name}
+                      {demoDoctors.map((doctor) => (
+                        <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                          {language === 'bn' ? doctor.nameBn : doctor.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -292,7 +292,7 @@ export default function Dashboard() {
                   variant="outline"
                   onClick={() => {
                     setSelectedChamber(undefined)
-                    setSelectedAdmin(undefined)
+                    setSelectedDoctor(undefined)
                     setStartDate(undefined)
                     setEndDate(undefined)
                   }}

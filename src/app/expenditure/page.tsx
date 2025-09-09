@@ -47,8 +47,8 @@ import {
 } from 'react-icons/md'
 import { BiUser, BiBuildings, BiMoney, BiFileBlank } from 'react-icons/bi'
 
-// Demo data for admin users (for dropdown)
-const demoAdmins = [
+// Demo data for doctors (for dropdown)
+const demoDoctors = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান' },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান' },
   { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী' },
@@ -63,49 +63,49 @@ const demoAdmins = [
 const demoChambers = [
   { 
     id: 1, 
-    adminId: 1,
+    doctorId: 1,
     name: 'Cardiology Chamber', 
     nameBn: 'হৃদরোগ চেম্বার',
   },
   { 
     id: 2, 
-    adminId: 2,
+    doctorId: 2,
     name: 'Neurology Center', 
     nameBn: 'স্নায়ুরোগ কেন্দ্র',
   },
   { 
     id: 3, 
-    adminId: 3,
+    doctorId: 3,
     name: 'Orthopedic Clinic', 
     nameBn: 'অর্থোপেডিক ক্লিনিক',
   },
   { 
     id: 4, 
-    adminId: 4,
+    doctorId: 4,
     name: 'General Medicine', 
     nameBn: 'সাধারণ চিকিৎসা',
   },
   { 
     id: 5, 
-    adminId: 5,
+    doctorId: 5,
     name: 'Pediatric Care', 
     nameBn: 'শিশু চিকিৎসা',
   },
   { 
     id: 6, 
-    adminId: 6,
+    doctorId: 6,
     name: 'Gynecology Clinic', 
     nameBn: 'গাইনোকোলজি ক্লিনিক',
   },
   { 
     id: 7, 
-    adminId: 7,
+    doctorId: 7,
     name: 'Emergency Care', 
     nameBn: 'জরুরি চিকিৎসা',
   },
   { 
     id: 8, 
-    adminId: 8,
+    doctorId: 8,
     name: 'Dermatology Center', 
     nameBn: 'চর্মরোগ কেন্দ্র',
   },
@@ -115,9 +115,9 @@ const demoChambers = [
 const demoExpenditures = [
   { 
     id: 1, 
-    adminId: 1,
-    adminName: 'Dr. Ahmed Rahman', 
-    adminNameBn: 'ডা. আহমেদ রহমান',
+    doctorId: 1,
+    doctorName: 'Dr. Ahmed Rahman', 
+    doctorNameBn: 'ডা. আহমেদ রহমান',
     chamberId: 1,
     chamberName: 'Cardiology Chamber',
     chamberNameBn: 'হৃদরোগ চেম্বার',
@@ -133,9 +133,9 @@ const demoExpenditures = [
   },
   { 
     id: 2, 
-    adminId: 2,
-    adminName: 'Dr. Sarah Khan', 
-    adminNameBn: 'ডা. সারাহ খান',
+    doctorId: 2,
+    doctorName: 'Dr. Sarah Khan', 
+    doctorNameBn: 'ডা. সারাহ খান',
     chamberId: 2,
     chamberName: 'Neurology Center',
     chamberNameBn: 'স্নায়ুরোগ কেন্দ্র',
@@ -150,9 +150,9 @@ const demoExpenditures = [
   },
   { 
     id: 3, 
-    adminId: 3,
-    adminName: 'Dr. Mohammad Ali', 
-    adminNameBn: 'ডা. মোহাম্মদ আলী',
+    doctorId: 3,
+    doctorName: 'Dr. Mohammad Ali', 
+    doctorNameBn: 'ডা. মোহাম্মদ আলী',
     chamberId: 3,
     chamberName: 'Orthopedic Clinic',
     chamberNameBn: 'অর্থোপেডিক ক্লিনিক',
@@ -167,9 +167,9 @@ const demoExpenditures = [
   },
   { 
     id: 4, 
-    adminId: 4,
-    adminName: 'Dr. Fatima Sheikh', 
-    adminNameBn: 'ডা. ফাতিমা শেখ',
+    doctorId: 4,
+    doctorName: 'Dr. Fatima Sheikh', 
+    doctorNameBn: 'ডা. ফাতিমা শেখ',
     chamberId: 4,
     chamberName: 'General Medicine',
     chamberNameBn: 'সাধারণ চিকিৎসা',
@@ -185,9 +185,9 @@ const demoExpenditures = [
   },
   { 
     id: 5, 
-    adminId: 5,
-    adminName: 'Dr. Rahman Khan', 
-    adminNameBn: 'ডা. রহমান খান',
+    doctorId: 5,
+    doctorName: 'Dr. Rahman Khan', 
+    doctorNameBn: 'ডা. রহমান খান',
     chamberId: 5,
     chamberName: 'Pediatric Care',
     chamberNameBn: 'শিশু চিকিৎসা',
@@ -202,9 +202,9 @@ const demoExpenditures = [
   },
   { 
     id: 6, 
-    adminId: 6,
-    adminName: 'Dr. Ayesha Begum', 
-    adminNameBn: 'ডা. আয়েশা বেগম',
+    doctorId: 6,
+    doctorName: 'Dr. Ayesha Begum', 
+    doctorNameBn: 'ডা. আয়েশা বেগম',
     chamberId: 6,
     chamberName: 'Gynecology Clinic',
     chamberNameBn: 'গাইনোকোলজি ক্লিনিক',
@@ -221,9 +221,9 @@ const demoExpenditures = [
   },
   { 
     id: 7, 
-    adminId: 7,
-    adminName: 'Dr. Hassan Ali', 
-    adminNameBn: 'ডা. হাসান আলী',
+    doctorId: 7,
+    doctorName: 'Dr. Hassan Ali', 
+    doctorNameBn: 'ডা. হাসান আলী',
     chamberId: 7,
     chamberName: 'Emergency Care',
     chamberNameBn: 'জরুরি চিকিৎসা',
@@ -238,9 +238,9 @@ const demoExpenditures = [
   },
   { 
     id: 8, 
-    adminId: 8,
-    adminName: 'Dr. Nadia Islam', 
-    adminNameBn: 'ডা. নাদিয়া ইসলাম',
+    doctorId: 8,
+    doctorName: 'Dr. Nadia Islam', 
+    doctorNameBn: 'ডা. নাদিয়া ইসলাম',
     chamberId: 8,
     chamberName: 'Dermatology Center',
     chamberNameBn: 'চর্মরোগ কেন্দ্র',
@@ -268,20 +268,20 @@ export default function ExpenditurePage() {
   const router = useRouter()
   const { showToast } = useLocalizedToast()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>()
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [expenditures, setExpenditures] = useState(demoExpenditures)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [newExpenditureForm, setNewExpenditureForm] = useState({
-    adminId: '',
+    doctorId: '',
     chamberId: '',
     expenditureDetails: '',
     amount: '',
     attachments: [] as File[]
   })
-  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberId?: string; expenditureDetails?: string; amount?: string; attachments?: string}>({})
+  const [formErrors, setFormErrors] = useState<{doctorId?: string; chamberId?: string; expenditureDetails?: string; amount?: string; attachments?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const itemsPerPage = 5
@@ -297,10 +297,10 @@ export default function ExpenditurePage() {
   }
 
   const validateAddExpenditureForm = () => {
-    const newErrors: {adminId?: string; chamberId?: string; expenditureDetails?: string; amount?: string; attachments?: string} = {}
+    const newErrors: {doctorId?: string; chamberId?: string; expenditureDetails?: string; amount?: string; attachments?: string} = {}
 
-    if (!newExpenditureForm.adminId) {
-      newErrors.adminId = t('expenditure.adminRequired')
+    if (!newExpenditureForm.doctorId) {
+      newErrors.doctorId = t('expenditure.doctorRequired')
     }
 
     if (!newExpenditureForm.chamberId) {
@@ -339,14 +339,14 @@ export default function ExpenditurePage() {
 
     // Simulate API call
     setTimeout(() => {
-      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newExpenditureForm.adminId)
+      const selectedDoctorData = demoDoctors.find(doctor => doctor.id.toString() === newExpenditureForm.doctorId)
       const selectedChamberData = demoChambers.find(chamber => chamber.id.toString() === newExpenditureForm.chamberId)
       
       const newExpenditure = {
         id: Math.max(...expenditures.map(e => e.id)) + 1,
-        adminId: parseInt(newExpenditureForm.adminId),
-        adminName: selectedAdminData?.name || '',
-        adminNameBn: selectedAdminData?.nameBn || '',
+        doctorId: parseInt(newExpenditureForm.doctorId),
+        doctorName: selectedDoctorData?.name || '',
+        doctorNameBn: selectedDoctorData?.nameBn || '',
         chamberId: parseInt(newExpenditureForm.chamberId),
         chamberName: selectedChamberData?.name || '',
         chamberNameBn: selectedChamberData?.nameBn || '',
@@ -361,7 +361,7 @@ export default function ExpenditurePage() {
       setExpenditures(prevExpenditures => [newExpenditure, ...prevExpenditures])
       setIsAddModalOpen(false)
       setNewExpenditureForm({ 
-        adminId: '', 
+        doctorId: '', 
         chamberId: '', 
         expenditureDetails: '', 
         amount: '',
@@ -378,7 +378,7 @@ export default function ExpenditurePage() {
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
     setNewExpenditureForm({ 
-      adminId: '', 
+      doctorId: '', 
       chamberId: '', 
       expenditureDetails: '', 
       amount: '',
@@ -433,8 +433,8 @@ export default function ExpenditurePage() {
     setNewExpenditureForm(prev => {
       const newForm = { ...prev, [field]: value }
       
-      // Reset chamber selection when admin changes
-      if (field === 'adminId') {
+      // Reset chamber selection when doctor changes
+      if (field === 'doctorId') {
         newForm.chamberId = ''
       }
       
@@ -496,7 +496,7 @@ export default function ExpenditurePage() {
 
   const handleResetSearch = () => {
     setSearchQuery('')
-    setSelectedAdmin(undefined)
+    setSelectedDoctor(undefined)
     setSelectedChamber(undefined)
     setCurrentPage(1)
   }
@@ -519,25 +519,25 @@ export default function ExpenditurePage() {
     URL.revokeObjectURL(url)
   }
 
-  // Get available chambers based on selected admin
+  // Get available chambers based on selected doctor
   const availableChambers = useMemo(() => {
-    if (!newExpenditureForm.adminId) return []
-    return demoChambers.filter(chamber => chamber.adminId.toString() === newExpenditureForm.adminId)
-  }, [newExpenditureForm.adminId])
+    if (!newExpenditureForm.doctorId) return []
+    return demoChambers.filter(chamber => chamber.doctorId.toString() === newExpenditureForm.doctorId)
+  }, [newExpenditureForm.doctorId])
 
-  // Get chambers for filter dropdown based on selected admin
+  // Get chambers for filter dropdown based on selected doctor
   const filterChambers = useMemo(() => {
-    if (!selectedAdmin) return demoChambers
-    return demoChambers.filter(chamber => chamber.adminId.toString() === selectedAdmin)
-  }, [selectedAdmin])
+    if (!selectedDoctor) return demoChambers
+    return demoChambers.filter(chamber => chamber.doctorId.toString() === selectedDoctor)
+  }, [selectedDoctor])
 
-  // Filter expenditures based on search query, selected admin, and selected chamber
+  // Filter expenditures based on search query, selected doctor, and selected chamber
   const filteredExpenditures = useMemo(() => {
     let filtered = expenditures
 
-    // Filter by admin if selected
-    if (selectedAdmin) {
-      filtered = filtered.filter(expenditure => expenditure.adminId.toString() === selectedAdmin)
+    // Filter by doctor if selected
+    if (selectedDoctor) {
+      filtered = filtered.filter(expenditure => expenditure.doctorId.toString() === selectedDoctor)
     }
 
     // Filter by chamber if selected
@@ -548,11 +548,11 @@ export default function ExpenditurePage() {
     // Filter by search query
     if (searchQuery) {
       filtered = filtered.filter(expenditure => {
-        const adminName = language === 'bn' ? expenditure.adminNameBn : expenditure.adminName
+        const doctorName = language === 'bn' ? expenditure.doctorNameBn : expenditure.doctorName
         const chamberName = language === 'bn' ? expenditure.chamberNameBn : expenditure.chamberName
         const expenditureDetails = language === 'bn' ? expenditure.expenditureDetailsBn : expenditure.expenditureDetails
         
-        return adminName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        return doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                chamberName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                expenditureDetails.toLowerCase().includes(searchQuery.toLowerCase()) ||
                formatCurrency(expenditure.amount).includes(searchQuery)
@@ -560,7 +560,7 @@ export default function ExpenditurePage() {
     }
 
     return filtered
-  }, [expenditures, searchQuery, selectedAdmin, selectedChamber, language, formatCurrency])
+  }, [expenditures, searchQuery, selectedDoctor, selectedChamber, language, formatCurrency])
 
   // Pagination logic
   const totalPages = Math.ceil(filteredExpenditures.length / itemsPerPage)
@@ -644,20 +644,20 @@ export default function ExpenditurePage() {
             </CardHeader>
             <CardContent className="pt-1">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
-                {/* Admin Filter */}
+                {/* Doctor Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
-                  <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
-                  <Select value={selectedAdmin} onValueChange={(value) => {
-                    setSelectedAdmin(value)
-                    setSelectedChamber(undefined) // Reset chamber when admin changes
+                  <Label htmlFor="doctor-filter" className="text-sm sm:text-base">{t('dashboard.filterByDoctor')}</Label>
+                  <Select value={selectedDoctor} onValueChange={(value) => {
+                    setSelectedDoctor(value)
+                    setSelectedChamber(undefined) // Reset chamber when doctor changes
                   }}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={t('dashboard.allAdmins')} />
+                      <SelectValue placeholder={t('dashboard.allDoctors')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {demoAdmins.map((admin) => (
-                        <SelectItem key={admin.id} value={admin.id.toString()}>
-                          {language === 'bn' ? admin.nameBn : admin.name}
+                      {demoDoctors.map((doctor) => (
+                        <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                          {language === 'bn' ? doctor.nameBn : doctor.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -667,9 +667,9 @@ export default function ExpenditurePage() {
                 {/* Chamber Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
                   <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('expenditure.filterByChamber')}</Label>
-                  <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedAdmin}>
+                  <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedDoctor}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={selectedAdmin ? t('expenditure.allChambers') : t('expenditure.selectAdminFirst')} />
+                      <SelectValue placeholder={selectedDoctor ? t('expenditure.allChambers') : t('expenditure.selectDoctorFirst')} />
                     </SelectTrigger>
                     <SelectContent>
                       {filterChambers.map((chamber) => (
@@ -700,7 +700,7 @@ export default function ExpenditurePage() {
                 <div className="w-full sm:w-auto">
                   <Button 
                     onClick={handleSearch}
-                    disabled={!searchQuery.trim() && !selectedAdmin && !selectedChamber}
+                    disabled={!searchQuery.trim() && !selectedDoctor && !selectedChamber}
                     className="text-sm sm:text-base h-10 sm:h-11 w-full sm:w-auto"
                   >
                     {t('common.search')}
@@ -729,7 +729,7 @@ export default function ExpenditurePage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('expenditure.adminName')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('expenditure.doctorName')}</TableHead>
                       <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('expenditure.chamberName')}</TableHead>
                       <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('expenditure.expenditureDetails')}</TableHead>
                       <TableHead className="w-[100px] h-10 px-3">{t('expenditure.amount')}</TableHead>
@@ -743,7 +743,7 @@ export default function ExpenditurePage() {
                         return (
                           <TableRow key={expenditure.id}>
                             <TableCell className="font-medium px-3 py-4">
-                              {language === 'bn' ? expenditure.adminNameBn : expenditure.adminName}
+                              {language === 'bn' ? expenditure.doctorNameBn : expenditure.doctorName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
                               {language === 'bn' ? expenditure.chamberNameBn : expenditure.chamberName}
@@ -882,32 +882,32 @@ export default function ExpenditurePage() {
           </DialogHeader>
 
           <form onSubmit={handleAddExpenditure} className="space-y-4" autoComplete="off">
-            {/* Admin Name Dropdown */}
+            {/* Doctor Name Dropdown */}
             <div className="space-y-2">
-              <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('expenditure.adminName')} <span className="text-red-500">*</span>
+              <Label htmlFor="doctorName" className="text-sm font-medium">
+                {t('expenditure.doctorName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newExpenditureForm.adminId} 
-                  onValueChange={handleModalInputChange('adminId')}
+                  value={newExpenditureForm.doctorId} 
+                  onValueChange={handleModalInputChange('doctorId')}
                   disabled={isSubmitting}
                 >
-                  <SelectTrigger className={`pl-10 ${formErrors.adminId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={t('expenditure.selectAdmin')} />
+                  <SelectTrigger className={`pl-10 ${formErrors.doctorId ? 'border-red-500 focus:border-red-500' : ''}`}>
+                    <SelectValue placeholder={t('expenditure.selectDoctor')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {demoAdmins.map((admin) => (
-                      <SelectItem key={admin.id} value={admin.id.toString()}>
-                        {language === 'bn' ? admin.nameBn : admin.name}
+                    {demoDoctors.map((doctor) => (
+                      <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                        {language === 'bn' ? doctor.nameBn : doctor.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              {formErrors.adminId && (
-                <p className="text-sm text-red-600">{formErrors.adminId}</p>
+              {formErrors.doctorId && (
+                <p className="text-sm text-red-600">{formErrors.doctorId}</p>
               )}
             </div>
 
@@ -921,10 +921,10 @@ export default function ExpenditurePage() {
                 <Select 
                   value={newExpenditureForm.chamberId} 
                   onValueChange={handleModalInputChange('chamberId')}
-                  disabled={isSubmitting || !newExpenditureForm.adminId}
+                  disabled={isSubmitting || !newExpenditureForm.doctorId}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.chamberId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={newExpenditureForm.adminId ? t('expenditure.selectChamber') : t('expenditure.selectAdminFirst')} />
+                    <SelectValue placeholder={newExpenditureForm.doctorId ? t('expenditure.selectChamber') : t('expenditure.selectDoctorFirst')} />
                   </SelectTrigger>
                   <SelectContent>
                     {availableChambers.map((chamber) => (

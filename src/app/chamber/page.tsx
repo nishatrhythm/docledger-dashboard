@@ -44,8 +44,8 @@ import {
 } from 'react-icons/md'
 import { BiMapPin, BiUser, BiBuildings } from 'react-icons/bi'
 
-// Demo data for admin users (for dropdown)
-const demoAdmins = [
+// Demo data for doctors (for dropdown)
+const demoDoctors = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান' },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান' },
   { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী' },
@@ -60,9 +60,9 @@ const demoAdmins = [
 const demoChambers = [
   { 
     id: 1, 
-    adminId: 1,
-    adminName: 'Dr. Ahmed Rahman', 
-    adminNameBn: 'ডা. আহমেদ রহমান', 
+    doctorId: 1,
+    doctorName: 'Dr. Ahmed Rahman', 
+    doctorNameBn: 'ডা. আহমেদ রহমান', 
     chamberName: 'Cardiology Chamber', 
     chamberNameBn: 'হৃদরোগ চেম্বার',
     address: '123 Main Street, Dhaka-1000', 
@@ -71,9 +71,9 @@ const demoChambers = [
   },
   { 
     id: 2, 
-    adminId: 2,
-    adminName: 'Dr. Sarah Khan', 
-    adminNameBn: 'ডা. সারাহ খান', 
+    doctorId: 2,
+    doctorName: 'Dr. Sarah Khan', 
+    doctorNameBn: 'ডা. সারাহ খান', 
     chamberName: 'Neurology Center', 
     chamberNameBn: 'স্নায়ুরোগ কেন্দ্র',
     address: '456 Hospital Road, Chittagong-4000', 
@@ -82,9 +82,9 @@ const demoChambers = [
   },
   { 
     id: 3, 
-    adminId: 3,
-    adminName: 'Dr. Mohammad Ali', 
-    adminNameBn: 'ডা. মোহাম্মদ আলী', 
+    doctorId: 3,
+    doctorName: 'Dr. Mohammad Ali', 
+    doctorNameBn: 'ডা. মোহাম্মদ আলী', 
     chamberName: 'Orthopedic Clinic', 
     chamberNameBn: 'অর্থোপেডিক ক্লিনিক',
     address: '789 Medical Street, Sylhet-3100', 
@@ -93,9 +93,9 @@ const demoChambers = [
   },
   { 
     id: 4, 
-    adminId: 4,
-    adminName: 'Dr. Fatima Sheikh', 
-    adminNameBn: 'ডা. ফাতিমা শেখ', 
+    doctorId: 4,
+    doctorName: 'Dr. Fatima Sheikh', 
+    doctorNameBn: 'ডা. ফাতিমা শেখ', 
     chamberName: 'General Medicine', 
     chamberNameBn: 'সাধারণ চিকিৎসা',
     address: '321 Health Avenue, Rajshahi-6000', 
@@ -104,9 +104,9 @@ const demoChambers = [
   },
   { 
     id: 5, 
-    adminId: 5,
-    adminName: 'Dr. Rahman Khan', 
-    adminNameBn: 'ডা. রহমান খান', 
+    doctorId: 5,
+    doctorName: 'Dr. Rahman Khan', 
+    doctorNameBn: 'ডা. রহমান খান', 
     chamberName: 'Pediatric Care', 
     chamberNameBn: 'শিশু চিকিৎসা',
     address: '654 Children Hospital, Khulna-9000', 
@@ -115,9 +115,9 @@ const demoChambers = [
   },
   { 
     id: 6, 
-    adminId: 6,
-    adminName: 'Dr. Ayesha Begum', 
-    adminNameBn: 'ডা. আয়েশা বেগম', 
+    doctorId: 6,
+    doctorName: 'Dr. Ayesha Begum', 
+    doctorNameBn: 'ডা. আয়েশা বেগম', 
     chamberName: 'Gynecology Clinic', 
     chamberNameBn: 'গাইনোকোলজি ক্লিনিক',
     address: '987 Women Hospital Road, Barisal-8200', 
@@ -126,9 +126,9 @@ const demoChambers = [
   },
   { 
     id: 7, 
-    adminId: 7,
-    adminName: 'Dr. Hassan Ali', 
-    adminNameBn: 'ডা. হাসান আলী', 
+    doctorId: 7,
+    doctorName: 'Dr. Hassan Ali', 
+    doctorNameBn: 'ডা. হাসান আলী', 
     chamberName: 'Emergency Care', 
     chamberNameBn: 'জরুরি চিকিৎসা',
     address: '147 Emergency Lane, Rangpur-5400', 
@@ -137,9 +137,9 @@ const demoChambers = [
   },
   { 
     id: 8, 
-    adminId: 8,
-    adminName: 'Dr. Nadia Islam', 
-    adminNameBn: 'ডা. নাদিয়া ইসলাম', 
+    doctorId: 8,
+    doctorName: 'Dr. Nadia Islam', 
+    doctorNameBn: 'ডা. নাদিয়া ইসলাম', 
     chamberName: 'Dermatology Center', 
     chamberNameBn: 'চর্মরোগ কেন্দ্র',
     address: '258 Skin Care Street, Comilla-3500', 
@@ -153,17 +153,17 @@ export default function ChamberPage() {
   const router = useRouter()
   const { showToast } = useLocalizedToast()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [chambers, setChambers] = useState(demoChambers)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [newChamberForm, setNewChamberForm] = useState({
-    adminId: '',
+    doctorId: '',
     chamberName: '',
     address: ''
   })
-  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberName?: string; address?: string}>({})
+  const [formErrors, setFormErrors] = useState<{doctorId?: string; chamberName?: string; address?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const itemsPerPage = 5
 
@@ -178,10 +178,10 @@ export default function ChamberPage() {
   }
 
   const validateAddChamberForm = () => {
-    const newErrors: {adminId?: string; chamberName?: string; address?: string} = {}
+    const newErrors: {doctorId?: string; chamberName?: string; address?: string} = {}
 
-    if (!newChamberForm.adminId) {
-      newErrors.adminId = t('chamber.adminRequired')
+    if (!newChamberForm.doctorId) {
+      newErrors.doctorId = t('chamber.doctorRequired')
     }
 
     if (!newChamberForm.chamberName.trim()) {
@@ -207,13 +207,13 @@ export default function ChamberPage() {
 
     // Simulate API call
     setTimeout(() => {
-      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newChamberForm.adminId)
+      const selectedDoctorData = demoDoctors.find(doctor => doctor.id.toString() === newChamberForm.doctorId)
       
       const newChamber = {
         id: Math.max(...chambers.map(c => c.id)) + 1,
-        adminId: parseInt(newChamberForm.adminId),
-        adminName: selectedAdminData?.name || '',
-        adminNameBn: selectedAdminData?.nameBn || '',
+        doctorId: parseInt(newChamberForm.doctorId),
+        doctorName: selectedDoctorData?.name || '',
+        doctorNameBn: selectedDoctorData?.nameBn || '',
         chamberName: newChamberForm.chamberName,
         chamberNameBn: newChamberForm.chamberName, // In real app, you might want separate Bengali name field
         address: newChamberForm.address,
@@ -223,7 +223,7 @@ export default function ChamberPage() {
 
       setChambers(prevChambers => [newChamber, ...prevChambers])
       setIsAddModalOpen(false)
-      setNewChamberForm({ adminId: '', chamberName: '', address: '' })
+      setNewChamberForm({ doctorId: '', chamberName: '', address: '' })
       setFormErrors({})
       setIsSubmitting(false)
 
@@ -233,12 +233,12 @@ export default function ChamberPage() {
 
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
-    setNewChamberForm({ adminId: '', chamberName: '', address: '' })
+    setNewChamberForm({ doctorId: '', chamberName: '', address: '' })
     setFormErrors({})
     setIsSubmitting(false)
   }
 
-  const handleModalInputChange = (field: 'adminId' | 'chamberName' | 'address') => (e: React.ChangeEvent<HTMLInputElement> | string) => {
+  const handleModalInputChange = (field: 'doctorId' | 'chamberName' | 'address') => (e: React.ChangeEvent<HTMLInputElement> | string) => {
     let value: string
     if (typeof e === 'string') {
       value = e // For Select component
@@ -278,34 +278,34 @@ export default function ChamberPage() {
 
   const handleResetSearch = () => {
     setSearchQuery('')
-    setSelectedAdmin(undefined)
+    setSelectedDoctor(undefined)
     setCurrentPage(1)
   }
 
-  // Filter chambers based on search query and selected admin
+  // Filter chambers based on search query and selected doctor
   const filteredChambers = useMemo(() => {
     let filtered = chambers
 
-    // Filter by admin if selected
-    if (selectedAdmin) {
-      filtered = filtered.filter(chamber => chamber.adminId.toString() === selectedAdmin)
+    // Filter by doctor if selected
+    if (selectedDoctor) {
+      filtered = filtered.filter(chamber => chamber.doctorId.toString() === selectedDoctor)
     }
 
     // Filter by search query
     if (searchQuery) {
       filtered = filtered.filter(chamber => {
-        const adminName = language === 'bn' ? chamber.adminNameBn : chamber.adminName
+        const doctorName = language === 'bn' ? chamber.doctorNameBn : chamber.doctorName
         const chamberName = language === 'bn' ? chamber.chamberNameBn : chamber.chamberName
         const address = language === 'bn' ? chamber.addressBn : chamber.address
         
-        return adminName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        return doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                chamberName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                address.toLowerCase().includes(searchQuery.toLowerCase())
       })
     }
 
     return filtered
-  }, [chambers, searchQuery, selectedAdmin, language])
+  }, [chambers, searchQuery, selectedDoctor, language])
 
   // Pagination logic
   const totalPages = Math.ceil(filteredChambers.length / itemsPerPage)
@@ -389,17 +389,17 @@ export default function ChamberPage() {
             </CardHeader>
             <CardContent className="pt-1">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
-                {/* Admin Filter */}
+                {/* Doctor Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
-                  <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
-                  <Select value={selectedAdmin} onValueChange={setSelectedAdmin}>
+                  <Label htmlFor="doctor-filter" className="text-sm sm:text-base">{t('dashboard.filterByDoctor')}</Label>
+                  <Select value={selectedDoctor} onValueChange={setSelectedDoctor}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={t('dashboard.allAdmins')} />
+                      <SelectValue placeholder={t('dashboard.allDoctors')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {demoAdmins.map((admin) => (
-                        <SelectItem key={admin.id} value={admin.id.toString()}>
-                          {language === 'bn' ? admin.nameBn : admin.name}
+                      {demoDoctors.map((doctor) => (
+                        <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                          {language === 'bn' ? doctor.nameBn : doctor.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -425,7 +425,7 @@ export default function ChamberPage() {
                 <div className="w-full sm:w-auto">
                   <Button 
                     onClick={handleSearch}
-                    disabled={!searchQuery.trim() && !selectedAdmin}
+                    disabled={!searchQuery.trim() && !selectedDoctor}
                     className="text-sm sm:text-base h-10 sm:h-11 w-full sm:w-auto"
                   >
                     {t('common.search')}
@@ -454,7 +454,7 @@ export default function ChamberPage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('chamber.adminName')}</TableHead>
+                      <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('chamber.doctorName')}</TableHead>
                       <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('chamber.chamberName')}</TableHead>
                       <TableHead className="w-[250px] sm:w-[300px] h-10 px-3">{t('chamber.address')}</TableHead>
                       <TableHead className="w-[100px] text-center h-10 px-3">{t('chamber.actions')}</TableHead>
@@ -466,7 +466,7 @@ export default function ChamberPage() {
                       currentChambers.map((chamber) => (
                         <TableRow key={chamber.id}>
                           <TableCell className="font-medium px-3 py-4">
-                            {language === 'bn' ? chamber.adminNameBn : chamber.adminName}
+                            {language === 'bn' ? chamber.doctorNameBn : chamber.doctorName}
                           </TableCell>
                           <TableCell className="px-3 py-4">
                             {language === 'bn' ? chamber.chamberNameBn : chamber.chamberName}
@@ -571,32 +571,32 @@ export default function ChamberPage() {
           </DialogHeader>
 
           <form onSubmit={handleAddChamber} className="space-y-4" autoComplete="off">
-            {/* Admin Name Dropdown */}
+            {/* Doctor Name Dropdown */}
             <div className="space-y-2">
-              <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('chamber.adminName')} <span className="text-red-500">*</span>
+              <Label htmlFor="doctorName" className="text-sm font-medium">
+                {t('chamber.doctorName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newChamberForm.adminId} 
-                  onValueChange={handleModalInputChange('adminId')}
+                  value={newChamberForm.doctorId} 
+                  onValueChange={handleModalInputChange('doctorId')}
                   disabled={isSubmitting}
                 >
-                  <SelectTrigger className={`pl-10 ${formErrors.adminId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={t('chamber.selectAdmin')} />
+                  <SelectTrigger className={`pl-10 ${formErrors.doctorId ? 'border-red-500 focus:border-red-500' : ''}`}>
+                    <SelectValue placeholder={t('chamber.selectDoctor')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {demoAdmins.map((admin) => (
-                      <SelectItem key={admin.id} value={admin.id.toString()}>
-                        {language === 'bn' ? admin.nameBn : admin.name}
+                    {demoDoctors.map((doctor) => (
+                      <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                        {language === 'bn' ? doctor.nameBn : doctor.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              {formErrors.adminId && (
-                <p className="text-sm text-red-600">{formErrors.adminId}</p>
+              {formErrors.doctorId && (
+                <p className="text-sm text-red-600">{formErrors.doctorId}</p>
               )}
             </div>
 

@@ -47,8 +47,8 @@ import {
 } from 'react-icons/md'
 import { BiUser, BiBuildings, BiMoney, BiCreditCard } from 'react-icons/bi'
 
-// Demo data for admin users (for dropdown)
-const demoAdmins = [
+// Demo data for doctors (for dropdown)
+const demoDoctors = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান' },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান' },
   { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী' },
@@ -63,59 +63,59 @@ const demoAdmins = [
 const demoChambers = [
   { 
     id: 1, 
-    adminId: 1,
+    doctorId: 1,
     name: 'Cardiology Chamber', 
     nameBn: 'হৃদরোগ চেম্বার',
   },
   { 
     id: 2, 
-    adminId: 2,
+    doctorId: 2,
     name: 'Neurology Center', 
     nameBn: 'স্নায়ুরোগ কেন্দ্র',
   },
   { 
     id: 3, 
-    adminId: 3,
+    doctorId: 3,
     name: 'Orthopedic Clinic', 
     nameBn: 'অর্থোপেডিক ক্লিনিক',
   },
   { 
     id: 4, 
-    adminId: 4,
+    doctorId: 4,
     name: 'General Medicine', 
     nameBn: 'সাধারণ চিকিৎসা',
   },
   { 
     id: 5, 
-    adminId: 5,
+    doctorId: 5,
     name: 'Pediatric Care', 
     nameBn: 'শিশু চিকিৎসা',
   },
   { 
     id: 6, 
-    adminId: 6,
+    doctorId: 6,
     name: 'Gynecology Clinic', 
     nameBn: 'গাইনোকোলজি ক্লিনিক',
   },
   { 
     id: 7, 
-    adminId: 7,
+    doctorId: 7,
     name: 'Emergency Care', 
     nameBn: 'জরুরি চিকিৎসা',
   },
   { 
     id: 8, 
-    adminId: 8,
+    doctorId: 8,
     name: 'Dermatology Center', 
     nameBn: 'চর্মরোগ কেন্দ্র',
   },
 ]
 
-// Demo data for accounts (based on admin)
+// Demo data for accounts (based on doctor)
 const demoAccounts = [
   { 
     id: 1, 
-    adminId: 1,
+    doctorId: 1,
     name: 'Cardiology Chamber - Main Account', 
     nameBn: 'হৃদরোগ চেম্বার - মূল অ্যাকাউন্ট',
     accountNumber: '1234567890',
@@ -124,7 +124,7 @@ const demoAccounts = [
   },
   { 
     id: 2, 
-    adminId: 1,
+    doctorId: 1,
     name: 'Cardiology Chamber - Savings Account', 
     nameBn: 'হৃদরোগ চেম্বার - সঞ্চয় অ্যাকাউন্ট',
     accountNumber: '1234567891',
@@ -133,7 +133,7 @@ const demoAccounts = [
   },
   { 
     id: 3, 
-    adminId: 2,
+    doctorId: 2,
     name: 'Neurology Center - Business Account', 
     nameBn: 'স্নায়ুরোগ কেন্দ্র - ব্যবসায়িক অ্যাকাউন্ট',
     accountNumber: '2234567890',
@@ -142,7 +142,7 @@ const demoAccounts = [
   },
   { 
     id: 4, 
-    adminId: 2,
+    doctorId: 2,
     name: 'Neurology Center - Cash Account', 
     nameBn: 'স্নায়ুরোগ কেন্দ্র - নগদ অ্যাকাউন্ট',
     accountNumber: '2234567891',
@@ -151,7 +151,7 @@ const demoAccounts = [
   },
   { 
     id: 5, 
-    adminId: 3,
+    doctorId: 3,
     name: 'Orthopedic Clinic - Main Account', 
     nameBn: 'অর্থোপেডিক ক্লিনিক - মূল অ্যাকাউন্ট',
     accountNumber: '3234567890',
@@ -160,7 +160,7 @@ const demoAccounts = [
   },
   { 
     id: 6, 
-    adminId: 4,
+    doctorId: 4,
     name: 'General Medicine - Primary Account', 
     nameBn: 'সাধারণ চিকিৎসা - প্রাথমিক অ্যাকাউন্ট',
     accountNumber: '4234567890',
@@ -169,7 +169,7 @@ const demoAccounts = [
   },
   { 
     id: 7, 
-    adminId: 5,
+    doctorId: 5,
     name: 'Pediatric Care - Main Account', 
     nameBn: 'শিশু চিকিৎসা - মূল অ্যাকাউন্ট',
     accountNumber: '5234567890',
@@ -178,7 +178,7 @@ const demoAccounts = [
   },
   { 
     id: 8, 
-    adminId: 6,
+    doctorId: 6,
     name: 'Gynecology Clinic - Business Account', 
     nameBn: 'গাইনোকোলজি ক্লিনিক - ব্যবসায়িক অ্যাকাউন্ট',
     accountNumber: '6234567890',
@@ -187,7 +187,7 @@ const demoAccounts = [
   },
   { 
     id: 9, 
-    adminId: 7,
+    doctorId: 7,
     name: 'Emergency Care - Emergency Fund', 
     nameBn: 'জরুরি চিকিৎসা - জরুরি তহবিল',
     accountNumber: '7234567890',
@@ -196,7 +196,7 @@ const demoAccounts = [
   },
   { 
     id: 10, 
-    adminId: 8,
+    doctorId: 8,
     name: 'Dermatology Center - Main Account', 
     nameBn: 'চর্মরোগ কেন্দ্র - মূল অ্যাকাউন্ট',
     accountNumber: '8234567890',
@@ -209,9 +209,9 @@ const demoAccounts = [
 const demoDeposits = [
   { 
     id: 1, 
-    adminId: 1,
-    adminName: 'Dr. Ahmed Rahman', 
-    adminNameBn: 'ডা. আহমেদ রহমান',
+    doctorId: 1,
+    doctorName: 'Dr. Ahmed Rahman', 
+    doctorNameBn: 'ডা. আহমেদ রহমান',
     chamberId: 1,
     chamberName: 'Cardiology Chamber',
     chamberNameBn: 'হৃদরোগ চেম্বার',
@@ -228,9 +228,9 @@ const demoDeposits = [
   },
   { 
     id: 2, 
-    adminId: 2,
-    adminName: 'Dr. Sarah Khan', 
-    adminNameBn: 'ডা. সারাহ খান',
+    doctorId: 2,
+    doctorName: 'Dr. Sarah Khan', 
+    doctorNameBn: 'ডা. সারাহ খান',
     chamberId: 2,
     chamberName: 'Neurology Center',
     chamberNameBn: 'স্নায়ুরোগ কেন্দ্র',
@@ -246,9 +246,9 @@ const demoDeposits = [
   },
   { 
     id: 3, 
-    adminId: 3,
-    adminName: 'Dr. Mohammad Ali', 
-    adminNameBn: 'ডা. মোহাম্মদ আলী',
+    doctorId: 3,
+    doctorName: 'Dr. Mohammad Ali', 
+    doctorNameBn: 'ডা. মোহাম্মদ আলী',
     chamberId: 3,
     chamberName: 'Orthopedic Clinic',
     chamberNameBn: 'অর্থোপেডিক ক্লিনিক',
@@ -265,9 +265,9 @@ const demoDeposits = [
   },
   { 
     id: 4, 
-    adminId: 4,
-    adminName: 'Dr. Fatima Sheikh', 
-    adminNameBn: 'ডা. ফাতিমা শেখ',
+    doctorId: 4,
+    doctorName: 'Dr. Fatima Sheikh', 
+    doctorNameBn: 'ডা. ফাতিমা শেখ',
     chamberId: 4,
     chamberName: 'General Medicine',
     chamberNameBn: 'সাধারণ চিকিৎসা',
@@ -283,9 +283,9 @@ const demoDeposits = [
   },
   { 
     id: 5, 
-    adminId: 5,
-    adminName: 'Dr. Rahman Khan', 
-    adminNameBn: 'ডা. রহমান খান',
+    doctorId: 5,
+    doctorName: 'Dr. Rahman Khan', 
+    doctorNameBn: 'ডা. রহমান খান',
     chamberId: 5,
     chamberName: 'Pediatric Care',
     chamberNameBn: 'শিশু চিকিৎসা',
@@ -302,9 +302,9 @@ const demoDeposits = [
   },
   { 
     id: 6, 
-    adminId: 6,
-    adminName: 'Dr. Ayesha Begum', 
-    adminNameBn: 'ডা. আয়েশা বেগম',
+    doctorId: 6,
+    doctorName: 'Dr. Ayesha Begum', 
+    doctorNameBn: 'ডা. আয়েশা বেগম',
     chamberId: 6,
     chamberName: 'Gynecology Clinic',
     chamberNameBn: 'গাইনোকোলজি ক্লিনিক',
@@ -320,9 +320,9 @@ const demoDeposits = [
   },
   { 
     id: 7, 
-    adminId: 7,
-    adminName: 'Dr. Hassan Ali', 
-    adminNameBn: 'ডা. হাসান আলী',
+    doctorId: 7,
+    doctorName: 'Dr. Hassan Ali', 
+    doctorNameBn: 'ডা. হাসান আলী',
     chamberId: 7,
     chamberName: 'Emergency Care',
     chamberNameBn: 'জরুরি চিকিৎসা',
@@ -339,9 +339,9 @@ const demoDeposits = [
   },
   { 
     id: 8, 
-    adminId: 8,
-    adminName: 'Dr. Nadia Islam', 
-    adminNameBn: 'ডা. নাদিয়া ইসলাম',
+    doctorId: 8,
+    doctorName: 'Dr. Nadia Islam', 
+    doctorNameBn: 'ডা. নাদিয়া ইসলাম',
     chamberId: 8,
     chamberName: 'Dermatology Center',
     chamberNameBn: 'চর্মরোগ কেন্দ্র',
@@ -370,20 +370,20 @@ export default function DepositPage() {
   const router = useRouter()
   const { showToast } = useLocalizedToast()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>()
   const [selectedChamber, setSelectedChamber] = useState<string | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [deposits, setDeposits] = useState(demoDeposits)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [newDepositForm, setNewDepositForm] = useState({
-    adminId: '',
+    doctorId: '',
     chamberId: '',
     accountId: '',
     amount: '',
     attachments: [] as File[]
   })
-  const [formErrors, setFormErrors] = useState<{adminId?: string; chamberId?: string; accountId?: string; amount?: string; attachments?: string}>({})
+  const [formErrors, setFormErrors] = useState<{doctorId?: string; chamberId?: string; accountId?: string; amount?: string; attachments?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const itemsPerPage = 5
@@ -399,10 +399,10 @@ export default function DepositPage() {
   }
 
   const validateAddDepositForm = () => {
-    const newErrors: {adminId?: string; chamberId?: string; accountId?: string; amount?: string; attachments?: string} = {}
+    const newErrors: {doctorId?: string; chamberId?: string; accountId?: string; amount?: string; attachments?: string} = {}
 
-    if (!newDepositForm.adminId) {
-      newErrors.adminId = t('deposit.adminRequired')
+    if (!newDepositForm.doctorId) {
+      newErrors.doctorId = t('deposit.doctorRequired')
     }
 
     if (!newDepositForm.chamberId) {
@@ -441,15 +441,15 @@ export default function DepositPage() {
 
     // Simulate API call
     setTimeout(() => {
-      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newDepositForm.adminId)
+      const selectedDoctorData = demoDoctors.find(doctor => doctor.id.toString() === newDepositForm.doctorId)
       const selectedChamberData = demoChambers.find(chamber => chamber.id.toString() === newDepositForm.chamberId)
       const selectedAccountData = demoAccounts.find(account => account.id.toString() === newDepositForm.accountId)
       
       const newDeposit = {
         id: Math.max(...deposits.map(d => d.id)) + 1,
-        adminId: parseInt(newDepositForm.adminId),
-        adminName: selectedAdminData?.name || '',
-        adminNameBn: selectedAdminData?.nameBn || '',
+        doctorId: parseInt(newDepositForm.doctorId),
+        doctorName: selectedDoctorData?.name || '',
+        doctorNameBn: selectedDoctorData?.nameBn || '',
         chamberId: parseInt(newDepositForm.chamberId),
         chamberName: selectedChamberData?.name || '',
         chamberNameBn: selectedChamberData?.nameBn || '',
@@ -465,7 +465,7 @@ export default function DepositPage() {
       setDeposits(prevDeposits => [newDeposit, ...prevDeposits])
       setIsAddModalOpen(false)
       setNewDepositForm({ 
-        adminId: '', 
+        doctorId: '', 
         chamberId: '', 
         accountId: '',
         amount: '',
@@ -482,7 +482,7 @@ export default function DepositPage() {
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
     setNewDepositForm({ 
-      adminId: '', 
+      doctorId: '', 
       chamberId: '', 
       accountId: '',
       amount: '',
@@ -537,8 +537,8 @@ export default function DepositPage() {
     setNewDepositForm(prev => {
       const newForm = { ...prev, [field]: value }
       
-      // Reset chamber and account selection when admin changes
-      if (field === 'adminId') {
+      // Reset chamber and account selection when doctor changes
+      if (field === 'doctorId') {
         newForm.chamberId = ''
         newForm.accountId = ''
       }
@@ -601,7 +601,7 @@ export default function DepositPage() {
 
   const handleResetSearch = () => {
     setSearchQuery('')
-    setSelectedAdmin(undefined)
+    setSelectedDoctor(undefined)
     setSelectedChamber(undefined)
     setCurrentPage(1)
   }
@@ -624,31 +624,31 @@ export default function DepositPage() {
     URL.revokeObjectURL(url)
   }
 
-  // Get available chambers based on selected admin
+  // Get available chambers based on selected doctor
   const availableChambers = useMemo(() => {
-    if (!newDepositForm.adminId) return []
-    return demoChambers.filter(chamber => chamber.adminId.toString() === newDepositForm.adminId)
-  }, [newDepositForm.adminId])
+    if (!newDepositForm.doctorId) return []
+    return demoChambers.filter(chamber => chamber.doctorId.toString() === newDepositForm.doctorId)
+  }, [newDepositForm.doctorId])
 
-  // Get available accounts based on selected admin
+  // Get available accounts based on selected doctor
   const availableAccounts = useMemo(() => {
-    if (!newDepositForm.adminId) return []
-    return demoAccounts.filter(account => account.adminId.toString() === newDepositForm.adminId)
-  }, [newDepositForm.adminId])
+    if (!newDepositForm.doctorId) return []
+    return demoAccounts.filter(account => account.doctorId.toString() === newDepositForm.doctorId)
+  }, [newDepositForm.doctorId])
 
-  // Get chambers for filter dropdown based on selected admin
+  // Get chambers for filter dropdown based on selected doctor
   const filterChambers = useMemo(() => {
-    if (!selectedAdmin) return demoChambers
-    return demoChambers.filter(chamber => chamber.adminId.toString() === selectedAdmin)
-  }, [selectedAdmin])
+    if (!selectedDoctor) return demoChambers
+    return demoChambers.filter(chamber => chamber.doctorId.toString() === selectedDoctor)
+  }, [selectedDoctor])
 
-  // Filter deposits based on search query, selected admin, and selected chamber
+  // Filter deposits based on search query, selected doctor, and selected chamber
   const filteredDeposits = useMemo(() => {
     let filtered = deposits
 
-    // Filter by admin if selected
-    if (selectedAdmin) {
-      filtered = filtered.filter(deposit => deposit.adminId.toString() === selectedAdmin)
+    // Filter by doctor if selected
+    if (selectedDoctor) {
+      filtered = filtered.filter(deposit => deposit.doctorId.toString() === selectedDoctor)
     }
 
     // Filter by chamber if selected
@@ -659,11 +659,11 @@ export default function DepositPage() {
     // Filter by search query
     if (searchQuery) {
       filtered = filtered.filter(deposit => {
-        const adminName = language === 'bn' ? deposit.adminNameBn : deposit.adminName
+        const doctorName = language === 'bn' ? deposit.doctorNameBn : deposit.doctorName
         const chamberName = language === 'bn' ? deposit.chamberNameBn : deposit.chamberName
         const accountName = language === 'bn' ? deposit.accountNameBn : deposit.accountName
         
-        return adminName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        return doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                chamberName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                accountName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                formatCurrency(deposit.amount).includes(searchQuery)
@@ -671,7 +671,7 @@ export default function DepositPage() {
     }
 
     return filtered
-  }, [deposits, searchQuery, selectedAdmin, selectedChamber, language, formatCurrency])
+  }, [deposits, searchQuery, selectedDoctor, selectedChamber, language, formatCurrency])
 
   // Pagination logic
   const totalPages = Math.ceil(filteredDeposits.length / itemsPerPage)
@@ -755,20 +755,20 @@ export default function DepositPage() {
             </CardHeader>
             <CardContent className="pt-1">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
-                {/* Admin Filter */}
+                {/* Doctor Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
-                  <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
-                  <Select value={selectedAdmin} onValueChange={(value) => {
-                    setSelectedAdmin(value)
-                    setSelectedChamber(undefined) // Reset chamber when admin changes
+                  <Label htmlFor="doctor-filter" className="text-sm sm:text-base">{t('dashboard.filterByDoctor')}</Label>
+                  <Select value={selectedDoctor} onValueChange={(value) => {
+                    setSelectedDoctor(value)
+                    setSelectedChamber(undefined) // Reset chamber when doctor changes
                   }}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={t('dashboard.allAdmins')} />
+                      <SelectValue placeholder={t('dashboard.allDoctors')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {demoAdmins.map((admin) => (
-                        <SelectItem key={admin.id} value={admin.id.toString()}>
-                          {language === 'bn' ? admin.nameBn : admin.name}
+                      {demoDoctors.map((doctor) => (
+                        <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                          {language === 'bn' ? doctor.nameBn : doctor.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -778,9 +778,9 @@ export default function DepositPage() {
                 {/* Chamber Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
                   <Label htmlFor="chamber-filter" className="text-sm sm:text-base">{t('deposit.filterByChamber')}</Label>
-                  <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedAdmin}>
+                  <Select value={selectedChamber} onValueChange={setSelectedChamber} disabled={!selectedDoctor}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={selectedAdmin ? t('deposit.allChambers') : t('deposit.selectAdminFirst')} />
+                      <SelectValue placeholder={selectedDoctor ? t('deposit.allChambers') : t('deposit.selectDoctorFirst')} />
                     </SelectTrigger>
                     <SelectContent>
                       {filterChambers.map((chamber) => (
@@ -811,7 +811,7 @@ export default function DepositPage() {
                 <div className="w-full sm:w-auto">
                   <Button 
                     onClick={handleSearch}
-                    disabled={!searchQuery.trim() && !selectedAdmin && !selectedChamber}
+                    disabled={!searchQuery.trim() && !selectedDoctor && !selectedChamber}
                     className="text-sm sm:text-base h-10 sm:h-11 w-full sm:w-auto"
                   >
                     {t('common.search')}
@@ -840,7 +840,7 @@ export default function DepositPage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('deposit.adminName')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('deposit.doctorName')}</TableHead>
                       <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('deposit.chamberName')}</TableHead>
                       <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('deposit.account')}</TableHead>
                       <TableHead className="w-[100px] h-10 px-3">{t('deposit.amount')}</TableHead>
@@ -854,7 +854,7 @@ export default function DepositPage() {
                         return (
                           <TableRow key={deposit.id}>
                             <TableCell className="font-medium px-3 py-4">
-                              {language === 'bn' ? deposit.adminNameBn : deposit.adminName}
+                              {language === 'bn' ? deposit.doctorNameBn : deposit.doctorName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
                               {language === 'bn' ? deposit.chamberNameBn : deposit.chamberName}
@@ -993,32 +993,32 @@ export default function DepositPage() {
           </DialogHeader>
 
           <form onSubmit={handleAddDeposit} className="space-y-4" autoComplete="off">
-            {/* Admin Name Dropdown */}
+            {/* Doctor Name Dropdown */}
             <div className="space-y-2">
-              <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('deposit.adminName')} <span className="text-red-500">*</span>
+              <Label htmlFor="doctorName" className="text-sm font-medium">
+                {t('deposit.doctorName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newDepositForm.adminId} 
-                  onValueChange={handleModalInputChange('adminId')}
+                  value={newDepositForm.doctorId} 
+                  onValueChange={handleModalInputChange('doctorId')}
                   disabled={isSubmitting}
                 >
-                  <SelectTrigger className={`pl-10 ${formErrors.adminId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={t('deposit.selectAdmin')} />
+                  <SelectTrigger className={`pl-10 ${formErrors.doctorId ? 'border-red-500 focus:border-red-500' : ''}`}>
+                    <SelectValue placeholder={t('deposit.selectDoctor')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {demoAdmins.map((admin) => (
-                      <SelectItem key={admin.id} value={admin.id.toString()}>
-                        {language === 'bn' ? admin.nameBn : admin.name}
+                    {demoDoctors.map((doctor) => (
+                      <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                        {language === 'bn' ? doctor.nameBn : doctor.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              {formErrors.adminId && (
-                <p className="text-sm text-red-600">{formErrors.adminId}</p>
+              {formErrors.doctorId && (
+                <p className="text-sm text-red-600">{formErrors.doctorId}</p>
               )}
             </div>
 
@@ -1032,10 +1032,10 @@ export default function DepositPage() {
                 <Select 
                   value={newDepositForm.chamberId} 
                   onValueChange={handleModalInputChange('chamberId')}
-                  disabled={isSubmitting || !newDepositForm.adminId}
+                  disabled={isSubmitting || !newDepositForm.doctorId}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.chamberId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={newDepositForm.adminId ? t('deposit.selectChamber') : t('deposit.selectAdminFirst')} />
+                    <SelectValue placeholder={newDepositForm.doctorId ? t('deposit.selectChamber') : t('deposit.selectDoctorFirst')} />
                   </SelectTrigger>
                   <SelectContent>
                     {availableChambers.map((chamber) => (
@@ -1061,10 +1061,10 @@ export default function DepositPage() {
                 <Select 
                   value={newDepositForm.accountId} 
                   onValueChange={handleModalInputChange('accountId')}
-                  disabled={isSubmitting || !newDepositForm.adminId}
+                  disabled={isSubmitting || !newDepositForm.doctorId}
                 >
                   <SelectTrigger className={`pl-10 ${formErrors.accountId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={newDepositForm.adminId ? t('deposit.selectAccount') : t('deposit.selectAdminFirst')} />
+                    <SelectValue placeholder={newDepositForm.doctorId ? t('deposit.selectAccount') : t('deposit.selectDoctorFirst')} />
                   </SelectTrigger>
                   <SelectContent>
                     {availableAccounts.map((account) => (

@@ -45,8 +45,8 @@ import {
 } from 'react-icons/md'
 import { BiUser, BiCreditCard, BiBuildings, BiHash } from 'react-icons/bi'
 
-// Demo data for admin users (for dropdown)
-const demoAdmins = [
+// Demo data for doctors (for dropdown)
+const demoDoctors = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান' },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান' },
   { id: 3, name: 'Dr. Mohammad Ali', nameBn: 'ডা. মোহাম্মদ আলী' },
@@ -67,9 +67,9 @@ const accountTypes = [
 const demoAccounts = [
   { 
     id: 1, 
-    adminId: 1,
-    adminName: 'Dr. Ahmed Rahman', 
-    adminNameBn: 'ডা. আহমেদ রহমান',
+    doctorId: 1,
+    doctorName: 'Dr. Ahmed Rahman', 
+    doctorNameBn: 'ডা. আহমেদ রহমান',
     accountType: 'bank',
     accountTypeName: 'Bank',
     accountTypeNameBn: 'ব্যাংক',
@@ -81,9 +81,9 @@ const demoAccounts = [
   },
   { 
     id: 2, 
-    adminId: 1,
-    adminName: 'Dr. Ahmed Rahman', 
-    adminNameBn: 'ডা. আহমেদ রহমান',
+    doctorId: 1,
+    doctorName: 'Dr. Ahmed Rahman', 
+    doctorNameBn: 'ডা. আহমেদ রহমান',
     accountType: 'mfs',
     accountTypeName: 'MFS',
     accountTypeNameBn: 'মোবাইল ব্যাংকিং',
@@ -95,9 +95,9 @@ const demoAccounts = [
   },
   { 
     id: 3, 
-    adminId: 2,
-    adminName: 'Dr. Sarah Khan', 
-    adminNameBn: 'ডা. সারাহ খান',
+    doctorId: 2,
+    doctorName: 'Dr. Sarah Khan', 
+    doctorNameBn: 'ডা. সারাহ খান',
     accountType: 'bank',
     accountTypeName: 'Bank',
     accountTypeNameBn: 'ব্যাংক',
@@ -109,9 +109,9 @@ const demoAccounts = [
   },
   { 
     id: 4, 
-    adminId: 2,
-    adminName: 'Dr. Sarah Khan', 
-    adminNameBn: 'ডা. সারাহ খান',
+    doctorId: 2,
+    doctorName: 'Dr. Sarah Khan', 
+    doctorNameBn: 'ডা. সারাহ খান',
     accountType: 'mfs',
     accountTypeName: 'MFS',
     accountTypeNameBn: 'মোবাইল ব্যাংকিং',
@@ -123,9 +123,9 @@ const demoAccounts = [
   },
   { 
     id: 5, 
-    adminId: 3,
-    adminName: 'Dr. Mohammad Ali', 
-    adminNameBn: 'ডা. মোহাম্মদ আলী',
+    doctorId: 3,
+    doctorName: 'Dr. Mohammad Ali', 
+    doctorNameBn: 'ডা. মোহাম্মদ আলী',
     accountType: 'bank',
     accountTypeName: 'Bank',
     accountTypeNameBn: 'ব্যাংক',
@@ -137,9 +137,9 @@ const demoAccounts = [
   },
   { 
     id: 6, 
-    adminId: 4,
-    adminName: 'Dr. Fatima Sheikh', 
-    adminNameBn: 'ডা. ফাতিমা শেখ',
+    doctorId: 4,
+    doctorName: 'Dr. Fatima Sheikh', 
+    doctorNameBn: 'ডা. ফাতিমা শেখ',
     accountType: 'bank',
     accountTypeName: 'Bank',
     accountTypeNameBn: 'ব্যাংক',
@@ -151,9 +151,9 @@ const demoAccounts = [
   },
   { 
     id: 7, 
-    adminId: 5,
-    adminName: 'Dr. Rahman Khan', 
-    adminNameBn: 'ডা. রহমান খান',
+    doctorId: 5,
+    doctorName: 'Dr. Rahman Khan', 
+    doctorNameBn: 'ডা. রহমান খান',
     accountType: 'mfs',
     accountTypeName: 'MFS',
     accountTypeNameBn: 'মোবাইল ব্যাংকিং',
@@ -165,9 +165,9 @@ const demoAccounts = [
   },
   { 
     id: 8, 
-    adminId: 6,
-    adminName: 'Dr. Ayesha Begum', 
-    adminNameBn: 'ডা. আয়েশা বেগম',
+    doctorId: 6,
+    doctorName: 'Dr. Ayesha Begum', 
+    doctorNameBn: 'ডা. আয়েশা বেগম',
     accountType: 'bank',
     accountTypeName: 'Bank',
     accountTypeNameBn: 'ব্যাংক',
@@ -179,9 +179,9 @@ const demoAccounts = [
   },
   { 
     id: 9, 
-    adminId: 7,
-    adminName: 'Dr. Hassan Ali', 
-    adminNameBn: 'ডা. হাসান আলী',
+    doctorId: 7,
+    doctorName: 'Dr. Hassan Ali', 
+    doctorNameBn: 'ডা. হাসান আলী',
     accountType: 'bank',
     accountTypeName: 'Bank',
     accountTypeNameBn: 'ব্যাংক',
@@ -193,9 +193,9 @@ const demoAccounts = [
   },
   { 
     id: 10, 
-    adminId: 8,
-    adminName: 'Dr. Nadia Islam', 
-    adminNameBn: 'ডা. নাদিয়া ইসলাম',
+    doctorId: 8,
+    doctorName: 'Dr. Nadia Islam', 
+    doctorNameBn: 'ডা. নাদিয়া ইসলাম',
     accountType: 'mfs',
     accountTypeName: 'MFS',
     accountTypeNameBn: 'মোবাইল ব্যাংকিং',
@@ -219,18 +219,18 @@ export default function AccountPage() {
   const router = useRouter()
   const { showToast } = useLocalizedToast()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedAdmin, setSelectedAdmin] = useState<string | undefined>()
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [accounts, setAccounts] = useState(demoAccounts)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [newAccountForm, setNewAccountForm] = useState({
-    adminId: '',
+    doctorId: '',
     accountType: '',
     accountOrganization: '',
     accountNumber: ''
   })
-  const [formErrors, setFormErrors] = useState<{adminId?: string; accountType?: string; accountOrganization?: string; accountNumber?: string}>({})
+  const [formErrors, setFormErrors] = useState<{doctorId?: string; accountType?: string; accountOrganization?: string; accountNumber?: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const itemsPerPage = 5
 
@@ -245,10 +245,10 @@ export default function AccountPage() {
   }
 
   const validateAddAccountForm = () => {
-    const newErrors: {adminId?: string; accountType?: string; accountOrganization?: string; accountNumber?: string} = {}
+    const newErrors: {doctorId?: string; accountType?: string; accountOrganization?: string; accountNumber?: string} = {}
 
-    if (!newAccountForm.adminId) {
-      newErrors.adminId = t('account.adminRequired')
+    if (!newAccountForm.doctorId) {
+      newErrors.doctorId = t('account.doctorRequired')
     }
 
     if (!newAccountForm.accountType) {
@@ -292,14 +292,14 @@ export default function AccountPage() {
 
     // Simulate API call
     setTimeout(() => {
-      const selectedAdminData = demoAdmins.find(admin => admin.id.toString() === newAccountForm.adminId)
+      const selectedDoctorData = demoDoctors.find(doctor => doctor.id.toString() === newAccountForm.doctorId)
       const selectedAccountType = accountTypes.find(type => type.value === newAccountForm.accountType)
       
       const newAccount = {
         id: Math.max(...accounts.map(a => a.id)) + 1,
-        adminId: parseInt(newAccountForm.adminId),
-        adminName: selectedAdminData?.name || '',
-        adminNameBn: selectedAdminData?.nameBn || '',
+        doctorId: parseInt(newAccountForm.doctorId),
+        doctorName: selectedDoctorData?.name || '',
+        doctorNameBn: selectedDoctorData?.nameBn || '',
         accountType: newAccountForm.accountType,
         accountTypeName: selectedAccountType?.labelEn || '',
         accountTypeNameBn: selectedAccountType?.labelBn || '',
@@ -313,7 +313,7 @@ export default function AccountPage() {
       setAccounts(prevAccounts => [newAccount, ...prevAccounts])
       setIsAddModalOpen(false)
       setNewAccountForm({ 
-        adminId: '', 
+        doctorId: '', 
         accountType: '', 
         accountOrganization: '',
         accountNumber: ''
@@ -328,7 +328,7 @@ export default function AccountPage() {
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
     setNewAccountForm({ 
-      adminId: '', 
+      doctorId: '', 
       accountType: '', 
       accountOrganization: '',
       accountNumber: ''
@@ -392,27 +392,27 @@ export default function AccountPage() {
 
   const handleResetSearch = () => {
     setSearchQuery('')
-    setSelectedAdmin(undefined)
+    setSelectedDoctor(undefined)
     setCurrentPage(1)
   }
 
-  // Filter accounts based on search query and selected admin
+  // Filter accounts based on search query and selected doctor
   const filteredAccounts = useMemo(() => {
     let filtered = accounts
 
-    // Filter by admin if selected
-    if (selectedAdmin) {
-      filtered = filtered.filter(account => account.adminId.toString() === selectedAdmin)
+    // Filter by doctor if selected
+    if (selectedDoctor) {
+      filtered = filtered.filter(account => account.doctorId.toString() === selectedDoctor)
     }
 
     // Filter by search query
     if (searchQuery) {
       filtered = filtered.filter(account => {
-        const adminName = language === 'bn' ? account.adminNameBn : account.adminName
+        const doctorName = language === 'bn' ? account.doctorNameBn : account.doctorName
         const accountTypeName = language === 'bn' ? account.accountTypeNameBn : account.accountTypeName
         const accountOrganization = language === 'bn' ? account.accountOrganizationBn : account.accountOrganization
         
-        return adminName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        return doctorName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                accountTypeName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                accountOrganization.toLowerCase().includes(searchQuery.toLowerCase()) ||
                account.accountNumber.includes(searchQuery)
@@ -420,7 +420,7 @@ export default function AccountPage() {
     }
 
     return filtered
-  }, [accounts, searchQuery, selectedAdmin, language])
+  }, [accounts, searchQuery, selectedDoctor, language])
 
   // Pagination logic
   const totalPages = Math.ceil(filteredAccounts.length / itemsPerPage)
@@ -504,17 +504,17 @@ export default function AccountPage() {
             </CardHeader>
             <CardContent className="pt-1">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
-                {/* Admin Filter */}
+                {/* Doctor Filter */}
                 <div className="w-full sm:w-1/4 space-y-1">
-                  <Label htmlFor="admin-filter" className="text-sm sm:text-base">{t('dashboard.filterByAdmin')}</Label>
-                  <Select value={selectedAdmin} onValueChange={setSelectedAdmin}>
+                  <Label htmlFor="doctor-filter" className="text-sm sm:text-base">{t('dashboard.filterByDoctor')}</Label>
+                  <Select value={selectedDoctor} onValueChange={setSelectedDoctor}>
                     <SelectTrigger className="h-10 sm:h-11">
-                      <SelectValue placeholder={t('dashboard.allAdmins')} />
+                      <SelectValue placeholder={t('dashboard.allDoctors')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {demoAdmins.map((admin) => (
-                        <SelectItem key={admin.id} value={admin.id.toString()}>
-                          {language === 'bn' ? admin.nameBn : admin.name}
+                      {demoDoctors.map((doctor) => (
+                        <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                          {language === 'bn' ? doctor.nameBn : doctor.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -540,7 +540,7 @@ export default function AccountPage() {
                 <div className="w-full sm:w-auto">
                   <Button 
                     onClick={handleSearch}
-                    disabled={!searchQuery.trim() && !selectedAdmin}
+                    disabled={!searchQuery.trim() && !selectedDoctor}
                     className="text-sm sm:text-base h-10 sm:h-11 w-full sm:w-auto"
                   >
                     {t('common.search')}
@@ -569,7 +569,7 @@ export default function AccountPage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('account.adminName')}</TableHead>
+                      <TableHead className="w-[150px] sm:w-[180px] h-10 px-3">{t('account.doctorName')}</TableHead>
                       <TableHead className="w-[120px] sm:w-[140px] h-10 px-3">{t('account.accountType')}</TableHead>
                       <TableHead className="w-[180px] sm:w-[220px] h-10 px-3">{t('account.accountOrganization')}</TableHead>
                       <TableHead className="w-[140px] sm:w-[160px] h-10 px-3">{t('account.accountNumber')}</TableHead>
@@ -583,7 +583,7 @@ export default function AccountPage() {
                         return (
                           <TableRow key={account.id}>
                             <TableCell className="font-medium px-3 py-4">
-                              {language === 'bn' ? account.adminNameBn : account.adminName}
+                              {language === 'bn' ? account.doctorNameBn : account.doctorName}
                             </TableCell>
                             <TableCell className="px-3 py-4">
                               {language === 'bn' ? account.accountTypeNameBn : account.accountTypeName}
@@ -694,32 +694,32 @@ export default function AccountPage() {
           </DialogHeader>
 
           <form onSubmit={handleAddAccount} className="space-y-4" autoComplete="off">
-            {/* Admin Name Dropdown */}
+            {/* Doctor Name Dropdown */}
             <div className="space-y-2">
-              <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('account.adminName')} <span className="text-red-500">*</span>
+              <Label htmlFor="doctorName" className="text-sm font-medium">
+                {t('account.doctorName')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
                 <Select 
-                  value={newAccountForm.adminId} 
-                  onValueChange={handleModalInputChange('adminId')}
+                  value={newAccountForm.doctorId} 
+                  onValueChange={handleModalInputChange('doctorId')}
                   disabled={isSubmitting}
                 >
-                  <SelectTrigger className={`pl-10 ${formErrors.adminId ? 'border-red-500 focus:border-red-500' : ''}`}>
-                    <SelectValue placeholder={t('account.selectAdmin')} />
+                  <SelectTrigger className={`pl-10 ${formErrors.doctorId ? 'border-red-500 focus:border-red-500' : ''}`}>
+                    <SelectValue placeholder={t('account.selectDoctor')} />
                   </SelectTrigger>
                   <SelectContent>
-                    {demoAdmins.map((admin) => (
-                      <SelectItem key={admin.id} value={admin.id.toString()}>
-                        {language === 'bn' ? admin.nameBn : admin.name}
+                    {demoDoctors.map((doctor) => (
+                      <SelectItem key={doctor.id} value={doctor.id.toString()}>
+                        {language === 'bn' ? doctor.nameBn : doctor.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              {formErrors.adminId && (
-                <p className="text-sm text-red-600">{formErrors.adminId}</p>
+              {formErrors.doctorId && (
+                <p className="text-sm text-red-600">{formErrors.doctorId}</p>
               )}
             </div>
 

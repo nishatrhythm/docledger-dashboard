@@ -39,7 +39,7 @@ import {
 import { BiLock, BiPhone, BiUser } from 'react-icons/bi'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
-// Demo data for admin users
+// Demo data for doctors
 const demoUsers = [
   { id: 1, name: 'Dr. Ahmed Rahman', nameBn: 'ডা. আহমেদ রহমান', phone: '01712345678', isActive: true },
   { id: 2, name: 'Dr. Sarah Khan', nameBn: 'ডা. সারাহ খান', phone: '01823456789', isActive: true },
@@ -55,7 +55,7 @@ const demoUsers = [
   { id: 12, name: 'Dr. Sultana Rashid', nameBn: 'ডা. সুলতানা রশিদ', phone: '01923456789', isActive: false },
 ]
 
-export default function AdminPage() {
+export default function DoctorPage() {
   const { t, formatNumber, language } = useLanguage()
   const router = useRouter()
   const { showToast } = useLocalizedToast()
@@ -64,7 +64,7 @@ export default function AdminPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const [users, setUsers] = useState(demoUsers)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
-  const [newAdminForm, setNewAdminForm] = useState({
+  const [newDoctorForm, setNewDoctorForm] = useState({
     name: '',
     phone: '',
     password: ''
@@ -84,19 +84,19 @@ export default function AdminPage() {
     }, 1000) // Small delay to show the toast
   }
 
-  const validateAddAdminForm = () => {
+  const validateAddDoctorForm = () => {
     const newErrors: {name?: string; phone?: string; password?: string} = {}
 
-    if (!newAdminForm.name.trim()) {
+    if (!newDoctorForm.name.trim()) {
       newErrors.name = t('validation.nameRequired')
     }
 
-    const phoneValidation = validateBangladeshiMobile(newAdminForm.phone, t)
+    const phoneValidation = validateBangladeshiMobile(newDoctorForm.phone, t)
     if (!phoneValidation.isValid) {
       newErrors.phone = phoneValidation.error || t('validation.phoneRequired')
     }
 
-    const passwordValidation = validatePassword(newAdminForm.password, t)
+    const passwordValidation = validatePassword(newDoctorForm.password, t)
     if (!passwordValidation.isValid) {
       newErrors.password = passwordValidation.error || t('validation.passwordRequired')
     }
@@ -105,10 +105,10 @@ export default function AdminPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleAddAdmin = async (e: React.FormEvent) => {
+  const handleAddDoctor = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!validateAddAdminForm()) {
+    if (!validateAddDoctorForm()) {
       return
     }
 
@@ -116,28 +116,28 @@ export default function AdminPage() {
 
     // Simulate API call
     setTimeout(() => {
-      const newAdmin = {
+      const newDoctor = {
         id: Math.max(...users.map(u => u.id)) + 1,
-        name: newAdminForm.name,
-        nameBn: newAdminForm.name, // In real app, you might want separate Bengali name field
-        phone: newAdminForm.phone,
+        name: newDoctorForm.name,
+        nameBn: newDoctorForm.name, // In real app, you might want separate Bengali name field
+        phone: newDoctorForm.phone,
         isActive: true
       }
 
-      setUsers(prevUsers => [newAdmin, ...prevUsers])
+      setUsers(prevUsers => [newDoctor, ...prevUsers])
       setIsAddModalOpen(false)
-      setNewAdminForm({ name: '', phone: '', password: '' })
+      setNewDoctorForm({ name: '', phone: '', password: '' })
       setFormErrors({})
       setShowPassword(false)
       setIsSubmitting(false)
 
-      showToast.success(t('admin.adminAdded'), t('admin.adminAddedDesc'))
+      showToast.success(t('doctor.doctorAdded'), t('doctor.doctorAddedDesc'))
     }, 1000)
   }
 
   const handleCloseModal = () => {
     setIsAddModalOpen(false)
-    setNewAdminForm({ name: '', phone: '', password: '' })
+    setNewDoctorForm({ name: '', phone: '', password: '' })
     setFormErrors({})
     setShowPassword(false)
     setIsSubmitting(false)
@@ -151,7 +151,7 @@ export default function AdminPage() {
       value = formatMobileNumber(value)
     }
     
-    setNewAdminForm(prev => ({ ...prev, [field]: value }))
+    setNewDoctorForm(prev => ({ ...prev, [field]: value }))
     
     // Clear error when user starts typing
     if (formErrors[field]) {
@@ -248,15 +248,15 @@ export default function AdminPage() {
           <div className="mb-6 lg:mb-8 text-center lg:text-left">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('admin.title')}</h2>
-                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('admin.subtitle')}</p>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('doctor.title')}</h2>
+                <p className="text-gray-600 mt-1 sm:mt-2 text-base sm:text-lg">{t('doctor.subtitle')}</p>
               </div>
               <Button
                 onClick={() => setIsAddModalOpen(true)}
                 className="lg:self-start w-auto max-w-fit mx-auto lg:mx-0"
               >
                 <MdPersonAdd className="w-4 h-4 mr-2" />
-                {t('admin.addAdmin')}
+                {t('doctor.addDoctor')}
               </Button>
             </div>
           </div>
@@ -281,14 +281,14 @@ export default function AdminPage() {
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-end">
                 {/* Search Field */}
                 <div className="w-full sm:w-80 space-y-1">
-                  <Label htmlFor="search" className="text-sm sm:text-base">{t('admin.search')}</Label>
+                  <Label htmlFor="search" className="text-sm sm:text-base">{t('doctor.search')}</Label>
                   <div className="relative">
                     <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <Input
                       id="search"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder={t('admin.searchPlaceholder')}
+                      placeholder={t('doctor.searchPlaceholder')}
                       className="pl-10 h-10 sm:h-11"
                     />
                   </div>
@@ -327,10 +327,10 @@ export default function AdminPage() {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('admin.name')}</TableHead>
-                      <TableHead className="w-[150px] h-10 px-3">{t('admin.phoneNumber')}</TableHead>
-                      <TableHead className="w-[100px] text-center h-10 px-3">{t('admin.actions')}</TableHead>
-                      <TableHead className="w-[120px] text-center h-10 px-3">{t('admin.status')}</TableHead>
+                      <TableHead className="w-[200px] sm:w-[250px] h-10 px-3">{t('doctor.name')}</TableHead>
+                      <TableHead className="w-[150px] h-10 px-3">{t('doctor.phoneNumber')}</TableHead>
+                      <TableHead className="w-[100px] text-center h-10 px-3">{t('doctor.actions')}</TableHead>
+                      <TableHead className="w-[120px] text-center h-10 px-3">{t('doctor.status')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -349,7 +349,7 @@ export default function AdminPage() {
                               className="h-8"
                             >
                               <MdEdit className="w-4 h-4 mr-1" />
-                              {t('admin.edit')}
+                              {t('doctor.edit')}
                             </Button>
                           </TableCell>
                           <TableCell className="text-center px-3 py-4">
@@ -359,7 +359,7 @@ export default function AdminPage() {
                                 onCheckedChange={() => handleStatusToggle(user.id)}
                               />
                               <span className="text-sm text-gray-600">
-                                {user.isActive ? t('admin.active') : t('admin.inactive')}
+                                {user.isActive ? t('doctor.active') : t('doctor.inactive')}
                               </span>
                             </div>
                           </TableCell>
@@ -380,7 +380,7 @@ export default function AdminPage() {
               {filteredUsers.length > 0 && (
                 <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 p-3 border-t bg-gray-100 rounded-b-xl">
                   <div className="text-sm text-gray-700">
-                    {t('admin.showing')} {formatNumber(startIndex + 1)} {t('admin.to')} {formatNumber(Math.min(endIndex, filteredUsers.length))} {t('admin.of')} {formatNumber(filteredUsers.length)} {t('admin.results')}
+                    {t('doctor.showing')} {formatNumber(startIndex + 1)} {t('doctor.to')} {formatNumber(Math.min(endIndex, filteredUsers.length))} {t('doctor.of')} {formatNumber(filteredUsers.length)} {t('doctor.results')}
                   </div>
                   <div className="flex items-center space-x-2">
                     <Button
@@ -391,7 +391,7 @@ export default function AdminPage() {
                       className="h-8"
                     >
                       <MdChevronLeft className="w-4 h-4 mr-1" />
-                      {t('admin.previous')}
+                      {t('doctor.previous')}
                     </Button>
                     
                     {/* Page Numbers */}
@@ -416,7 +416,7 @@ export default function AdminPage() {
                       disabled={currentPage === totalPages}
                       className="h-8"
                     >
-                      {t('admin.next')}
+                      {t('doctor.next')}
                       <MdChevronRight className="w-4 h-4 ml-1" />
                     </Button>
                   </div>
@@ -427,30 +427,30 @@ export default function AdminPage() {
         </main>
       </div>
 
-      {/* Add Admin Modal */}
+      {/* Add Doctor Modal */}
       <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen} disableOutsideClick={true}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold">{t('admin.addNewAdmin')}</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">{t('doctor.addNewDoctor')}</DialogTitle>
             <DialogDescription>
-              {t('admin.addNewAdminDesc')}
+              {t('doctor.addNewDoctorDesc')}
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleAddAdmin} className="space-y-4" autoComplete="off">
+          <form onSubmit={handleAddDoctor} className="space-y-4" autoComplete="off">
             {/* Name Field */}
             <div className="space-y-2">
-              <Label htmlFor="adminName" className="text-sm font-medium">
-                {t('admin.name')} <span className="text-red-500">*</span>
+              <Label htmlFor="doctorName" className="text-sm font-medium">
+                {t('doctor.name')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
-                  id="adminName"
+                  id="doctorName"
                   type="text"
-                  value={newAdminForm.name}
+                  value={newDoctorForm.name}
                   onChange={handleModalInputChange('name')}
-                  placeholder={t('admin.namePlaceholder')}
+                  placeholder={t('doctor.namePlaceholder')}
                   className={`pl-10 ${formErrors.name ? 'border-red-500 focus:border-red-500' : ''}`}
                   disabled={isSubmitting}
                   autoComplete="off"
@@ -463,15 +463,15 @@ export default function AdminPage() {
 
             {/* Phone Field */}
             <div className="space-y-2">
-              <Label htmlFor="adminPhone" className="text-sm font-medium">
-                {t('admin.phoneNumber')} <span className="text-red-500">*</span>
+              <Label htmlFor="doctorPhone" className="text-sm font-medium">
+                {t('doctor.phoneNumber')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
-                  id="adminPhone"
+                  id="doctorPhone"
                   type="tel"
-                  value={newAdminForm.phone}
+                  value={newDoctorForm.phone}
                   onChange={handleModalInputChange('phone')}
                   placeholder={t('auth.phonePlaceholder')}
                   className={`pl-10 ${formErrors.phone ? 'border-red-500 focus:border-red-500' : ''}`}
@@ -487,15 +487,15 @@ export default function AdminPage() {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="adminPassword" className="text-sm font-medium">
+              <Label htmlFor="doctorPassword" className="text-sm font-medium">
                 {t('auth.password')} <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
                 <BiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
-                  id="adminPassword"
+                  id="doctorPassword"
                   type={showPassword ? 'text' : 'password'}
-                  value={newAdminForm.password}
+                  value={newDoctorForm.password}
                   onChange={handleModalInputChange('password')}
                   placeholder={t('auth.passwordPlaceholder')}
                   className={`pl-10 pr-10 ${formErrors.password ? 'border-red-500 focus:border-red-500' : ''}`}

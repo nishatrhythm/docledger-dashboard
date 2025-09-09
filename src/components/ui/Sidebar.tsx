@@ -79,7 +79,7 @@ const Sidebar = ({ className, isMobileMenuOpen = false, onMobileMenuToggle }: Si
 
   const menuItems = [
     { id: 'dashboard', label: t('sidebar.dashboard'), icon: MdDashboard, href: '/dashboard' },
-    { id: 'admin', label: t('sidebar.admin'), icon: MdAdminPanelSettings, href: '/admin' },
+    { id: 'doctor', label: t('sidebar.doctor'), icon: MdAdminPanelSettings, href: '/doctor' },
     { id: 'chamber', label: t('sidebar.chamber'), icon: MdMeetingRoom, href: '/chamber' },
     { id: 'user', label: t('sidebar.user'), icon: MdPerson, href: '/user' },
     { id: 'appointment', label: t('sidebar.appointment'), icon: MdCalendarToday, href: '/appointment' },
