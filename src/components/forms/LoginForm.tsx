@@ -167,11 +167,16 @@ const LoginForm = () => {
             <p className="text-xs sm:text-sm text-gray-500">
               {t('login.needHelp')}{' '}
               <a 
-                href="mailto:info@thegobd.com" 
+                href="https://nishat.vercel.app"
+                target="_blank"
+                rel="noreferrer"
                 className="text-blue-600 hover:text-blue-800 hover:underline transition-colors cursor-pointer"
               >
-                info@thegobd.com
+                {t('login.contactLink')}
               </a>
+            </p>
+            <p className="mt-2 text-xs sm:text-sm text-gray-500">
+              {t('login.sampleCredentials')}
             </p>
           </div>
         </form>

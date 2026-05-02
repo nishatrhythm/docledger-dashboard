@@ -1,8 +1,8 @@
 # DocLedger Dashboard
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.0+-black)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.0+-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0+-38B2AC)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0+-38B2AC)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A comprehensive document management and analytics dashboard designed for medical practices in Bangladesh. Streamline your workflow with advanced features for managing doctors, chambers, patients, appointments, operations, financial records, and more.
@@ -41,7 +41,7 @@ Experience the application live: **[DocLedger Dashboard](https://docledger.verce
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Framework**: [Next.js 14](https://nextjs.org/) with App Router
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [Shadcn/ui](https://ui.shadcn.com/)
@@ -63,7 +63,7 @@ Experience the application live: **[DocLedger Dashboard](https://docledger.verce
 
 Before running this project, make sure you have the following installed:
 
-- **Node.js**: Version 18.0 or higher
+- **Node.js**: Version 20.0 or higher
 - **npm/yarn/pnpm**: Latest stable version
 - **Git**: For version control
 
@@ -106,6 +106,8 @@ Before running this project, make sure you have the following installed:
 
 ### Getting Started
 1. **Login**: Use your credentials to access the dashboard
+   - Sample mobile number: `01412121212`
+   - Password: `hello123`
 2. **Dashboard Overview**: View key statistics and recent activities
 3. **Language Selection**: Switch between English and Bengali using the language switcher
 4. **Navigation**: Use the sidebar to access different management modules
@@ -136,13 +138,14 @@ Before running this project, make sure you have the following installed:
 docledger-dashboard/
 ├── src/
 │   ├── app/                    # Next.js App Router pages
-│   │   ├── (auth)/            # Authentication pages
+│   │   ├── login/             # Login page
 │   │   ├── dashboard/         # Main dashboard
 │   │   ├── doctor/            # Doctor management
 │   │   ├── chamber/           # Chamber management
 │   │   ├── user/              # User management
 │   │   ├── appointment/       # Appointment management
 │   │   ├── operation/         # Operation management
+│   │   ├── operation-type/    # Operation type management
 │   │   ├── expenditure/       # Expenditure management
 │   │   ├── deposit/           # Deposit management
 │   │   └── account/           # Account management
@@ -153,7 +156,8 @@ docledger-dashboard/
 │   ├── hooks/                # Custom React hooks
 │   └── lib/                  # Utility functions
 ├── public/                   # Static assets
-├── tailwind.config.ts        # Tailwind CSS configuration
+├── postcss.config.mjs        # PostCSS/Tailwind integration
+├── eslint.config.mjs         # ESLint configuration
 ├── next.config.ts           # Next.js configuration
 ├── components.json          # Shadcn/ui configuration
 └── package.json             # Dependencies and scripts
@@ -165,7 +169,6 @@ docledger-dashboard/
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript type checking
 
 ## 🤝 Contributing
 

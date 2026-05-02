@@ -38,6 +38,8 @@ const translations = {
     'login.signingIn': 'Signing in...',
     'login.signIn': 'Sign In',
     'login.needHelp': 'Need help? Contact',
+    'login.contactLink': 'nishat.vercel.app',
+    'login.sampleCredentials': 'Mobile number: 01412121212 | Password: hello123',
     'login.allRightsReserved': 'All rights reserved',
     
     // Login Page
@@ -578,6 +580,8 @@ const translations = {
     'login.signingIn': 'সাইন ইন করা হচ্ছে...',
     'login.signIn': 'সাইন ইন',
     'login.needHelp': 'সাহায্য প্রয়োজন? যোগাযোগ করুন',
+    'login.contactLink': 'nishat.vercel.app',
+    'login.sampleCredentials': 'মোবাইল নম্বর: 01412121212 | পাসওয়ার্ড: hello123',
     'login.allRightsReserved': 'সর্বস্বত্ব সংরক্ষিত',
     
     // Login Page
